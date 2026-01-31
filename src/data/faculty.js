@@ -5,7 +5,7 @@ import englishImg from "../assets/images/faculty/principal.jpg"
 import computerImg from "../assets/images/faculty/principal.jpg"
 const faculty = [
   {
-    name: "Mrs. Sunita Sharma",
+    name: "Mrs. Babita Rani",
     role: "Principal",
     qualification: "M.A., B.Ed.",
     subject: "Administration",
