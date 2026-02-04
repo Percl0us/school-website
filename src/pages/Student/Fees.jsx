@@ -1,11 +1,11 @@
 import { useStudent } from "../../context/StudentContext";
 import { useState } from "react";
-import { useFeeDerivedData } from "./fees/useFeeDerivedData";
-import FeeSummary from "./fees/FeeSummary";
-import MonthGrid from "./fees/MonthGrid";
-import PaymentActions from "./fees/PaymentActions";
+import { useFeeDerivedData } from "./Fees/useFeeDerivedData";
+import FeeSummary from "./Fees/FeeSummary";
+import MonthGrid from "./Fees/MonthGrid";
+import PaymentActions from "./Fees/PaymentActions";
 import Spinner from "../../components/ui/Spinner";
-import PaymentHistory from "./fees/PaymentHistory";
+import PaymentHistory from "./Fees/PaymentHistory";
 
 export default function StudentFees() {
   const { studentSession, refreshStudentSession } = useStudent();
