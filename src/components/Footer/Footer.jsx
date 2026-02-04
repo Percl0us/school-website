@@ -22,7 +22,7 @@ export default function Footer() {
           <p className="text-sm">
             Address: Tagore Public School,Kalkha,Panipat,Haryana <br />
             Phone: +91-8816000512 <br />
-            Email: info@abcschool.com
+            Email: tagorekalkha@gmail.com
           </p>
         </div>
 

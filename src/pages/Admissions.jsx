@@ -1,25 +1,36 @@
+import { useState } from "react";
 import AdmissionForm from "../components/AdmissionForm/AdmissionForm";
+import ProspectusModal from "../components/modal/ProspectusModal";
+import prospectusImage from "../assets/images/prospectus.jpg";
 
 export default function Admissions() {
+  const [showProspectus, setShowProspectus] = useState(false);
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-16 space-y-16">
-      {/* Prospectus Download */}
-      <div className="bg-blue-50 border border-blue-200 p-6 rounded mb-10">
+      {/* Prospectus Preview */}
+      <div className="bg-blue-50 border border-blue-200 p-6 rounded">
         <h2 className="text-xl font-semibold mb-2 text-blue-700">
           School Prospectus
         </h2>
+
         <p className="text-gray-700 mb-4">
-          Download the school prospectus for detailed information about
-          academics, facilities, and admission guidelines.
+          An overview of the school’s academic philosophy, facilities, and
+          admission guidelines.
         </p>
-        <a
-          href="/downloads/prospectus/school-prospectus.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 rounded font-medium"
-        >
-          Download Prospectus (PDF)
-        </a>
+
+        <div className="flex justify-center">
+          <img
+            src={prospectusImage}
+            alt="School Prospectus"
+            className="max-w-full md:max-w-lg rounded shadow cursor-pointer hover:shadow-lg transition"
+            onClick={() => setShowProspectus(true)}
+          />
+        </div>
+
+        <p className="text-sm text-gray-600 mt-3 text-center">
+          Click on the image to view the full prospectus
+        </p>
       </div>
 
       {/* Page Title */}
@@ -94,6 +105,14 @@ export default function Admissions() {
           <AdmissionForm />
         </div>
       </div>
+
+      {/* Prospectus Modal */}
+      {showProspectus && (
+        <ProspectusModal
+          image={prospectusImage}
+          onClose={() => setShowProspectus(false)}
+        />
+      )}
     </section>
   );
 }

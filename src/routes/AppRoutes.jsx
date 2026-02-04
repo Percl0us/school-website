@@ -9,7 +9,9 @@ import EventsNotices from "../pages/EventsNotices";
 import Facilities from "../pages/Facilities";
 import Gallery from "../pages/Gallery";
 import Downloads from "../pages/Downloads";
-
+import StudentLogin from "../pages/Student/StudentLogin";
+import StudentLayout from "../pages/Student/StudentLayout";
+import StudentFees from "../pages/Student/Fees";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -24,6 +26,12 @@ export default function AppRoutes() {
       <Route path="/downloads" element={<Downloads />} />
 
       <Route path="/contact" element={<Contact />} />
+
+      <Route path="/student" element={<StudentLogin />} />
+
+      <Route path="/student" element={<StudentLayout />}>
+        <Route path="fees" element={<StudentFees />} />
+      </Route>
     </Routes>
   );
 }

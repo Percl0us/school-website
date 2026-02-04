@@ -7,7 +7,7 @@ export default function Academics() {
       <div>
         <h1 className="text-3xl font-semibold mb-4">Academics</h1>
         <p className="text-gray-700 max-w-3xl">
-          ABC Public School follows a well-structured academic program designed
+          Tagore Public School follows a well-structured academic program designed
           to promote conceptual understanding, critical thinking, and overall
           academic excellence.
         </p>

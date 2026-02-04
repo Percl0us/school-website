@@ -21,12 +21,12 @@ export default function Contact() {
           <p className="text-gray-700">
             <strong>Address:</strong> <br />
             Tagore Public School, <br />
-            Your School Address Here
+            Kalkha,Panipat,Haryana
           </p>
 
           <p className="text-gray-700 mt-4">
             <strong>Phone:</strong> +91-8816000512 <br />
-            <strong>Email:</strong> info@abcschool.com
+            <strong>Email:</strong> tagorekalkha@gmail.com
           </p>
 
           <p className="text-gray-700 mt-4">

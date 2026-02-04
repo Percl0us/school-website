@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.jpg";
+import { useStudent } from "../../context/StudentContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { studentSession } = useStudent();
 
   const navLinks = [
     { name: "About Us", path: "/about" },
@@ -17,64 +20,83 @@ export default function Navbar() {
     { name: "Downloads", path: "/downloads" },
   ];
 
+  const handleStudentPortalClick = () => {
+    if (studentSession) {
+      navigate("/student/fees");
+    } else {
+      navigate("/student");
+    }
+    setIsOpen(false);
+  };
+
   return (
     <nav className="w-full border-b bg-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
-        
-        {/* Logo Section */}
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-3 shrink-0">
           <img src={logo} alt="Logo" className="h-12 w-auto" />
-          <span className="text-xl font-bold text-red-600 leading-tight">
+          <span className="text-xl font-bold text-red-600">
             Tagore Public School
           </span>
         </Link>
 
-        {/* Desktop Links (Hidden on Mobile) */}
-        <div className="hidden lg:flex gap-1 items-center">
+        {/* Desktop */}
+        <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`px-3 py-2 rounded text-sm font-medium border border-transparent 
-                hover:border-gray-300 hover:shadow-sm transition duration-300 ${link.color || "text-gray-700"}`}
+              className={`px-3 py-2 text-sm font-medium rounded 
+                hover:border hover:shadow-sm ${
+                  link.color || "text-gray-700"
+                }`}
             >
               {link.name}
             </Link>
           ))}
+
+          <button
+            onClick={handleStudentPortalClick}
+            className="ml-3 px-4 py-2 rounded-md text-sm font-semibold
+              bg-blue-700 text-white hover:bg-blue-800 transition"
+          >
+            Student Portal
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="lg:hidden flex items-center">
+        {/* Mobile Toggle */}
+        <div className="lg:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-700 outline-none p-2"
+            className="p-2 text-gray-700"
           >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
+            ☰
           </button>
         </div>
       </div>
 
-      {/* Mobile Sidebar/Menu */}
-      <div className={`${isOpen ? "block" : "hidden"} lg:hidden bg-white border-t`}>
-        <div className="flex flex-col p-4 space-y-2">
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="lg:hidden bg-white border-t p-4 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               onClick={() => setIsOpen(false)}
-              className="block px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 rounded"
+              className="block px-4 py-2"
             >
               {link.name}
             </Link>
           ))}
+
+          <button
+            onClick={handleStudentPortalClick}
+            className="w-full mt-2 px-4 py-3 bg-blue-700 text-white rounded"
+          >
+            Student Portal
+          </button>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
