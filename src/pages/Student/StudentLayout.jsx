@@ -1,9 +1,4 @@
-import {
-  Outlet,
-  NavLink,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Outlet, NavLink, Navigate, useNavigate } from "react-router-dom";
 import { useStudent } from "../../context/StudentContext";
 import { useState } from "react";
 import ConfirmModal from "../../components/modal/ConfirModal";
