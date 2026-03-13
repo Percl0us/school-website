@@ -12,6 +12,16 @@ import Downloads from "../pages/Downloads";
 import StudentLogin from "../pages/Student/StudentLogin";
 import StudentLayout from "../pages/Student/StudentLayout";
 import StudentFees from "../pages/Student/Fees";
+import AdminFinanceDashboard from "../pages/Admin/AdminFinanceDashboard";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
+import AdminLayout from "../pages/Admin/AdminLayout";
+import ProtectedAdminLayout from "../pages/Admin/ProtectedAdminLayout";
+import AdminLogin from "../pages/Admin/AdminLogin";
+import StudentList from "../pages/Admin/Students/StudentList";
+import CreateStudent from "../pages/Admin/Students/CreateStudent";
+import PromoteStudents from "../pages/Admin/Students/PromoteStudents";
+import FinanceDashboard from "../pages/Admin/Finance/FinanceDashboard";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -24,11 +34,20 @@ export default function AppRoutes() {
       <Route path="/facilities" element={<Facilities />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/downloads" element={<Downloads />} />
-
       <Route path="/contact" element={<Contact />} />
-
       <Route path="/student" element={<StudentLogin />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
 
+      <Route path="/admin" element={<ProtectedAdminLayout />}>
+        <Route element={<AdminLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="students" element={<StudentList />} />
+          <Route path="students/create" element={<CreateStudent />} />
+          <Route path="students/promote" element={<PromoteStudents />} />
+          <Route path="finance" element={<FinanceDashboard />} />
+          <Route path="finance" element={<AdminFinanceDashboard />} />
+        </Route>
+      </Route>
       <Route path="/student" element={<StudentLayout />}>
         <Route path="fees" element={<StudentFees />} />
       </Route>

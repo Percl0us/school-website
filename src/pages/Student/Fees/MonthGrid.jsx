@@ -2,12 +2,12 @@ import { ACADEMIC_MONTHS } from "./constant.js";
 
 const styles = {
   PAID: "bg-green-50 border-green-300 text-green-700",
+  UNDER_REVIEW: "bg-orange-100 border-orange-400 text-orange-800",
   OVERDUE: "bg-red-100 border-red-400 text-red-800",
   CURRENT: "bg-orange-50 border-orange-300 text-orange-700",
   UPCOMING: "bg-gray-50 border-gray-200 text-gray-600",
   NA: "bg-gray-100 border-gray-200 text-gray-400",
 };
-
 export default function MonthGrid({
   selectedMonths,
   setSelectedMonths,
@@ -21,7 +21,7 @@ export default function MonthGrid({
 
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
         {ACADEMIC_MONTHS.map((month) => {
-          const status = getMonthStatus(month);
+          const status = getMonthStatus(month.key);
           const selectable = status === "OVERDUE" || status === "CURRENT";
           const selected = selectedMonths.includes(month.key);
 
@@ -40,15 +40,13 @@ export default function MonthGrid({
 
                   if (month.key !== lastSelected) {
                     setWarning(
-                      "You can only unselect the most recently selected month"
+                      "You can only unselect the most recently selected month",
                     );
                     return;
                   }
 
                   setWarning("");
-                  setSelectedMonths((prev) =>
-                    prev.slice(0, prev.length - 1)
-                  );
+                  setSelectedMonths((prev) => prev.slice(0, prev.length - 1));
                   return;
                 }
 
@@ -61,7 +59,7 @@ export default function MonthGrid({
                   month.key !== earliestUnpaidMonth
                 ) {
                   setWarning(
-                    `Please clear fees from ${earliestUnpaidMonth} first`
+                    `Please clear fees from ${earliestUnpaidMonth} first`,
                   );
                   return;
                 }
@@ -70,16 +68,13 @@ export default function MonthGrid({
                    ❌ Break consecutiveness
                 ========================= */
                 if (selectedMonths.length > 0) {
-                  const lastIndex =
-                    ACADEMIC_MONTHS.find(
-                      (m) =>
-                        m.key ===
-                        selectedMonths[selectedMonths.length - 1]
-                    ).index;
+                  const lastIndex = ACADEMIC_MONTHS.find(
+                    (m) => m.key === selectedMonths[selectedMonths.length - 1],
+                  ).index;
 
                   if (month.index !== lastIndex + 1) {
                     setWarning(
-                      "Please select months in order without skipping"
+                      "Please select months in order without skipping",
                     );
                     return;
                   }
@@ -98,6 +93,12 @@ export default function MonthGrid({
               `}
             >
               <div className="font-semibold">{month.key}</div>
+              {status === "UNDER_REVIEW" && (
+                <div className="text-[10px] mt-1 font-medium">Under Review</div>
+              )}
+              {status === "PAID" && (
+                <div className="text-[10px] mt-1 font-medium">Paid</div>
+              )}{" "}
             </div>
           );
         })}

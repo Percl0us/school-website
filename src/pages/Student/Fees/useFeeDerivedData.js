@@ -14,9 +14,7 @@ const ACADEMIC_MONTHS = [
 ];
 
 export function useFeeDerivedData({ academic, payments, feeAccount }) {
-  /* =========================
-     Academic month logic
-  ========================= */
+
   const startIndex =
     academic.feeStartMonth >= 4
       ? academic.feeStartMonth - 4
@@ -24,43 +22,62 @@ export function useFeeDerivedData({ academic, payments, feeAccount }) {
 
   const applicableMonths = 12 - startIndex;
 
-  /* =========================
-     Display monthly fees (FIX)
-  ========================= */
-  const monthlyTotal = Math.round(feeAccount.totalFee / applicableMonths);
+  const monthlyTotal =
+    applicableMonths > 0
+      ? Math.round(feeAccount.totalFee / applicableMonths)
+      : 0;
 
   const monthlyTransport = academic.transportOpted
-    ? Math.round(academic.transportFee / 12)
+    ? Math.round((academic.transportFee || 0) / 12)
     : 0;
 
   const monthlyTuition = monthlyTotal - monthlyTransport;
 
   /* =========================
-     Paid months
+     Build Payment Sets
   ========================= */
-  const paidMonths = new Set();
 
-  payments
-    .filter((p) => p.status === "CONFIRMED")
-    .forEach((p) => {
-      p.monthsCovered?.forEach((m) => paidMonths.add(m));
-    });
+  const confirmedPayments = payments.filter(
+    (p) => p.status === "CONFIRMED"
+  );
+
+  const submittedPayments = payments.filter(
+    (p) => p.status === "PAYMENT_SUBMITTED"
+  );
+
+  const paidMonthsSet = new Set();
+  confirmedPayments.forEach((p) => {
+    p.monthsCovered?.forEach((m) => paidMonthsSet.add(m));
+  });
+
+  const submittedMonthsSet = new Set();
+  submittedPayments.forEach((p) => {
+    p.monthsCovered?.forEach((m) => submittedMonthsSet.add(m));
+  });
 
   const isFullyPaid = feeAccount.balance === 0;
 
   /* =========================
-     Earliest unpaid month
+     Earliest Unpaid Month
   ========================= */
-  const unpaidApplicableMonths = ACADEMIC_MONTHS.slice(startIndex).filter(
-    (m) => !isFullyPaid && !paidMonths.has(m.key),
-  );
+
+  const unpaidApplicableMonths = ACADEMIC_MONTHS
+    .slice(startIndex)
+    .filter(
+      (m) =>
+        !isFullyPaid &&
+        !paidMonthsSet.has(m.key)
+    );
 
   const earliestUnpaidMonth =
-    unpaidApplicableMonths.length > 0 ? unpaidApplicableMonths[0].key : null;
-console.log(earliestUnpaidMonth);
+    unpaidApplicableMonths.length > 0
+      ? unpaidApplicableMonths[0].key
+      : null;
+
   /* =========================
-     Current academic index
+     Current Academic Index
   ========================= */
+
   const getCurrentAcademicIndex = () => {
     const m = new Date().getMonth() + 1;
     return m >= 4 ? m - 4 : m + 8;
@@ -69,19 +86,41 @@ console.log(earliestUnpaidMonth);
   const currentAcademicIndex = getCurrentAcademicIndex();
 
   /* =========================
-     Month status
+     Month Status Logic
   ========================= */
+
   const getMonthStatus = (month) => {
-    if (month.index < startIndex) return "NA";
-    if (isFullyPaid || paidMonths.has(month.key)) return "PAID";
-    if (month.index < currentAcademicIndex) return "OVERDUE";
-    if (month.index === currentAcademicIndex) return "CURRENT";
+    const monthObj = ACADEMIC_MONTHS.find(
+      (m) => m.key === month
+    );
+
+    if (!monthObj) return "NA";
+
+    if (monthObj.index < startIndex) {
+      return "NA";
+    }
+
+    if (paidMonthsSet.has(month)) {
+      return "PAID";
+    }
+
+    if (submittedMonthsSet.has(month)) {
+      return "UNDER_REVIEW";
+    }
+
+    if (monthObj.index < currentAcademicIndex) {
+      return "OVERDUE";
+    }
+
+    if (monthObj.index === currentAcademicIndex) {
+      return "CURRENT";
+    }
+
     return "UPCOMING";
   };
-  const startMonthKey = ACADEMIC_MONTHS[startIndex].key;
-  const endMonthKey = "MAR";
 
-  const applicableMonthsLabel = `${startMonthKey} – ${endMonthKey}`;
+  const startMonthKey = ACADEMIC_MONTHS[startIndex].key;
+  const applicableMonthsLabel = `${startMonthKey} – MAR`;
 
   return {
     monthlyTuition,
@@ -91,5 +130,7 @@ console.log(earliestUnpaidMonth);
     getMonthStatus,
     applicableMonths,
     applicableMonthsLabel,
+    confirmedPayments,
+    submittedPayments,
   };
 }

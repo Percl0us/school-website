@@ -22,7 +22,6 @@ console.log(feeAccount)
   const [error, setError] = useState("");
   const [warning, setWarning] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-
   const derived = useFeeDerivedData({
     academic,
     payments,

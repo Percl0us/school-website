@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useStudent } from "../../context/StudentContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function StudentLogin() {
   const navigate = useNavigate();
@@ -14,6 +14,13 @@ export default function StudentLogin() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // ✅ Proper redirect logic
+  useEffect(() => {
+    if (studentSession) {
+      navigate("/student/fees", { replace: true });
+    }
+  }, [studentSession, navigate]);
 
   const handleChange = (e) => {
     setForm((prev) => ({
@@ -36,12 +43,6 @@ export default function StudentLogin() {
       setLoading(false);
     }
   };
-
-  // Optional: if already logged in, skip login page
-  if (studentSession) {
-    navigate("/student/fees", { replace: true });
-    return null;
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
