@@ -56,11 +56,6 @@ export default function Faculty() {
                   <BookOpen size={14} className="text-blue-500" />
                   <span className="text-sm font-medium italic">{member.subject}</span>
                 </div>
-                
-                <div className="flex items-center justify-center gap-2 text-gray-500">
-                  <GraduationCap size={14} />
-                  <span className="text-xs">{member.qualification}</span>
-                </div>
               </div>
 
               {/* Decorative Social/Contact placeholders to fill space nicely */}
