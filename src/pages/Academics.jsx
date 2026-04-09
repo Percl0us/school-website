@@ -10,7 +10,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 
-// Reusable Scroll Animation Wrapper
+// Reusable Scroll Animation Wrapper (unchanged)
 const RevealOnScroll = ({ children, delay = "0ms" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
@@ -294,49 +294,50 @@ export default function Academics() {
         </div>
       </div>
 
-      {/* 6. Lightbox */}
+      {/* 6. Lightbox - FULLY RESPONSIVE */}
       {activeImage && (
         <div
-          className="fixed inset-0 z-[100] flex flex-col items-center bg-white/95 backdrop-blur-md transition-all duration-300 overflow-y-auto"
+          className="fixed inset-0 z-[100] flex flex-col items-center bg-black/80 backdrop-blur-md transition-all duration-300 overflow-y-auto"
           onClick={() => setActiveImage(null)}
         >
-          {/* Close Button */}
+          {/* Close Button - responsive size and position */}
           <button
-            className="fixed top-8 right-8 z-[110] text-black hover:rotate-90 transition-transform duration-300 bg-gray-100 p-2 rounded-full shadow-md"
+            className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] text-white hover:rotate-90 transition-transform duration-300 bg-black/50 hover:bg-black/70 p-2 rounded-full shadow-md"
             onClick={() => setActiveImage(null)}
           >
-            <X size={32} />
+            <X size={24} className="md:w-8 md:h-8" />
           </button>
 
-          {/* Content Container */}
+          {/* Content Container - responsive padding */}
           <div
-            className="max-w-4xl w-full py-20 px-6"
+            className="w-full max-w-5xl px-4 sm:px-6 py-12 md:py-20 flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Loader */}
             {!imageLoaded && (
-              <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
-                <p className="text-gray-400 text-sm font-medium">Loading document...</p>
+              <div className="flex flex-col items-center justify-center py-20 md:py-32 gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+                <p className="text-gray-300 text-sm font-medium">Loading document...</p>
               </div>
             )}
 
-            {/* Image */}
+            {/* Image - responsive scaling */}
             <img
               src={activeImage}
               alt="Syllabus Document"
               onLoad={() => setImageLoaded(true)}
-              className={`w-full h-auto shadow-2xl rounded-xl border border-gray-100 transition-opacity duration-500 ${
+              className={`w-full max-w-full h-auto rounded-xl shadow-2xl border border-gray-200 transition-opacity duration-500 ${
                 imageLoaded ? "opacity-100" : "opacity-0 absolute"
               }`}
+              style={{ objectFit: "contain", maxHeight: "90vh" }}
             />
 
-            {/* Bottom Close Button */}
+            {/* Bottom Close Button - responsive */}
             {imageLoaded && (
-              <div className="flex justify-center mt-12">
+              <div className="flex justify-center mt-8 md:mt-12">
                 <button
                   onClick={() => setActiveImage(null)}
-                  className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-2.5 md:px-8 md:py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-colors text-sm md:text-base"
                 >
                   Close Document
                 </button>
