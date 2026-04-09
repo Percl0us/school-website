@@ -297,7 +297,7 @@ export default function Academics() {
       {/* 6. Lightbox - FULLY RESPONSIVE */}
       {activeImage && (
         <div
-          className="fixed inset-0 z-[100] flex flex-col items-center bg-black/80 backdrop-blur-md transition-all duration-300 overflow-y-auto"
+          className="fixed inset-0 z-[100] flex flex-col items-center bg-white/80 backdrop-blur-md transition-all duration-300 overflow-y-auto"
           onClick={() => setActiveImage(null)}
         >
           {/* Close Button - responsive size and position */}
