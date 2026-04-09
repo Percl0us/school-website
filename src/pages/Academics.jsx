@@ -10,7 +10,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 
-// Reusable Scroll Animation Wrapper (unchanged)
+// Reusable Scroll Animation Wrapper
 const RevealOnScroll = ({ children, delay = "0ms" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
@@ -294,56 +294,52 @@ export default function Academics() {
         </div>
       </div>
 
-      {/* 6. Lightbox - FULLY RESPONSIVE */}
+      {/* 6. Lightbox - FULLY RESPONSIVE (fixed for all devices) */}
       {activeImage && (
         <div
-          className="fixed inset-0 z-[100] flex flex-col items-center bg-white/80 backdrop-blur-md transition-all duration-300 overflow-y-auto"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-white/90 backdrop-blur-sm"
           onClick={() => setActiveImage(null)}
         >
-          {/* Close Button - responsive size and position */}
+          {/* Top-right close button */}
           <button
-            className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] text-white hover:rotate-90 transition-transform duration-300 bg-black/50 hover:bg-black/70 p-2 rounded-full shadow-md"
+            className="fixed top-4 right-4 z-[110] text-white bg-black/50 hover:bg-black/70 p-2 rounded-full transition-all"
             onClick={() => setActiveImage(null)}
           >
-            <X size={24} className="md:w-8 md:h-8" />
+            <X size={28} />
           </button>
 
-          {/* Content Container - responsive padding */}
+          {/* Image container - centered, no overflow */}
           <div
-            className="w-full max-w-5xl px-4 sm:px-6 py-12 md:py-20 flex flex-col items-center"
+            className="flex items-center justify-center w-full h-full p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Loader */}
             {!imageLoaded && (
-              <div className="flex flex-col items-center justify-center py-20 md:py-32 gap-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
-                <p className="text-gray-300 text-sm font-medium">Loading document...</p>
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-10 h-10 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
+                <p className="text-white/70 text-sm">Loading syllabus...</p>
               </div>
             )}
 
-            {/* Image - responsive scaling */}
             <img
               src={activeImage}
-              alt="Syllabus Document"
+              alt="Syllabus document"
               onLoad={() => setImageLoaded(true)}
-              className={`w-full max-w-full h-auto rounded-xl shadow-2xl border border-gray-200 transition-opacity duration-500 ${
-                imageLoaded ? "opacity-100" : "opacity-0 absolute"
+              className={`max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-lg shadow-2xl transition-opacity duration-300 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
               }`}
-              style={{ objectFit: "contain", maxHeight: "90vh" }}
+              style={{ maxWidth: "95vw", maxHeight: "85vh" }}
             />
-
-            {/* Bottom Close Button - responsive */}
-            {imageLoaded && (
-              <div className="flex justify-center mt-8 md:mt-12">
-                <button
-                  onClick={() => setActiveImage(null)}
-                  className="px-6 py-2.5 md:px-8 md:py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-colors text-sm md:text-base"
-                >
-                  Close Document
-                </button>
-              </div>
-            )}
           </div>
+
+          {/* Bottom close button (optional but convenient on mobile) */}
+          {imageLoaded && (
+            <button
+              onClick={() => setActiveImage(null)}
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-2 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              Close
+            </button>
+          )}
         </div>
       )}
     </section>
