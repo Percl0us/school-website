@@ -21,6 +21,7 @@ import StudentList from "../pages/Admin/Students/StudentList";
 import CreateStudent from "../pages/Admin/Students/CreateStudent";
 import PromoteStudents from "../pages/Admin/Students/PromoteStudents";
 import FinanceDashboard from "../pages/Admin/Finance/FinanceDashboard";
+import AdminNotices from "../pages/Admin/pages/AdminNotices";
 
 export default function AppRoutes() {
   return (
@@ -40,6 +41,7 @@ export default function AppRoutes() {
 
       <Route path="/admin" element={<ProtectedAdminLayout />}>
         <Route element={<AdminLayout />}>
+          <Route path="notices" element={<AdminNotices />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="students" element={<StudentList />} />
           <Route path="students/create" element={<CreateStudent />} />

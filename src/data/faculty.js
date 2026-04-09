@@ -4,6 +4,11 @@ import scienceImg from "../assets/images/faculty/science.jpg"
 import englishImg from "../assets/images/faculty/english.jpg"
 import computerImg from "../assets/images/faculty/computer.jpg"
 import hindiImg from "../assets/images/faculty/hindi.jpg"
+import reena from "../assets/images/faculty/reena.jpg"
+import reetu from "../assets/images/faculty/reetu.jpg"
+import usha from "../assets/images/faculty/usha.jpg"
+import rekha from "../assets/images/faculty/rekha.jpg"
+import manju from "../assets/images/faculty/manju.jpg"
 
 import ITIImg from "../assets/images/faculty/ITI.jpg"
 const faculty = [
@@ -27,6 +32,34 @@ const faculty = [
     qualification: "M.Sc., B.Ed.",
     subject: "Mathematics",
     image: mathImg,
+  },
+  {
+    name: "Mrs. Reena",
+    role: "Senior Teacher",
+    qualification: "M.Sc., B.Ed.",
+    subject: "Mathematics",
+    image: reena,
+  },
+  {
+    name: "Mrs. Rekha",
+    role: "Senior Teacher",
+    qualification: "M.Sc., B.Ed.",
+    subject: "Mathematics",
+    image: rekha,
+  },
+  {
+    name: "Mrs. Usha",
+    role: "Senior Teacher",
+    qualification: "M.Sc., B.Ed.",
+    subject: "Mathematics",
+    image: usha,
+  },
+  {
+    name: "Mrs. Reetu",
+    role: "Senior Teacher",
+    qualification: "M.Sc., B.Ed.",
+    subject: "Mathematics",
+    image: reetu,
   },
   {
     name: "Mrs. Priyanka",

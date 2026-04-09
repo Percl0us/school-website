@@ -5,3 +5,11 @@
 body {
   @apply text-gray-800 leading-relaxed;
 }
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}

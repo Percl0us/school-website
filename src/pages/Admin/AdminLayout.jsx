@@ -1,14 +1,15 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAdminAuth } from "../../context/AdminAuthContext";
-import { 
-  LayoutDashboard, 
-  Users, 
-  UserPlus, 
-  TrendingUp, 
-  Wallet, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  Users,
+  UserPlus,
+  TrendingUp,
+  Wallet,
+  LogOut,
   ChevronRight,
-  School
+  School,
+  FileText,
 } from "lucide-react";
 
 export default function AdminLayout() {
@@ -17,7 +18,7 @@ export default function AdminLayout() {
 
   const navItem = (to, label, Icon) => {
     const isActive = location.pathname === to;
-    
+
     return (
       <Link
         to={to}
@@ -28,7 +29,14 @@ export default function AdminLayout() {
         }`}
       >
         <div className="flex items-center gap-3">
-          <Icon size={18} className={isActive ? "text-white" : "text-slate-400 group-hover:text-blue-600"} />
+          <Icon
+            size={18}
+            className={
+              isActive
+                ? "text-white"
+                : "text-slate-400 group-hover:text-blue-600"
+            }
+          />
           <span className="font-semibold text-sm">{label}</span>
         </div>
         {isActive && <ChevronRight size={14} />}
@@ -46,30 +54,46 @@ export default function AdminLayout() {
             <School size={24} />
           </div>
           <div>
-            <h1 className="font-black text-xl tracking-tight text-slate-800">Admin</h1>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tagore Public School</p>
+            <h1 className="font-black text-xl tracking-tight text-slate-800">
+              Admin
+            </h1>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              Tagore Public School
+            </p>
           </div>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar">
           <div className="space-y-1">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">Main Menu</p>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
+              Main Menu
+            </p>
             {navItem("/admin/dashboard", "Dashboard", LayoutDashboard)}
           </div>
 
           <div className="space-y-1">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">Students Management</p>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
+              Students Management
+            </p>
             {navItem("/admin/students", "All Students", Users)}
             {navItem("/admin/students/create", "Create Student", UserPlus)}
             {navItem("/admin/students/promote", "Promote Students", TrendingUp)}
           </div>
 
           <div className="space-y-1">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">Financials</p>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
+              Financials
+            </p>
             {navItem("/admin/finance", "Finance Overview", Wallet)}
           </div>
         </nav>
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
+            Content Management
+          </p>
+          {navItem("/admin/notices", "Manage Notices", FileText)}
+        </div>
 
         {/* User Profile / Session Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-200 m-4 rounded-2xl">
@@ -78,7 +102,9 @@ export default function AdminLayout() {
               {admin?.name?.charAt(0) || "A"}
             </div>
             <div className="overflow-hidden">
-              <p className="text-sm font-bold text-slate-800 truncate">{admin?.name}</p>
+              <p className="text-sm font-bold text-slate-800 truncate">
+                {admin?.name}
+              </p>
               <p className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded inline-block">
                 Session {academicYear}
               </p>
@@ -98,21 +124,24 @@ export default function AdminLayout() {
         {/* Header (Top Bar) */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 sticky top-0 z-10">
           <h2 className="text-slate-500 font-medium text-sm">
-            Welcome back, <span className="text-slate-900 font-bold uppercase tracking-tight">{admin?.name}</span>
+            Welcome back,{" "}
+            <span className="text-slate-900 font-bold uppercase tracking-tight">
+              {admin?.name}
+            </span>
           </h2>
-          
+
           <div className="flex items-center gap-4">
-             {/* Dynamic Date display or notifications could go here */}
-             <div className="text-[10px] font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full uppercase">
-               Academic Session {academicYear}
-             </div>
+            {/* Dynamic Date display or notifications could go here */}
+            <div className="text-[10px] font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full uppercase">
+              Academic Session {academicYear}
+            </div>
           </div>
         </header>
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-8">
           <div className="max-w-7xl mx-auto">
-             <Outlet />
+            <Outlet />
           </div>
         </main>
       </div>
