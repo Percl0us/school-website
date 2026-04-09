@@ -1,13 +1,7 @@
 import { useState } from "react";
-import { User, Users, MapPin, BookOpen, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { User, Users, MapPin, BookOpen, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const ADMISSIONS_API_URL = "https://script.google.com/macros/s/AKfycbwR_NnQYKtotEjMdhnomRUBQpSwyn1GvmQkb93hs_gD88i1LUgHIaqTkHXxlMmPXk9z6Q/exec";
-
-function Spinner() {
-  return (
-    <span className="inline-block h-5 w-5 border-3 border-white border-t-transparent rounded-full animate-spin"></span>
-  );
-}
 
 export default function AdmissionForm() {
   const [student, setStudent] = useState({ name: "", gender: "", dob: "", classApplying: "" });
@@ -23,16 +17,12 @@ export default function AdmissionForm() {
     e.preventDefault();
     setError("");
 
-    if (!student.name.trim()) return setError("Please enter the student’s name.");
-    if (!student.classApplying) return setError("Please select the class for admission.");
-    if (!parent.phone.trim()) return setError("Please enter a contact number.");
+    if (!student.name.trim() || !student.classApplying || !parent.phone.trim()) {
+      return setError("Please complete all required fields (Name, Class, and Phone).");
+    }
 
     setSubmitting(true);
-
-    const payload = {
-      studentName: student.name,
-      ...student, ...parent, ...address, ...academic
-    };
+    const payload = { studentName: student.name, ...student, ...parent, ...address, ...academic };
 
     try {
       await fetch(ADMISSIONS_API_URL, {
@@ -43,7 +33,7 @@ export default function AdmissionForm() {
       });
       setSubmitted(true);
     } catch {
-      setError("Submission failed. Please try again.");
+      setError("Network error. Your submission couldn't be sent. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -51,136 +41,169 @@ export default function AdmissionForm() {
 
   const showAcademicSection = !["LKG", "UKG", ""].includes(student.classApplying);
 
-  // Reusable Input Component for cleaner code
-  const FormInput = ({ label, value, onChange, type = "text", placeholder }) => (
-    <div>
-      <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-        {label}
+  const FormField = ({ label, children, required = false }) => (
+    <div className="space-y-1.5">
+      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em] ml-0.5">
+        {label} {required && <span className="text-indigo-500">*</span>}
       </label>
-      <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50 hover:bg-white"
-      />
+      {children}
     </div>
   );
 
+  const inputBase = "w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-white text-slate-800 text-[15px] transition-all outline-none placeholder:text-slate-300 shadow-sm";
+  const inputFocus = "focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/5";
+
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Success/Error Toasts */}
+    <div className="max-w-4xl mx-auto py-10 px-4">
       {error && (
-        <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 p-4 rounded-2xl mb-8 animate-in slide-in-from-top-4">
-          <AlertCircle size={20} />
-          <p className="font-bold">{error}</p>
+        <div className="flex items-center gap-3 bg-red-50 border-l-4 border-red-500 text-red-800 px-6 py-4 rounded-r-lg mb-8 shadow-sm">
+          <AlertCircle size={20} className="text-red-500" />
+          <p className="text-sm font-bold">{error}</p>
         </div>
       )}
 
-      {submitted && (
-        <div className="bg-blue-600 text-white p-8 rounded-[2rem] mb-10 text-center shadow-xl shadow-blue-200 animate-in zoom-in-95">
-          <CheckCircle size={48} className="mx-auto mb-4" />
-          <h2 className="text-2xl font-black mb-2">Enquiry Received!</h2>
-          <p className="text-blue-100">Our office will contact you shortly regarding the next steps.</p>
+      {submitted ? (
+        <div className="bg-white border border-slate-200 p-12 rounded-3xl text-center shadow-xl max-w-2xl mx-auto">
+          <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+            <CheckCircle size={40} strokeWidth={2.5} />
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Application Submitted</h2>
+          <p className="text-slate-500 text-lg leading-relaxed mb-10">
+            Thank you for your interest. Our admissions coordinator will review the details and contact you at <span className="text-slate-900 font-semibold">{parent.phone}</span>.
+          </p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-lg"
+          >
+            Submit Another Entry
+          </button>
         </div>
-      )}
-
-      {!submitted && (
-        <form className="space-y-12 bg-white p-8 md:p-12 rounded-[3rem] border border-gray-100 shadow-2xl" onSubmit={handleSubmit}>
+      ) : (
+        <form className="bg-white border border-slate-200 rounded-[2rem] shadow-2xl overflow-hidden" onSubmit={handleSubmit}>
           
-          {/* Section 1: Student */}
-          <section className="space-y-8">
-            <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
-              <div className="p-3 bg-blue-100 text-blue-600 rounded-2xl"><User size={24} /></div>
-              <h3 className="text-2xl font-black text-gray-900">Student Details</h3>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-              <FormInput label="Full Name" value={student.name} onChange={(e) => setStudent({ ...student, name: e.target.value })} />
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Gender</label>
-                <select 
-                  value={student.gender} 
-                  onChange={(e) => setStudent({ ...student, gender: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none bg-gray-50/50"
-                >
-                  <option value="">Select</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-              </div>
-              <FormInput label="Date of Birth" type="date" value={student.dob} onChange={(e) => setStudent({ ...student, dob: e.target.value })} />
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Applying For</label>
-                <select 
-                  value={student.classApplying} 
-                  onChange={(e) => setStudent({ ...student, classApplying: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none bg-gray-50/50"
-                >
-                  <option value="">Select Class</option>
-                  {["LKG", "UKG", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"].map(c => (
-                    <option key={c} value={c}>{c === "LKG" || c === "UKG" ? c : `Class ${c}`}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </section>
+          {/* Header Section */}
+          <div className="bg-slate-900 p-10 text-white relative">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl" />
+            <h2 className="text-3xl font-bold tracking-tight">Student Enrollment</h2>
+            <p className="text-indigo-300 font-medium mt-2 text-sm uppercase tracking-widest">Academic Year 2026-2027</p>
+          </div>
 
-          {/* Section 2: Parents */}
-          <section className="space-y-8">
-            <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
-              <div className="p-3 bg-indigo-100 text-indigo-600 rounded-2xl"><Users size={24} /></div>
-              <h3 className="text-2xl font-black text-gray-900">Parent / Guardian</h3>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-              <FormInput label="Father's Name" value={parent.fatherName} onChange={(e) => setParent({ ...parent, fatherName: e.target.value })} />
-              <FormInput label="Mother's Name" value={parent.motherName} onChange={(e) => setParent({ ...parent, motherName: e.target.value })} />
-              <FormInput label="Contact Number" type="tel" value={parent.phone} onChange={(e) => setParent({ ...parent, phone: e.target.value })} />
-              <FormInput label="Email Address" type="email" value={parent.email} onChange={(e) => setParent({ ...parent, email: e.target.value })} />
-            </div>
-          </section>
-
-          {/* Section 3: Address */}
-          <section className="space-y-8">
-            <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
-              <div className="p-3 bg-emerald-100 text-emerald-600 rounded-2xl"><MapPin size={24} /></div>
-              <h3 className="text-2xl font-black text-gray-900">Address Details</h3>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              <FormInput label="City / Village" value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })} />
-              <FormInput label="State" value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })} />
-              <FormInput label="Pin Code" value={address.pincode} onChange={(e) => setAddress({ ...address, pincode: e.target.value })} />
-            </div>
-          </section>
-
-          {/* Section 4: Academic (Conditional) */}
-          {showAcademicSection && (
-            <section className="space-y-8 animate-in slide-in-from-left-4 duration-500">
-              <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
-                <div className="p-3 bg-amber-100 text-amber-600 rounded-2xl"><BookOpen size={24} /></div>
-                <h3 className="text-2xl font-black text-gray-900">Academic Background</h3>
+          <div className="p-8 md:p-14 space-y-16">
+            
+            {/* Section 1: Student */}
+            <section className="space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="w-1.5 h-8 bg-indigo-600 rounded-full" />
+                <h3 className="text-xl font-bold text-slate-900">1. Student Information</h3>
               </div>
-              <div className="grid gap-6 md:grid-cols-3">
-                <FormInput label="Last Class" value={academic.lastClass} onChange={(e) => setAcademic({ ...academic, lastClass: e.target.value })} />
-                <FormInput label="Board" value={academic.board} onChange={(e) => setAcademic({ ...academic, board: e.target.value })} />
-                <FormInput label="Medium" value={academic.medium} onChange={(e) => setAcademic({ ...academic, medium: e.target.value })} />
+              <div className="grid gap-6 md:grid-cols-2">
+                <FormField label="Legal Full Name" required>
+                  <input type="text" className={`${inputBase} ${inputFocus}`} placeholder="As per birth certificate" value={student.name} onChange={(e) => setStudent({ ...student, name: e.target.value })} />
+                </FormField>
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField label="Gender">
+                    <select value={student.gender} onChange={(e) => setStudent({ ...student, gender: e.target.value })} className={`${inputBase} ${inputFocus}`}>
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </FormField>
+                  <FormField label="Date of Birth">
+                    <input type="date" className={`${inputBase} ${inputFocus}`} value={student.dob} onChange={(e) => setStudent({ ...student, dob: e.target.value })} />
+                  </FormField>
+                </div>
+                <FormField label="Class Applying For" required>
+                  <select value={student.classApplying} onChange={(e) => setStudent({ ...student, classApplying: e.target.value })} className={`${inputBase} ${inputFocus} font-semibold`}>
+                    <option value="">Select Grade</option>
+                    {["LKG", "UKG", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"].map(c => (
+                      <option key={c} value={c}>{c.includes('G') ? c : `Grade ${c}`}</option>
+                    ))}
+                  </select>
+                </FormField>
               </div>
             </section>
-          )}
 
-          {/* Submit */}
-          <div className="pt-10 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-gray-500 text-sm max-w-sm">
-              By submitting, you agree to receive follow-up communication from Tagore Public School office.
-            </p>
+            {/* Section 2: Parents */}
+            <section className="space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="w-1.5 h-8 bg-indigo-600 rounded-full" />
+                <h3 className="text-xl font-bold text-slate-900">2. Guardian Details</h3>
+              </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                <FormField label="Father's Name">
+                  <input type="text" className={`${inputBase} ${inputFocus}`} value={parent.fatherName} onChange={(e) => setParent({ ...parent, fatherName: e.target.value })} />
+                </FormField>
+                <FormField label="Mother's Name">
+                  <input type="text" className={`${inputBase} ${inputFocus}`} value={parent.motherName} onChange={(e) => setParent({ ...parent, motherName: e.target.value })} />
+                </FormField>
+                <FormField label="Primary Contact Number" required>
+                  <input type="tel" className={`${inputBase} ${inputFocus} font-mono`} placeholder="+91" value={parent.phone} onChange={(e) => setParent({ ...parent, phone: e.target.value })} />
+                </FormField>
+                <FormField label="Email Address">
+                  <input type="email" className={`${inputBase} ${inputFocus}`} placeholder="name@example.com" value={parent.email} onChange={(e) => setParent({ ...parent, email: e.target.value })} />
+                </FormField>
+              </div>
+            </section>
+
+            {/* Section 3: Address & Academic */}
+            <div className="grid md:grid-cols-2 gap-16">
+              <section className="space-y-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-1.5 h-8 bg-indigo-600 rounded-full" />
+                  <h3 className="text-xl font-bold text-slate-900">3. Residency</h3>
+                </div>
+                <div className="space-y-5">
+                  <FormField label="City / Village">
+                    <input type="text" className={`${inputBase} ${inputFocus}`} value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })} />
+                  </FormField>
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField label="State">
+                      <input type="text" className={`${inputBase} ${inputFocus}`} value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })} />
+                    </FormField>
+                    <FormField label="Pincode">
+                      <input type="text" className={`${inputBase} ${inputFocus}`} value={address.pincode} onChange={(e) => setAddress({ ...address, pincode: e.target.value })} />
+                    </FormField>
+                  </div>
+                </div>
+              </section>
+
+              {showAcademicSection && (
+                <section className="space-y-8 animate-in fade-in duration-500">
+                  <div className="flex items-center gap-4">
+                    <div className="w-1.5 h-8 bg-indigo-600 rounded-full" />
+                    <h3 className="text-xl font-bold text-slate-900">4. History</h3>
+                  </div>
+                  <div className="space-y-5">
+                    <FormField label="Previous Grade">
+                      <input type="text" className={`${inputBase} ${inputFocus}`} value={academic.lastClass} onChange={(e) => setAcademic({ ...academic, lastClass: e.target.value })} />
+                    </FormField>
+                    <FormField label="Board / Medium">
+                      <input type="text" className={`${inputBase} ${inputFocus}`} placeholder="e.g. CBSE / English" value={academic.medium} onChange={(e) => setAcademic({ ...academic, medium: e.target.value })} />
+                    </FormField>
+                  </div>
+                </section>
+              )}
+            </div>
+          </div>
+
+          {/* Footer Actions */}
+          <div className="bg-slate-50 border-t border-slate-200 p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="max-w-xs">
+              <p className="text-slate-400 text-xs font-medium leading-relaxed italic">
+                By submitting this form, you certify that the provided information is accurate to the best of your knowledge.
+              </p>
+            </div>
             <button
               type="submit"
               disabled={submitting}
-              className={`w-full md:w-auto px-10 py-4 rounded-2xl font-black text-white transition-all flex items-center gap-3 justify-center ${
-                submitting ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 active:scale-95"
+              className={`w-full md:w-auto px-14 py-4 rounded-xl font-bold text-base tracking-wide transition-all flex items-center gap-4 justify-center shadow-xl ${
+                submitting 
+                  ? "bg-slate-300 cursor-wait text-slate-500 shadow-none" 
+                  : "bg-indigo-600 text-white hover:bg-indigo-700 active:scale-[0.97] shadow-indigo-200"
               }`}
             >
-              {submitting ? <Spinner /> : <Send size={20} />}
-              {submitting ? "Processing..." : "Submit Enquiry"}
+              {submitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
+              {submitting ? "PROCESSING" : "SUBMIT ENROLLMENT"}
             </button>
           </div>
         </form>

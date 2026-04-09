@@ -1,187 +1,232 @@
-import { useState, useEffect, useRef } from "react";
-import { FileText, Download, CheckCircle2, Info, ArrowRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import {
+  FileText,
+  Download,
+  Info,
+  ArrowRight,
+  CheckCircle2,
+  Calculator,
+  Phone,
+  Mail,
+} from "lucide-react";
 import AdmissionForm from "../components/AdmissionForm/AdmissionForm";
 import ProspectusModal from "../components/modal/ProspectusModal";
 import prospectusImage from "../assets/images/prospectus.jpg";
 
-// Reusable Scroll Animation Wrapper
-const RevealOnScroll = ({ children, delay = "0ms" }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
+const FEE_DATA = [
+  { class: "Nursery", admissionFee: 2000, monthlyFee: 800 },
+  { class: "LKG", admissionFee: 2000, monthlyFee: 850 },
+  { class: "UKG", admissionFee: 2000, monthlyFee: 900 },
+  { class: "1st", admissionFee: 3000, monthlyFee: 950 },
+  { class: "2nd", admissionFee: 3000, monthlyFee: 1000 },
+  { class: "3rd", admissionFee: 3000, monthlyFee: 1050 },
+  { class: "4th", admissionFee: 3000, monthlyFee: 1100 },
+  { class: "5th", admissionFee: 3000, monthlyFee: 1150 },
+  { class: "6th", admissionFee: 3500, monthlyFee: 1250 },
+  { class: "7th", admissionFee: 3500, monthlyFee: 1350 },
+  { class: "8th", admissionFee: 3500, monthlyFee: 1450 },
+  { class: "9th", admissionFee: 4000, monthlyFee: 1600 },
+  { class: "10th", admissionFee: 4000, monthlyFee: 1700 },
+  { class: "11th", admissionFee: 4500, monthlyFee: 2250 },
+  { class: "12th", admissionFee: 4500, monthlyFee: 2450 },
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: delay }}
-      className={`transition-all duration-1000 transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
-    >
-      {children}
-    </div>
-  );
-};
+const TRANSPORT_DATA = [
+  { route: "SUTANA", fee: 300 },
+  { route: "BHADOUR", fee: 350 },
+  { route: "BEGAMPUR", fee: 350 },
+  { route: "ALUPUR", fee: 350 },
+  { route: "NAIN", fee: 350 },
+  { route: "BAHUPUR", fee: 350 },
+  { route: "WAISERY", fee: 300 },
+  { route: "LOHARI", fee: 250 },
+  { route: "KALKHA", fee: 200 },
+];
 
 export default function Admissions() {
   const [showProspectus, setShowProspectus] = useState(false);
+  const [selectedClass, setSelectedClass] = useState("Nursery");
+  const [selectedRoute, setSelectedRoute] = useState("KALKHA");
+
+  const { selectedFee, selectedTransport, totalMonthly, firstMonth } = useMemo(() => {
+    const fee = FEE_DATA.find((c) => c.class === selectedClass) || FEE_DATA[0];
+    const transport = TRANSPORT_DATA.find((r) => r.route === selectedRoute) || TRANSPORT_DATA[0];
+    return {
+      selectedFee: fee,
+      selectedTransport: transport,
+      totalMonthly: fee.monthlyFee + transport.fee,
+      firstMonth: fee.admissionFee + fee.monthlyFee + transport.fee,
+    };
+  }, [selectedClass, selectedRoute]);
 
   return (
-    <div className="bg-white min-h-screen">
-      {/* 1. Page Header / Hero Area */}
-      <section className="bg-blue-900 py-20 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-400 to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <RevealOnScroll>
-            <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-              Join the <span className="text-blue-400">Legacy</span>
-            </h1>
-            <p className="text-xl text-blue-100 max-w-2xl leading-relaxed">
-              Admissions are now open for the academic session 2026–27 (LKG to XII). 
-              Start your journey toward excellence today.
-            </p>
-          </RevealOnScroll>
+    <div className="bg-[#fcfcfd] min-h-screen font-sans text-slate-900 antialiased">
+      {/* Refined Hero */}
+      <section className="bg-[#1a1c2e] py-20 text-white border-b border-indigo-500/20">
+        <div className="max-w-6xl mx-auto px-6">
+          <span className="text-indigo-400 font-bold tracking-[0.2em] text-sm uppercase">Admissions 2026-27</span>
+          <h1 className="text-4xl md:text-5xl font-bold mt-4 tracking-tight leading-tight">
+            Education for <span className="text-indigo-400">Tomorrow</span>.
+          </h1>
+          <p className="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed font-light">
+            We simplify the path to enrollment. Explore our transparent fee structure and take the first step toward academic excellence.
+          </p>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-3 gap-12">
+      <main className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid lg:grid-cols-12 gap-12">
           
-          {/* LEFT COLUMN: Process & Info */}
-          <div className="lg:col-span-2 space-y-16">
+          <div className="lg:col-span-8 space-y-16">
             
-            {/* 2. Admission Process */}
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-1.5 bg-blue-600 rounded-full" />
-                <h2 className="text-3xl font-bold text-gray-900">Admission Process</h2>
-              </div>
-              
-              <div className="grid gap-4">
+            {/* 1. Admission Guidelines */}
+            <section>
+              <h2 className="text-2xl font-bold flex items-center gap-3 mb-8 text-slate-800">
+                <CheckCircle2 size={24} className="text-indigo-600" />
+                Enrollment Process
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-6">
                 {[
-                  "Fill the online admission enquiry form below.",
-                  "Expect a call from our office for parent-student interaction.",
-                  "Submit required documents (Birth Cert, Transfer Cert, etc.).",
-                  "Final verification and fee submission to confirm seat."
-                ].map((step, idx) => (
-                  <RevealOnScroll key={idx} delay={`${idx * 100}ms`}>
-                    <div className="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100 hover:bg-white hover:shadow-md transition-all group">
-                      <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
-                        {idx + 1}
-                      </div>
-                      <p className="text-gray-700 font-medium pt-1">{step}</p>
-                    </div>
-                  </RevealOnScroll>
+                  "Submit Online Inquiry Form",
+                  "Parent-Student Interaction",
+                  "Document Submission",
+                  "Seat Allotment & Fee Deposit"
+                ].map((step, i) => (
+                  <div key={i} className="flex items-center gap-4 p-5 border border-slate-200 bg-white rounded-xl shadow-sm">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">
+                      {i + 1}
+                    </span>
+                    <p className="text-[17px] font-semibold text-slate-700">{step}</p>
+                  </div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            {/* 3. Fee Structure Table */}
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-1.5 bg-blue-600 rounded-full" />
-                <h2 className="text-3xl font-bold text-gray-900">Fee Structure</h2>
+            {/* 2. Professional Fee Calculator */}
+            <section className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+              <div className="p-8 border-b border-slate-100 flex items-center justify-between">
+                <h2 className="text-2xl font-bold flex items-center gap-3">
+                  <Calculator size={24} className="text-indigo-600" />
+                  Fee Calculator
+                </h2>
+                <div className="hidden sm:block text-slate-400 text-sm italic">
+                  Instant estimate for selected grades
+                </div>
               </div>
               
-              <div className="overflow-hidden rounded-3xl border border-gray-100 shadow-sm">
-                <table className="w-full text-left">
-                  <thead className="bg-gray-50 border-b border-gray-100">
-                    <tr>
-                      <th className="px-6 py-4 font-bold text-gray-900">Class Level</th>
-                      <th className="px-6 py-4 font-bold text-gray-900 text-right">Monthly Fee</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {[
-                      { class: "LKG – UKG", fee: "₹ X,XXX" },
-                      { class: "Class I – V", fee: "₹ X,XXX" },
-                      { class: "Class VI – VIII", fee: "₹ X,XXX" },
-                      { class: "Class IX – XII", fee: "₹ X,XXX" },
-                    ].map((row, i) => (
-                      <tr key={i} className="hover:bg-blue-50/30 transition-colors">
-                        <td className="px-6 py-4 text-gray-700 font-medium">{row.class}</td>
-                        <td className="px-6 py-4 text-blue-600 font-bold text-right">{row.fee}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="mt-4 flex items-start gap-2 text-gray-500 text-sm italic">
-                <Info size={16} className="mt-0.5 text-blue-500" />
-                <p>* Fees are subject to change. Transport and laboratory charges are calculated separately based on requirements.</p>
-              </div>
-            </div>
+              <div className="p-8 grid md:grid-cols-2 gap-12">
+                {/* Inputs & Breakdown */}
+                <div className="space-y-6">
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-bold text-slate-500 uppercase tracking-wide">Select Student Class</label>
+                    <select 
+                      value={selectedClass} 
+                      onChange={(e) => setSelectedClass(e.target.value)}
+                      className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                    >
+                      {FEE_DATA.map(f => <option key={f.class}>{f.class}</option>)}
+                    </select>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-bold text-slate-500 uppercase tracking-wide">Transport Route</label>
+                    <select 
+                      value={selectedRoute} 
+                      onChange={(e) => setSelectedRoute(e.target.value)}
+                      className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                    >
+                      {TRANSPORT_DATA.map(t => <option key={t.route}>{t.route}</option>)}
+                    </select>
+                  </div>
+                  
+                  <div className="pt-6 space-y-3 border-t border-slate-100">
+                    <div className="flex justify-between text-base text-slate-500">
+                      <span>One-time Admission Fee</span>
+                      <span className="font-semibold text-slate-700">₹{selectedFee.admissionFee}</span>
+                    </div>
+                    <div className="flex justify-between text-base text-slate-500">
+                      <span>Monthly Fee Component</span>
+                      <span className="font-semibold text-slate-700">₹{selectedFee.monthlyFee}</span>
+                    </div>
+                    <div className="flex justify-between text-base text-slate-500">
+                      <span>Route Fare (Monthly)</span>
+                      <span className="font-semibold text-slate-700">₹{selectedTransport.fee}</span>
+                    </div>
+                  </div>
+                </div>
 
-            {/* 4. Admission Enquiry Form */}
-            <div id="enquiry-form">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-1.5 bg-blue-600 rounded-full" />
-                <h2 className="text-3xl font-bold text-gray-900">Enquiry Form</h2>
+                {/* Totals Summary */}
+                <div className="bg-slate-900 rounded-2xl p-8 flex flex-col justify-center text-white relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full translate-x-10 -translate-y-10" />
+                   
+                  <div className="mb-8 relative z-10">
+                    <span className="text-indigo-300 text-xs font-bold uppercase tracking-widest">Monthly Commitment</span>
+                    <div className="text-4xl font-bold tracking-tight">₹{totalMonthly.toLocaleString()}</div>
+                  </div>
+                  <div className="pt-8 border-t border-white/10 relative z-10">
+                    <span className="text-indigo-300 text-xs font-bold uppercase tracking-widest">Total at Admission</span>
+                    <div className="text-5xl font-black text-indigo-400 tracking-tighter">₹{firstMonth.toLocaleString()}</div>
+                    <p className="text-sm text-slate-400 mt-3 leading-relaxed">Includes admission fee and the first month's full payment.</p>
+                  </div>
+                </div>
               </div>
-              <div className="bg-gray-50 rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-inner">
+            </section>
+
+            {/* 3. Inquiry Form Area */}
+            <section id="inquiry">
+              <h2 className="text-2xl font-bold mb-8 text-slate-800">Inquiry & Registration</h2>
+              <div className="bg-white rounded-2xl p-10 border border-slate-200 shadow-sm">
                 <AdmissionForm />
               </div>
-            </div>
+            </section>
           </div>
 
-          {/* RIGHT COLUMN: Prospectus & Quick Links */}
-          <div className="space-y-8">
-            <RevealOnScroll>
-              <div className="sticky top-24 space-y-8">
-                {/* Prospectus Card */}
-                <div className="bg-blue-600 rounded-[2rem] p-8 text-white shadow-xl shadow-blue-200 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform" />
-                  
-                  <FileText className="mb-6 opacity-80" size={40} />
-                  <h3 className="text-2xl font-bold mb-3 text-white">School Prospectus</h3>
-                  <p className="text-blue-10/80 mb-8 text-sm leading-relaxed">
-                    Download or view our detailed guide on academic philosophy, 
-                    campus life, and detailed admission policies.
-                  </p>
-                  
-                  <div className="space-y-3">
-                    <button 
-                      onClick={() => setShowProspectus(true)}
-                      className="w-full bg-white text-blue-600 font-bold py-3 rounded-xl hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
-                    >
-                      View Online <ArrowRight size={18} />
-                    </button>
-                    <button className="w-full bg-blue-700 text-white font-bold py-3 rounded-xl hover:bg-blue-800 transition-colors flex items-center justify-center gap-2">
-                      <Download size={18} /> Download PDF
-                    </button>
-                  </div>
-                </div>
+          {/* Sidebar */}
+          <aside className="lg:col-span-4 space-y-8">
+            {/* Prospectus Card */}
+            <div className="bg-indigo-600 rounded-2xl p-8 text-white shadow-xl shadow-indigo-100 group">
+              <FileText className="text-indigo-200 mb-6" size={32} />
+              <h3 className="text-xl font-bold mb-3">2026 Prospectus</h3>
+              <p className="text-indigo-100/80 text-base leading-relaxed mb-8">
+                Download our comprehensive guide to academic programs and campus life.
+              </p>
+              <div className="space-y-3">
+                <button 
+                  onClick={() => setShowProspectus(true)}
+                  className="w-full bg-white text-indigo-600 text-base font-bold py-4 rounded-xl hover:bg-indigo-50 transition-all flex items-center justify-center gap-3 shadow-lg shadow-black/10"
+                >
+                  View Online <ArrowRight size={18} />
+                </button>
+                <button className="w-full bg-indigo-700 text-white text-base font-bold py-4 rounded-xl hover:bg-indigo-800 transition-all flex items-center justify-center gap-3">
+                  <Download size={18} /> Download PDF
+                </button>
+              </div>
+            </div>
 
-                {/* Quick Help Card */}
-                <div className="bg-gray-900 rounded-[2rem] p-8 text-white">
-                  <h3 className="text-xl font-bold mb-4">Need Help?</h3>
-                  <p className="text-gray-400 text-sm mb-6">Our admission counselors are here to assist you from 8:00 AM to 2:00 PM.</p>
-                  <div className="space-y-2 font-mono text-blue-400 font-bold">
-                    <p>+91 88160-00512</p>
-                    <p>tagorekalkha@gmail.com</p>
+            {/* Assistance Card */}
+            <div className="border border-slate-200 rounded-2xl p-8 bg-white">
+              <h3 className="font-bold text-lg mb-6">Need Assistance?</h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-slate-700">
+                  <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-indigo-600">
+                    <Phone size={18} />
                   </div>
+                  <span className="text-lg font-semibold">+91 88160-00512</span>
+                </div>
+                <div className="flex items-center gap-4 text-slate-700">
+                  <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-indigo-600">
+                    <Mail size={18} />
+                  </div>
+                  <span className="text-base font-medium">tagorekalkha@gmail.com</span>
                 </div>
               </div>
-            </RevealOnScroll>
-          </div>
-
+              <p className="text-sm text-slate-400 mt-8 border-t pt-6">
+                Our support desk is active Monday — Saturday, 08:00 AM to 02:00 PM.
+              </p>
+            </div>
+          </aside>
         </div>
-      </section>
+      </main>
 
-      {/* Prospectus Modal */}
       {showProspectus && (
         <ProspectusModal
           image={prospectusImage}
