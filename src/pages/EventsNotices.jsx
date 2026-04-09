@@ -12,7 +12,6 @@ export default function EventsNotices() {
       setNotices(data);
       setLoading(false);
     };
-
     fetchData();
   }, []);
 
@@ -25,21 +24,20 @@ export default function EventsNotices() {
   };
 
   /* =========================
-     LOADER UI
+     LOADER UI - Responsive skeleton
   ========================= */
-
   if (loading) {
     return (
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <div className="space-y-6">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+        <div className="space-y-4 sm:space-y-6">
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="animate-pulse flex gap-6 p-6 rounded-3xl border bg-gray-50"
+              className="animate-pulse flex gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border bg-gray-50"
             >
-              <div className="w-20 h-20 bg-gray-200 rounded-2xl" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-2xl" />
               <div className="flex-1 space-y-3">
-                <div className="w-24 h-4 bg-gray-200 rounded-full" />
+                <div className="w-20 h-4 bg-gray-200 rounded-full" />
                 <div className="w-3/4 h-6 bg-gray-300 rounded" />
               </div>
             </div>
@@ -50,9 +48,9 @@ export default function EventsNotices() {
   }
 
   return (
-    <section className="max-w-5xl mx-auto px-6 py-20">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+      {/* Header - responsive */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="relative flex h-3 w-3">
@@ -63,17 +61,17 @@ export default function EventsNotices() {
               Live Updates
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
             Events & <span className="text-blue-600">Notices</span>
           </h1>
         </div>
-        <p className="text-gray-500 font-medium italic border-l-4 border-blue-600 pl-4 max-w-xs">
+        <p className="text-gray-500 font-medium italic border-l-4 border-blue-600 pl-4 text-sm md:text-base max-w-xs">
           Stay updated with the latest happenings at Tagore Public School.
         </p>
       </div>
 
-      {/* Notices */}
-      <div className="space-y-6">
+      {/* Notices list - responsive cards */}
+      <div className="space-y-4 sm:space-y-6">
         {notices.map((item) => {
           const isEvent = item.type === "Event";
           const { day, month } = formatDate(item.date);
@@ -81,61 +79,61 @@ export default function EventsNotices() {
           return (
             <div
               key={item.id}
-              className={`group relative flex flex-col md:flex-row items-start md:items-center gap-6 p-6 rounded-[2rem] border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+              className={`group relative flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
                 isEvent
                   ? "bg-white border-blue-100 hover:border-blue-300"
                   : "bg-gray-50 border-gray-100 hover:border-gray-300"
               }`}
             >
-              {/* Date */}
+              {/* Date block - responsive size */}
               <div
-                className={`flex flex-col items-center justify-center min-w-[80px] h-20 rounded-2xl shadow-sm ${
+                className={`flex flex-col items-center justify-center min-w-[70px] sm:min-w-[80px] h-16 sm:h-20 rounded-2xl shadow-sm ${
                   isEvent
                     ? "bg-blue-600 text-white"
                     : "bg-white text-gray-900 border border-gray-100"
                 }`}
               >
-                <span className="text-xs font-bold uppercase opacity-80">
+                <span className="text-[10px] sm:text-xs font-bold uppercase opacity-80">
                   {month}
                 </span>
-                <span className="text-2xl font-black leading-none">
+                <span className="text-xl sm:text-2xl font-black leading-none">
                   {day}
                 </span>
               </div>
 
-              {/* Content */}
-              <div className="flex-1 space-y-2">
-                <div className="flex items-center gap-3">
+              {/* Content - responsive text */}
+              <div className="flex-1 space-y-1.5 sm:space-y-2">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <span
-                    className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                    className={`px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-1 ${
                       isEvent
                         ? "bg-blue-100 text-blue-700"
                         : "bg-orange-100 text-orange-700"
                     }`}
                   >
-                    {isEvent ? <Megaphone size={12} /> : <Bell size={12} />}
+                    {isEvent ? <Megaphone size={10} /> : <Bell size={10} />}
                     {item.type}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors break-words">
                   {item.title}
                 </h3>
               </div>
 
-              {/* Icon */}
-              <div className="hidden md:block">
-                <div className="w-12 h-12 rounded-full bg-gray-100 group-hover:bg-blue-600 flex items-center justify-center transition-all duration-500">
+              {/* Icon - hidden on small mobile, visible from sm upwards */}
+              <div className="hidden sm:block">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 group-hover:bg-blue-600 flex items-center justify-center transition-all duration-500">
                   <Info
                     className="text-gray-400 group-hover:text-white transition-colors"
-                    size={20}
+                    size={18}
                   />
                 </div>
               </div>
 
-              {/* Accent */}
+              {/* Accent bar - visible on hover */}
               <div
-                className={`absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1/2 rounded-r-full transition-all duration-500 ${
+                className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 rounded-r-full transition-all duration-500 ${
                   isEvent
                     ? "bg-blue-600 opacity-0 group-hover:opacity-100"
                     : "bg-gray-400 opacity-0 group-hover:opacity-100"
@@ -146,14 +144,13 @@ export default function EventsNotices() {
         })}
       </div>
 
-      {/* Footer */}
-      <div className="mt-16 text-center">
-        <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 rounded-full text-gray-500 text-sm font-medium">
-          <Calendar size={16} />
+      {/* Footer - responsive */}
+      <div className="mt-12 md:mt-16 text-center">
+        <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gray-100 rounded-full text-gray-500 text-xs sm:text-sm font-medium">
+          <Calendar size={14} className="sm:w-4 sm:h-4" />
           End of recent notices
         </div>
       </div>
     </section>
   );
 }
-

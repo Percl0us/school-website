@@ -65,32 +65,33 @@ export default function Admissions() {
 
   return (
     <div className="bg-[#fcfcfd] min-h-screen font-sans text-slate-900 antialiased">
-      {/* Refined Hero */}
-      <section className="bg-[#1a1c2e] py-20 text-white border-b border-indigo-500/20">
-        <div className="max-w-6xl mx-auto px-6">
-          <span className="text-indigo-400 font-bold tracking-[0.2em] text-sm uppercase">
+      {/* Hero - fully responsive */}
+      <section className="bg-[#1a1c2e] py-12 md:py-20 text-white border-b border-indigo-500/20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <span className="text-indigo-400 font-bold tracking-[0.2em] text-xs sm:text-sm uppercase">
             Admissions 2026-27
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-4 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 tracking-tight leading-tight">
             Education for <span className="text-indigo-400">Tomorrow</span>.
           </h1>
-          <p className="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed font-light">
+          <p className="text-slate-400 mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed font-light">
             We simplify the path to enrollment. Explore our transparent fee
             structure and take the first step toward academic excellence.
           </p>
         </div>
       </section>
 
-      <main className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-8 space-y-16">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-16">
+        {/* Main grid: explicit 1 column on mobile, then 12 columns from lg */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+          <div className="lg:col-span-8 space-y-12 md:space-y-16">
             {/* 1. Admission Guidelines */}
             <section>
-              <h2 className="text-2xl font-bold flex items-center gap-3 mb-8 text-slate-800">
+              <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-3 mb-6 md:mb-8 text-slate-800">
                 <CheckCircle2 size={24} className="text-indigo-600" />
                 Enrollment Process
               </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {[
                   "Submit Online Inquiry Form",
                   "Parent-Student Interaction",
@@ -99,12 +100,12 @@ export default function Admissions() {
                 ].map((step, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-4 p-5 border border-slate-200 bg-white rounded-xl shadow-sm"
+                    className="flex items-center gap-4 p-4 sm:p-5 border border-slate-200 bg-white rounded-xl shadow-sm"
                   >
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">
                       {i + 1}
                     </span>
-                    <p className="text-[17px] font-semibold text-slate-700">
+                    <p className="text-sm sm:text-[17px] font-semibold text-slate-700">
                       {step}
                     </p>
                   </div>
@@ -114,19 +115,19 @@ export default function Admissions() {
 
             {/* 2. Professional Fee Calculator */}
             <section className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-              <div className="p-8 border-b border-slate-100 flex items-center justify-between">
-                <h2 className="text-2xl font-bold flex items-center gap-3">
+              <div className="p-5 sm:p-8 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-3">
                   <Calculator size={24} className="text-indigo-600" />
                   Fee Calculator
                 </h2>
-                <div className="hidden sm:block text-slate-400 text-sm italic">
+                <div className="text-slate-400 text-xs sm:text-sm italic">
                   Instant estimate for selected grades
                 </div>
               </div>
 
-              <div className="p-8 grid md:grid-cols-2 gap-12">
+              <div className="p-5 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {/* Inputs & Breakdown */}
-                <div className="space-y-6">
+                <div className="space-y-5">
                   <div className="space-y-1.5">
                     <label className="text-sm font-bold text-slate-500 uppercase tracking-wide">
                       Select Student Class
@@ -134,7 +135,7 @@ export default function Admissions() {
                     <select
                       value={selectedClass}
                       onChange={(e) => setSelectedClass(e.target.value)}
-                      className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                      className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
                     >
                       {FEE_DATA.map((f) => (
                         <option key={f.class}>{f.class}</option>
@@ -148,7 +149,7 @@ export default function Admissions() {
                     <select
                       value={selectedRoute}
                       onChange={(e) => setSelectedRoute(e.target.value)}
-                      className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                      className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
                     >
                       {TRANSPORT_DATA.map((t) => (
                         <option key={t.route}>{t.route}</option>
@@ -156,20 +157,20 @@ export default function Admissions() {
                     </select>
                   </div>
 
-                  <div className="pt-6 space-y-3 border-t border-slate-100">
-                    <div className="flex justify-between text-base text-slate-500">
+                  <div className="pt-5 space-y-3 border-t border-slate-100">
+                    <div className="flex justify-between text-sm sm:text-base text-slate-500">
                       <span>One-time Admission Fee</span>
                       <span className="font-semibold text-slate-700">
                         ₹{selectedFee.admissionFee}
                       </span>
                     </div>
-                    <div className="flex justify-between text-base text-slate-500">
+                    <div className="flex justify-between text-sm sm:text-base text-slate-500">
                       <span>Monthly Fee Component</span>
                       <span className="font-semibold text-slate-700">
                         ₹{selectedFee.monthlyFee}
                       </span>
                     </div>
-                    <div className="flex justify-between text-base text-slate-500">
+                    <div className="flex justify-between text-sm sm:text-base text-slate-500">
                       <span>Route Fare (Monthly)</span>
                       <span className="font-semibold text-slate-700">
                         ₹{selectedTransport.fee}
@@ -178,26 +179,26 @@ export default function Admissions() {
                   </div>
                 </div>
 
-                {/* Totals Summary */}
-                <div className="bg-slate-900 rounded-2xl p-8 flex flex-col justify-center text-white relative overflow-hidden">
+                {/* Totals Summary - responsive text sizes */}
+                <div className="bg-slate-900 rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full translate-x-10 -translate-y-10" />
 
-                  <div className="mb-8 relative z-10">
+                  <div className="mb-6 md:mb-8 relative z-10">
                     <span className="text-indigo-300 text-xs font-bold uppercase tracking-widest">
                       Monthly Commitment
                     </span>
-                    <div className="text-4xl font-bold tracking-tight">
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                       ₹{totalMonthly.toLocaleString()}
                     </div>
                   </div>
-                  <div className="pt-8 border-t border-white/10 relative z-10">
+                  <div className="pt-6 md:pt-8 border-t border-white/10 relative z-10">
                     <span className="text-indigo-300 text-xs font-bold uppercase tracking-widest">
                       Total at Admission
                     </span>
-                    <div className="text-5xl font-black text-indigo-400 tracking-tighter">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-black text-indigo-400 tracking-tighter">
                       ₹{firstMonth.toLocaleString()}
                     </div>
-                    <p className="text-sm text-slate-400 mt-3 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
                       Includes admission fee and the first month's full payment.
                     </p>
                   </div>
@@ -207,19 +208,19 @@ export default function Admissions() {
 
             {/* 3. Inquiry Form Area */}
             <section id="inquiry">
-              <h2 className="text-2xl font-bold mb-8 text-slate-800">
+              <h2 className="text-xl sm:text-2xl font-bold mb-5 md:mb-8 text-slate-800">
                 Inquiry & Registration
               </h2>
-              <div className="bg-white rounded-2xl p-10 border border-slate-200 shadow-sm">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 border border-slate-200 shadow-sm">
                 <AdmissionForm />
               </div>
             </section>
           </div>
 
-          {/* Sidebar */}
-          <aside className="lg:col-span-4 space-y-8">
-            {/* Prospectus Card */}
-            {/* <div className="bg-indigo-600 rounded-2xl p-8 text-white shadow-xl shadow-indigo-100 group">
+          {/* Sidebar - responsive spacing */}
+          <aside className="lg:col-span-4 space-y-6 md:space-y-8">
+            {/* Prospectus Card (commented out - kept as is) */}
+            {/* <div className="bg-indigo-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-indigo-100 group">
               <FileText className="text-indigo-200 mb-6" size={32} />
               <h3 className="text-xl font-bold mb-3">2026 Prospectus</h3>
               <p className="text-indigo-100/80 text-base leading-relaxed mb-8">
@@ -238,27 +239,24 @@ export default function Admissions() {
               </div>
             </div> */}
             {/* Assistance Card */}
-            <div className="border border-slate-200 rounded-2xl p-8 bg-white">
-              <h3 className="font-bold text-lg mb-6">Need Assistance?</h3>
+            <div className="border border-slate-200 rounded-2xl p-6 sm:p-8 bg-white">
+              <h3 className="font-bold text-lg mb-5 sm:mb-6">Need Assistance?</h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-4 text-slate-700">
-                  <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-indigo-600">
+                <div className="flex items-center gap-4 text-slate-700 flex-wrap">
+                  <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-indigo-600 shrink-0">
                     <Phone size={18} />
                   </div>
-                  <span className="text-lg font-semibold">+91 88160-00512</span>
+                  <span className="text-base sm:text-lg font-semibold break-all">+91 88160-00512</span>
                 </div>
-                <div className="flex items-center gap-4 text-slate-700">
-                  <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-indigo-600">
+                <div className="flex items-center gap-4 text-slate-700 flex-wrap">
+                  <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-indigo-600 shrink-0">
                     <Mail size={18} />
                   </div>
-                  <span className="text-base font-medium">
-                    tagorekalkha@gmail.com
-                  </span>
+                  <span className="text-sm sm:text-base font-medium break-all">tagorekalkha@gmail.com</span>
                 </div>
               </div>
-              <p className="text-sm text-slate-400 mt-8 border-t pt-6">
-                Our support desk is active Monday — Saturday, 08:00 AM to 02:00
-                PM.
+              <p className="text-xs sm:text-sm text-slate-400 mt-6 sm:mt-8 border-t pt-5 sm:pt-6">
+                Our support desk is active Monday — Saturday, 08:00 AM to 02:00 PM.
               </p>
             </div>
           </aside>
