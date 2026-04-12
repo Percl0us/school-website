@@ -6,7 +6,16 @@ import {
   BookOpen,
   Star,
   Building2,
-  Camera,
+  Sparkles,
+  Rocket,
+  Zap,
+  Library,
+  Computer,
+  FlaskConical,
+  Calculator,
+  Trophy,
+  MonitorSmartphone,
+  Bus,
 } from "lucide-react";
 
 import announcements from "../data/announcements";
@@ -15,7 +24,7 @@ import academicsSnapshot from "../data/academicsSnapshot";
 import facilities from "../data/facilities";
 
 // Reusable Scroll Animation Wrapper
-const RevealOnScroll = ({ children, delay = "0ms" }) => {
+const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -38,8 +47,10 @@ const RevealOnScroll = ({ children, delay = "0ms" }) => {
     <div
       ref={ref}
       style={{ transitionDelay: delay }}
-      className={`transform transition-all duration-1000 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+      className={`transform transition-all duration-1000 ${className} ${
+        isVisible
+          ? "translate-y-0 opacity-100 scale-100"
+          : "translate-y-12 opacity-0 scale-95"
       }`}
     >
       {children}
@@ -47,37 +58,27 @@ const RevealOnScroll = ({ children, delay = "0ms" }) => {
   );
 };
 
+// Hero Skeleton Loader
 function HeroLoader() {
   return (
     <div className="absolute inset-0 z-20">
-      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900" />
-      <div className="animate-shimmer absolute inset-0 bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.12),transparent)]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-blue-900/40 to-transparent" />
-
+      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-blue-950 via-purple-900 to-pink-900" />
+      <div className="animate-shimmer absolute inset-0 bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.2),transparent)] bg-[length:200%_100%]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
       <div className="absolute inset-0 flex items-center">
-        <div className="mx-auto w-full max-w-7xl px-6">
-          <div className="max-w-2xl space-y-6">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10">
-                <Star size={14} className="text-yellow-300" />
-              </div>
-              <div className="h-3 w-32 rounded-full bg-white/10" />
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+          <div className="max-w-2xl space-y-5">
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+              <Sparkles size={14} className="text-yellow-300 animate-pulse" />
+              <div className="h-3 w-28 rounded-full bg-white/20" />
             </div>
-
-            <div className="space-y-3">
-              <div className="h-14 w-full max-w-xl rounded-2xl bg-white/10 md:h-16" />
-              <div className="h-14 w-3/4 rounded-2xl bg-white/10 md:h-16" />
+            <div className="space-y-2">
+              <div className="h-10 w-full max-w-sm rounded-xl bg-white/20 sm:h-12 md:h-14" />
+              <div className="h-10 w-3/4 rounded-xl bg-white/20 sm:h-12 md:h-14" />
             </div>
-
-            <div className="space-y-3">
-              <div className="h-4 w-full max-w-lg rounded-full bg-white/10" />
-              <div className="h-4 w-5/6 rounded-full bg-white/10" />
-            </div>
-
-            <div className="pt-4">
-              <div className="flex h-14 w-60 items-center gap-3 rounded-xl bg-white/10 px-5">
+            <div className="pt-2">
+              <div className="flex h-12 w-48 items-center gap-3 rounded-xl bg-white/20 px-5">
                 <div className="h-5 w-5 rounded-full border-2 border-white/20 border-t-white/60 animate-spin" />
-                <div className="h-4 w-32 rounded-full bg-white/10" />
               </div>
             </div>
           </div>
@@ -95,7 +96,6 @@ export default function Home() {
 
   useEffect(() => {
     setHeroVisible(true);
-
     const img = new Image();
     img.src = "/images/hero.jpg";
     img.onload = () => setHeroLoaded(true);
@@ -109,10 +109,11 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden scroll-smooth bg-white">
-      {/* Hero Section */}
-      <section className="relative flex h-[90vh] items-center justify-center overflow-hidden bg-blue-950 text-white">
+      {/* Hero Section - image fully visible */}
+      <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950 via-indigo-950 to-purple-950 text-white sm:min-h-[90vh]">
         {!heroLoaded && <HeroLoader />}
 
+        {/* Hero Background Image */}
         <div
           className={`absolute inset-0 bg-center bg-no-repeat transition-all duration-[1400ms] ease-out ${
             heroLoaded ? "opacity-100" : "opacity-0"
@@ -123,35 +124,47 @@ export default function Home() {
           }}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-blue-900/40 to-transparent" />
+        {/* Subtle gradient overlay - only darkens edges */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/20" />
 
-        <div className="relative z-30 mx-auto w-full max-w-7xl px-6">
-          <div className="max-w-2xl space-y-6">
+        {/* Fun animated blobs - very faint */}
+        <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-purple-500/10 blur-3xl animate-pulse" />
+          <div className="absolute top-1/2 -left-40 h-96 w-96 rounded-full bg-pink-500/10 blur-3xl animate-bounce" style={{ animationDuration: "8s" }} />
+          <div className="absolute bottom-0 right-20 h-64 w-64 rounded-full bg-yellow-400/5 blur-2xl animate-spin-slow" />
+        </div>
+
+        <div className="relative z-30 mx-auto w-full max-w-7xl px-4 sm:px-6">
+          <div className="max-w-2xl space-y-5 sm:space-y-6">
+            {/* Badge with sparkle */}
             <div
-              className={`inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/20 px-3 py-1 backdrop-blur-md transition-all duration-700 delay-300 ${
+              className={`inline-flex items-center gap-2 rounded-full border border-yellow-400/40 bg-yellow-500/20 px-4 py-1.5 backdrop-blur-md transition-all duration-700 delay-300 hover:scale-105 hover:bg-yellow-500/30 ${
                 heroVisible
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-10 opacity-0"
               }`}
             >
-              <Star size={16} className="fill-yellow-400 text-yellow-400" />
-              <span className="text-sm font-bold uppercase tracking-widest text-blue-100">
+              <Sparkles size={14} className="fill-yellow-400 text-yellow-300 animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-widest text-yellow-100 sm:text-sm">
                 Affiliated to HBSE
               </span>
             </div>
 
             <h1
-              className={`text-5xl font-extrabold leading-tight tracking-tight transition-all duration-1000 delay-500 md:text-7xl ${
+              className={`text-4xl font-extrabold leading-tight tracking-tight transition-all duration-1000 delay-500 sm:text-5xl md:text-7xl ${
                 heroVisible
                   ? "translate-y-0 opacity-100"
                   : "translate-y-10 opacity-0"
               }`}
             >
-              Tagore Public <span className="text-blue-400">School</span>
+              Tagore Public{" "}
+              <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                School
+              </span>
             </h1>
 
             <p
-              className={`max-w-lg text-xl leading-relaxed text-blue-50/90 transition-all duration-1000 delay-700 ${
+              className={`max-w-lg text-base leading-relaxed text-white/90 transition-all duration-1000 delay-700 sm:text-lg md:text-xl ${
                 heroVisible
                   ? "translate-y-0 opacity-100"
                   : "translate-y-10 opacity-0"
@@ -162,56 +175,65 @@ export default function Home() {
             </p>
 
             <div
-              className={`flex flex-wrap gap-4 pt-4 transition-all duration-1000 delay-[900ms] ${
+              className={`flex flex-wrap gap-4 pt-3 transition-all duration-1000 delay-[900ms] ${
                 heroVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"
               }`}
             >
               <button
                 onClick={() => handleNav("/admissions", "admissions")}
-                className="group flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-bold shadow-lg transition-all hover:bg-blue-700 active:scale-95"
+                className="group flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3.5 font-bold shadow-lg transition-all hover:from-blue-700 hover:to-purple-700 hover:shadow-xl hover:shadow-blue-500/30 active:scale-95 sm:w-auto sm:px-8 sm:py-4"
               >
                 {loading === "admissions" ? (
                   <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
                 ) : (
-                  <Award size={20} />
+                  <Rocket size={20} className="group-hover:animate-bounce" />
                 )}
                 Apply for Admission
               </button>
             </div>
           </div>
         </div>
+
+        {/* Floating Zap - subtle */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+          <Zap size={24} className="text-yellow-300" />
+        </div>
       </section>
 
-      {/* Announcements Bar */}
-      <section className="relative z-20 -mt-16 mx-auto max-w-6xl px-6">
+      {/* Announcements Bar - softened shadow */}
+      <section className="relative z-20 mx-auto max-w-6xl px-4 -mt-12 sm:-mt-16 sm:px-6">
         <RevealOnScroll>
-          <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl">
-            <div className="mb-8 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-2 animate-pulse rounded-full bg-red-600" />
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+          <div className="rounded-2xl border border-blue-100 bg-white/80 backdrop-blur-sm p-5 transition-all hover:shadow-md sm:rounded-3xl sm:p-8">
+            <div className="mb-6 flex items-center justify-between sm:mb-8">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="h-6 w-1.5 animate-pulse rounded-full bg-gradient-to-b from-red-500 to-orange-500 sm:h-8 sm:w-2" />
+                <h2 className="text-xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent sm:text-2xl">
                   Notice Board
                 </h2>
               </div>
-
               <Link
                 to="/events"
-                className="group flex items-center gap-1 text-sm font-bold uppercase tracking-wider text-blue-600 hover:text-blue-800"
+                className="group flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-blue-600 transition hover:text-purple-600 sm:text-sm"
               >
-                View All <ChevronRight size={18} />
+                View All{" "}
+                <ChevronRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1"
+                />
               </Link>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
-              {announcements.slice(0, 3).map((item) => (
+            <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
+              {announcements.slice(0, 3).map((item, idx) => (
                 <div
                   key={item.id}
-                  className="rounded-2xl border border-gray-100 bg-gray-50 p-5 transition-all hover:border-blue-200 hover:shadow-lg"
+                  className="group rounded-xl border border-gray-100 bg-white p-4 transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-sm sm:rounded-2xl sm:p-5"
+                  style={{ transitionDelay: `${idx * 50}ms` }}
                 >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">
+                  <span className="inline-block rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-blue-700">
                     {item.date}
                   </span>
-                  <p className="mt-2 line-clamp-2 font-bold text-gray-800">
+                  <p className="mt-2 line-clamp-2 text-sm font-bold text-gray-800 group-hover:text-blue-700 sm:mt-3 sm:text-base">
                     {item.title}
                   </p>
                 </div>
@@ -222,33 +244,33 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="bg-white py-32">
-        <div className="mx-auto max-w-7xl px-6">
+      <section className="py-16 sm:py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <RevealOnScroll>
-            <div className="mx-auto mb-20 max-w-3xl text-center">
-              <h2 className="mb-6 text-4xl font-bold text-gray-900 tracking-tight">
+            <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-20">
+              <h2 className="mb-4 text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent sm:text-4xl">
                 Why Choose Tagore Public?
               </h2>
-              <div className="mx-auto h-1.5 w-24 rounded-full bg-blue-600" />
+              <div className="mx-auto h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 sm:w-24" />
             </div>
           </RevealOnScroll>
 
-          <div className="grid gap-10 md:grid-cols-2">
+          <div className="grid gap-6 sm:gap-10 md:grid-cols-2">
             {usp.map((item, index) => (
               <RevealOnScroll key={item.id} delay={`${index * 200}ms`}>
-                <div className="group rounded-[2.5rem] border border-transparent bg-gray-50 p-10 transition-all duration-500 hover:border-blue-100 hover:bg-white hover:shadow-2xl">
-                  <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-100 transition-all group-hover:rotate-6 group-hover:bg-blue-600">
-                    <BookOpen
-                      className="text-blue-600 group-hover:text-white"
-                      size={28}
-                    />
+                <div className="group relative rounded-2xl border border-transparent bg-white p-6 transition-all duration-500 hover:scale-[1.02] hover:border-blue-200 hover:shadow-md sm:rounded-[2.5rem] sm:p-8 md:p-10">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100 sm:rounded-[2.5rem]" />
+                  <div className="relative z-10">
+                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 text-white shadow-md transition-all group-hover:rotate-6 group-hover:scale-110 sm:mb-8 sm:h-16 sm:w-16 sm:rounded-2xl">
+                      <BookOpen size={24} />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-gray-900 sm:mb-4 sm:text-2xl">
+                      {item.title}
+                    </h3>
+                    <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="mb-4 text-2xl font-bold text-gray-900">
-                    {item.title}
-                  </h3>
-                  <p className="text-lg leading-relaxed text-gray-600">
-                    {item.description}
-                  </p>
                 </div>
               </RevealOnScroll>
             ))}
@@ -256,18 +278,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="relative overflow-hidden bg-blue-900 py-24 text-white">
-        <div className="relative z-10 mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-2 gap-12 lg:grid-cols-4">
+      {/* Stats Section - with text wrapping for long values */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 to-purple-900 py-16 text-white sm:py-20 md:py-24">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-yellow-400 blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-pink-500 blur-3xl animate-bounce" style={{ animationDuration: "10s" }} />
+        </div>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="grid grid-cols-2 gap-6 sm:gap-10 md:grid-cols-4">
             {academicsSnapshot.map((item, index) => (
               <RevealOnScroll key={item.id} delay={`${index * 150}ms`}>
-                <div className="text-center">
-                  <p className="mb-2 text-5xl font-black text-blue-400 md:text-6xl">
-                    {item.value}
+                <div className="text-center group">
+                  <p className="mb-1 text-xl font-black text-transparent bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text sm:mb-2 sm:text-2xl md:text-3xl lg:text-4xl group-hover:scale-105 transition-transform break-words px-1">
+                    {item.value || "—"}
                   </p>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-200/60">
-                    {item.title}
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-blue-200/80 sm:text-xs md:text-sm">
+                    {item.title || "Statistic"}
                   </p>
                 </div>
               </RevealOnScroll>
@@ -276,31 +302,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Facilities Grid */}
-      <section className="bg-gray-50 py-32">
-        <div className="mx-auto max-w-7xl px-6 text-center">
+      {/* Facilities Grid with dynamic icons */}
+      <section className="py-16 sm:py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6">
           <RevealOnScroll>
-            <h2 className="mb-20 text-3xl font-bold text-gray-900">
+            <h2 className="mb-12 text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent sm:mb-20 sm:text-3xl md:text-4xl">
               Campus Facilities
             </h2>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-            {facilities.map((item, index) => (
-              <RevealOnScroll key={index} delay={`${(index % 4) * 100}ms`}>
-                <div className="flex flex-col items-center gap-4 rounded-3xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl">
-                  <div className="rounded-2xl bg-blue-50 p-4 text-blue-600">
-                    <Building2 size={24} />
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+            {facilities.map((item, index) => {
+              // Map facility name to appropriate icon
+              const getIcon = (name) => {
+                if (name.includes("Library")) return <Library size={22} className="sm:size-24" />;
+                if (name.includes("Computer")) return <Computer size={22} className="sm:size-24" />;
+                if (name.includes("Science")) return <FlaskConical size={22} className="sm:size-24" />;
+                if (name.includes("Mathematics")) return <Calculator size={22} className="sm:size-24" />;
+                if (name.includes("Playground") || name.includes("Sports")) return <Trophy size={22} className="sm:size-24" />;
+                if (name.includes("Smart Classrooms")) return <MonitorSmartphone size={22} className="sm:size-24" />;
+                if (name.includes("Transport")) return <Bus size={22} className="sm:size-24" />;
+                return <Building2 size={22} className="sm:size-24" />;
+              };
+
+              const gradients = [
+                "from-red-400 to-orange-400",
+                "from-green-400 to-emerald-400",
+                "from-blue-400 to-cyan-400",
+                "from-purple-400 to-pink-400",
+                "from-yellow-400 to-amber-400",
+                "from-indigo-400 to-violet-400",
+              ];
+              const gradient = gradients[index % gradients.length];
+              
+              return (
+                <RevealOnScroll key={index} delay={`${(index % 4) * 100}ms`}>
+                  <div className="group flex flex-col items-center gap-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all hover:-translate-y-3 hover:shadow-md sm:gap-4 sm:rounded-3xl sm:p-6 md:p-8">
+                    <div className={`rounded-xl bg-gradient-to-br ${gradient} p-3 text-white shadow-md transition-all group-hover:rotate-12 group-hover:scale-110 sm:rounded-2xl sm:p-4`}>
+                      {getIcon(item)}
+                    </div>
+                    <span className="text-xs font-extrabold text-gray-800 group-hover:text-blue-700 sm:text-sm md:text-base">
+                      {item}
+                    </span>
                   </div>
-                  <span className="text-sm font-extrabold text-gray-800">
-                    {item}
-                  </span>
-                </div>
-              </RevealOnScroll>
-            ))}
+                </RevealOnScroll>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      {/* Floating CTA for mobile */}
+      <div className="fixed bottom-6 right-6 z-50 md:hidden">
+        <button
+          onClick={() => handleNav("/admissions", "admissions")}
+          className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-3 text-sm font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95"
+        >
+          <Sparkles size={16} />
+          Apply Now
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Eye, Zap, Quote } from "lucide-react"; // Using Lucide for consistency
+import { Eye, Zap, Quote, Sparkles, ChevronRight } from "lucide-react";
 import principalImg from "../assets/images/principal/principal.jpg";
 
-// Reusable Scroll Animation Wrapper
-const RevealOnScroll = ({ children, delay = "0ms" }) => {
+// Reusable Scroll Animation Wrapper (same as Home)
+const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -25,8 +25,10 @@ const RevealOnScroll = ({ children, delay = "0ms" }) => {
     <div
       ref={ref}
       style={{ transitionDelay: delay }}
-      className={`transition-all duration-1000 transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      className={`transform transition-all duration-1000 ${className} ${
+        isVisible
+          ? "translate-y-0 opacity-100 scale-100"
+          : "translate-y-12 opacity-0 scale-95"
       }`}
     >
       {children}
@@ -36,32 +38,46 @@ const RevealOnScroll = ({ children, delay = "0ms" }) => {
 
 export default function About() {
   return (
-    <div className="bg-white">
-      {/* 1. Page Header Hero */}
-      <section className="bg-gray-50 border-b border-gray-100 py-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+    <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
+      
+      {/* 1. Page Header Hero with gradient accent */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 py-20 text-white sm:py-24">
+        {/* Animated blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-purple-500/20 blur-3xl animate-pulse" />
+          <div className="absolute top-1/2 -left-40 h-96 w-96 rounded-full bg-pink-500/20 blur-3xl animate-bounce" style={{ animationDuration: "8s" }} />
+          <div className="absolute bottom-0 right-20 h-64 w-64 rounded-full bg-yellow-400/10 blur-2xl animate-spin-slow" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <RevealOnScroll>
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-10 h-1.5 bg-blue-600 rounded-full" />
-              <span className="text-blue-600 font-bold uppercase tracking-widest text-sm">Our Legacy</span>
-              <div className="w-10 h-1.5 bg-blue-600 rounded-full" />
+              <div className="w-10 h-1.5 bg-yellow-400 rounded-full" />
+              <span className="text-yellow-300 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+                <Sparkles size={14} className="animate-pulse" /> Our Legacy
+              </span>
+              <div className="w-10 h-1.5 bg-yellow-400 rounded-full" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-8 tracking-tight">
-              About <span className="text-blue-600">Tagore Public School</span>
+            <h1 className="text-4xl md:text-6xl font-black mb-8 tracking-tight">
+              About <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Tagore Public School</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium italic">
+            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium italic">
               "Nurturing academic excellence, discipline, and strong moral values since inception."
             </p>
           </RevealOnScroll>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-24 space-y-32">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-20 sm:space-y-32">
         
         {/* 2. History / Intro */}
         <RevealOnScroll>
           <div className="max-w-4xl mx-auto text-center">
-             <p className="text-lg md:text-xl text-gray-600 leading-loose">
+            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 mb-6">
+              <Sparkles size={14} className="text-blue-600" />
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Our Journey</span>
+            </div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
               Tagore Public School was established with a clear vision: to provide quality
               education that transcends textbooks. Over the years, we have evolved into a
               trusted institution, proudly serving our community from LKG through Class XII
@@ -71,61 +87,71 @@ export default function About() {
           </div>
         </RevealOnScroll>
 
-        {/* 3. Vision & Mission Cards */}
-        <div className="grid gap-10 md:grid-cols-2">
+        {/* 3. Vision & Mission Cards - vibrant gradients */}
+        <div className="grid gap-8 md:grid-cols-2">
           <RevealOnScroll delay="200ms">
-            <div className="group bg-blue-50 p-12 rounded-[2.5rem] border border-blue-100 shadow-sm hover:shadow-xl hover:bg-white transition-all duration-500 h-full">
-              <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mb-8 text-white group-hover:rotate-6 transition-transform">
-                <Eye size={30} />
+            <div className="group relative bg-gradient-to-br from-blue-50 to-indigo-50 p-8 sm:p-12 rounded-3xl border border-blue-100 shadow-sm hover:shadow-xl transition-all duration-500 h-full hover:-translate-y-1">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg group-hover:rotate-6 transition-transform">
+                  <Eye size={28} />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">
+                  Our Vision
+                </h2>
+                <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+                  To develop confident, responsible, and well-rounded individuals who
+                  are prepared to meet the dynamic challenges of the global future through 
+                  critical thinking and emotional intelligence.
+                </p>
               </div>
-              <h2 className="text-3xl font-bold mb-6 text-blue-900">Our Vision</h2>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                To develop confident, responsible, and well-rounded individuals who
-                are prepared to meet the dynamic challenges of the global future through 
-                critical thinking and emotional intelligence.
-              </p>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delay="400ms">
-            <div className="group bg-gray-50 p-12 rounded-[2.5rem] border border-gray-200 shadow-sm hover:shadow-xl hover:bg-white transition-all duration-500 h-full">
-              <div className="w-14 h-14 bg-gray-800 rounded-2xl flex items-center justify-center mb-8 text-white group-hover:rotate-6 transition-transform">
-                <Zap size={30} />
+            <div className="group relative bg-gradient-to-br from-gray-50 to-slate-50 p-8 sm:p-12 rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-500 h-full hover:-translate-y-1">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-gray-700/5 to-slate-700/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-br from-gray-800 to-slate-800 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg group-hover:rotate-6 transition-transform">
+                  <Zap size={28} />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-gray-800 to-slate-800 bg-clip-text text-transparent">
+                  Our Mission
+                </h2>
+                <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+                  To provide a safe, stimulating, and inclusive learning environment that
+                  ignites academic achievement, personal growth, and social responsibility
+                  across all disciplines.
+                </p>
               </div>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900">Our Mission</h2>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                To provide a safe, stimulating, and inclusive learning environment that
-                ignites academic achievement, personal growth, and social responsibility
-                across all disciplines.
-              </p>
             </div>
           </RevealOnScroll>
         </div>
 
-        {/* 4. Principal's Message Section */}
+        {/* 4. Principal's Message Section - enhanced with gradient border */}
         <RevealOnScroll>
-          <div className="relative overflow-hidden rounded-[3rem] border border-gray-100 bg-white shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl sm:rounded-[3rem] border border-gray-100 bg-white shadow-xl hover:shadow-2xl transition-shadow">
             <div className="grid items-stretch md:grid-cols-5">
               
               <div className="md:col-span-2">
                 <PrincipalImage />
               </div>
 
-              <div className="md:col-span-3 p-10 lg:p-16 flex flex-col justify-center bg-white relative">
+              <div className="md:col-span-3 p-6 sm:p-10 lg:p-16 flex flex-col justify-center bg-white relative">
                 {/* Decorative Quote Icon */}
-                <Quote className="absolute top-10 right-10 text-blue-50 w-24 h-24 -z-0" />
+                <Quote className="absolute top-6 right-6 sm:top-10 sm:right-10 text-blue-50 w-20 h-20 sm:w-24 sm:h-24 -z-0" />
 
                 <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4 text-blue-600 font-bold uppercase tracking-widest text-sm">
-                    <div className="w-6 h-0.5 bg-blue-600" />
+                  <div className="flex items-center gap-2 mb-4 text-blue-600 font-bold uppercase tracking-widest text-xs sm:text-sm">
+                    <div className="w-6 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600" />
                     Leadership Voice
                   </div>
                   
-                  <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mb-6 tracking-tight">
                     Principal’s Message
                   </h2>
 
-                  <div className="space-y-6 text-lg text-gray-600 leading-loose italic">
+                  <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed italic">
                     <p>
                       "At Tagore Public School, we believe that education is not just about
                       acquiring knowledge, but about shaping character. Our dedicated
@@ -138,8 +164,10 @@ export default function About() {
                     </p>
                   </div>
 
-                  <div className="mt-10 pt-10 border-t border-gray-100">
-                    <p className="text-2xl font-black text-blue-700">Babita Rani</p>
+                  <div className="mt-8 pt-6 border-t border-gray-100">
+                    <p className="text-xl sm:text-2xl font-black bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
+                      Babita Rani
+                    </p>
                     <p className="text-gray-500 font-bold uppercase tracking-wider text-xs mt-1">
                       Principal, Tagore Public School
                     </p>
@@ -158,10 +186,11 @@ function PrincipalImage() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative h-[450px] md:h-full overflow-hidden bg-gray-100">
+    <div className="relative h-[350px] sm:h-[450px] md:h-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100">
       {!loaded && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50">
-           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <p className="mt-3 text-sm text-gray-500">Loading image...</p>
         </div>
       )}
 
@@ -174,8 +203,8 @@ function PrincipalImage() {
         }`}
       />
       
-      {/* Subtle overlay to blend image if needed */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent mix-blend-multiply" />
+      {/* Soft gradient overlay for better text contrast if needed */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
     </div>
   );
 }
