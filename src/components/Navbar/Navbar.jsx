@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, User, ChevronRight } from "lucide-react";
+import { 
+  Menu, X, User, ChevronRight, 
+  Home, School, BookOpen, Users, 
+  Bell, Camera, Phone, LogIn 
+} from "lucide-react";
 import logo from "../../assets/images/logo.jpg";
 import { useStudent } from "../../context/StudentContext";
 
@@ -13,12 +17,14 @@ export default function Navbar() {
   const location = useLocation();
   const { studentSession } = useStudent();
 
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Track navbar height for drawer positioning
   useEffect(() => {
     if (!navRef.current) return;
     const updateHeight = () => setNavbarHeight(navRef.current.offsetHeight);
@@ -28,27 +34,12 @@ export default function Navbar() {
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Close menu when route changes
+  // Close drawer on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  const navLinks = [
-    { name: "About", path: "/about" },
-    { name: "Admissions", path: "/admissions", highlight: true },
-    { name: "Academics", path: "/academics" },
-    { name: "Faculty", path: "/faculty" },
-    { name: "Notices", path: "/events" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Contact", path: "/contact" },
-  ];
-
-  const handleStudentPortalClick = () => {
-    studentSession ? navigate("/student/fees") : navigate("/student");
-    setIsOpen(false);
-  };
-
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -59,6 +50,22 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  const navLinks = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "About", path: "/about", icon: School },
+    { name: "Admissions", path: "/admissions", icon: LogIn, highlight: true },
+    { name: "Academics", path: "/academics", icon: BookOpen },
+    { name: "Faculty", path: "/faculty", icon: Users },
+    { name: "Notices", path: "/events", icon: Bell },
+    { name: "Gallery", path: "/gallery", icon: Camera },
+    { name: "Contact", path: "/contact", icon: Phone },
+  ];
+
+  const handleStudentPortalClick = () => {
+    studentSession ? navigate("/student/fees") : navigate("/student");
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -71,15 +78,13 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-full">
-          {/* Logo Section - improved tap area */}
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
-            <div className="relative">
-              <img
-                src={logo}
-                alt="Tagore Public School Logo"
-                className="h-9 w-auto rounded-lg transition-transform group-hover:scale-105 sm:h-10 md:h-12"
-              />
-            </div>
+            <img
+              src={logo}
+              alt="Tagore Public School Logo"
+              className="h-9 w-auto rounded-lg transition-transform group-hover:scale-105 sm:h-10 md:h-12"
+            />
             <div className="flex flex-col">
               <span className="text-base font-black text-gray-900 leading-tight group-hover:text-blue-700 transition-colors sm:text-lg md:text-xl">
                 TAGORE <span className="text-red-600">PUBLIC</span>
@@ -90,7 +95,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation - hidden on tablet/mobile */}
+          {/* Desktop nav (unchanged) */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
@@ -113,9 +118,7 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
             <div className="h-6 w-[1px] bg-gray-200 mx-2" />
-
             <button
               onClick={handleStudentPortalClick}
               className="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white text-sm font-bold rounded-xl hover:bg-blue-800 hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95"
@@ -125,7 +128,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu Toggle - larger tap area */}
+          {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-2 rounded-xl bg-gray-50 text-gray-900 hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300"
@@ -136,52 +139,77 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay (dark backdrop) */}
+      {/* Backdrop overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[90] lg:hidden transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Mobile Menu Drawer - slides from right, dynamic top offset */}
+      {/* Mobile Drawer – modern design */}
       <div
-        className={`fixed right-0 bottom-0 w-full max-w-sm bg-white shadow-2xl z-[95] lg:hidden transition-transform duration-300 ease-out ${
+        className={`fixed right-0 bottom-0 w-full max-w-sm bg-white/95 backdrop-blur-md shadow-2xl z-[95] lg:hidden transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ top: `${navbarHeight}px` }}
       >
-        <div className="flex flex-col h-full overflow-y-auto">
-          {/* Menu Items */}
-          <div className="flex-1 px-4 py-6 space-y-2">
-            {navLinks.map((link) => (
+        {/* Drawer Header with gradient */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-white/80 text-xs font-medium">Menu</p>
+              <p className="text-white text-lg font-bold">Navigate to</p>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white/80 hover:text-white p-1 -mr-1"
+            >
+              <X size={22} />
+            </button>
+          </div>
+        </div>
+
+        {/* Menu Items – with icons and active state */}
+        <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            const Icon = link.icon;
+            return (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-blue-50 active:bg-blue-100 transition-all group"
+                className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? "bg-blue-50 text-blue-700 shadow-sm"
+                    : "text-gray-700 hover:bg-gray-100 active:bg-gray-200"
+                }`}
               >
-                <span className="font-bold text-base text-gray-800 group-hover:text-blue-700">
+                <Icon size={20} className={isActive ? "text-blue-600" : "text-gray-500"} />
+                <span className={`font-semibold text-base flex-1 ${isActive ? "text-blue-700" : ""}`}>
                   {link.name}
                 </span>
-                <ChevronRight
-                  size={20}
-                  className="text-gray-400 group-hover:translate-x-1 group-hover:text-blue-500 transition-all"
-                />
+                {isActive && (
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                )}
               </Link>
-            ))}
-          </div>
+            );
+          })}
+        </div>
 
-          {/* Student Portal Button */}
-          <div className="p-4 border-t border-gray-100 bg-gray-50/50">
-            <button
-              onClick={handleStudentPortalClick}
-              className="w-full flex items-center justify-center gap-3 py-4 px-5 bg-blue-700 text-white rounded-xl font-bold shadow-md active:scale-95 transition-all hover:bg-blue-800"
-            >
-              <User size={20} />
-              {studentSession ? "Go to Dashboard" : "Student Portal Login"}
-            </button>
-          </div>
+        {/* Student Portal Button – enhanced */}
+        <div className="p-4 border-t border-gray-100 bg-gray-50/80">
+          <button
+            onClick={handleStudentPortalClick}
+            className="w-full flex items-center justify-center gap-3 py-3.5 px-5 bg-gradient-to-r from-blue-700 to-blue-800 text-white rounded-xl font-bold shadow-md active:scale-95 transition-all hover:shadow-lg"
+          >
+            <User size={18} />
+            {studentSession ? "Dashboard" : "Student Portal"}
+          </button>
+          <p className="text-center text-[10px] text-gray-400 mt-2">
+            Access fees, results & more
+          </p>
         </div>
       </div>
     </>

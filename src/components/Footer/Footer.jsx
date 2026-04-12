@@ -28,17 +28,17 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-gray-900 text-gray-300 mt-16">
+      <footer className="bg-gray-900 text-gray-300 mt-16 font-body">
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
           {/* Main Footer Grid - Responsive */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             
             {/* School Info with Logo Placeholder */}
             <div className="space-y-3">
-              <h3 className="text-xl font-bold text-white">
+              <h3 className="font-henny text-xl font-bold text-white pb-1">
                 Tagore Public <span className="text-blue-400">School</span>
               </h3>
-              <p className="text-sm leading-relaxed">
+              <p className="font-indie text-sm leading-relaxed pb-1">
                 Affiliated to HBSE <br />
                 Classes LKG to XII <br />
                 Empowering minds, shaping futures.
@@ -47,23 +47,23 @@ export default function Footer() {
 
             {/* Contact Details with Icons */}
             <div className="space-y-3">
-              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+              <h4 className="font-dyna text-lg font-semibold text-white flex items-center gap-2 pb-1">
                 <Mail size={18} className="text-blue-400" /> Contact Us
               </h4>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-3">
                   <MapPin size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                  <span>Tagore Public School, Kalkha, Panipat, Haryana</span>
+                  <span className="font-indie leading-relaxed pb-0.5">Tagore Public School, Kalkha, Panipat, Haryana</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone size={16} className="shrink-0 text-blue-400" />
-                  <a href="tel:+918816000512" className="hover:text-blue-400 transition">
+                  <a href="tel:+918816000512" className="font-indie hover:text-blue-400 transition pb-0.5 inline-block">
                     +91-8816000512
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail size={16} className="shrink-0 text-blue-400" />
-                  <a href="mailto:tagorekalkha@gmail.com" className="hover:text-blue-400 transition">
+                  <a href="mailto:tagorekalkha@gmail.com" className="font-indie hover:text-blue-400 transition pb-0.5 inline-block break-all">
                     tagorekalkha@gmail.com
                   </a>
                 </li>
@@ -72,37 +72,37 @@ export default function Footer() {
 
             {/* Office Hours */}
             <div className="space-y-3">
-              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
+              <h4 className="font-dyna text-lg font-semibold text-white flex items-center gap-2 pb-1">
                 <Clock size={18} className="text-blue-400" /> Office Hours
               </h4>
               <ul className="space-y-2 text-sm">
-                <li>Monday – Saturday</li>
-                <li className="font-semibold text-blue-300">8:00 AM – 2:00 PM</li>
-                <li className="text-gray-400 text-xs">Sunday Closed</li>
+                <li className="font-indie leading-relaxed pb-0.5">Monday – Saturday</li>
+                <li className="font-dyna font-semibold text-blue-300 leading-relaxed pb-0.5">8:00 AM – 2:00 PM</li>
+                <li className="text-gray-400 text-xs font-indie pb-0.5">Sunday Closed</li>
               </ul>
             </div>
 
             {/* Quick Links & Social */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+              <h4 className="font-dyna text-lg font-semibold text-white pb-1">Quick Links</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link to="/about" className="hover:text-blue-400 transition flex items-center gap-2">
+                  <Link to="/about" className="font-indie hover:text-blue-400 transition flex items-center gap-2 pb-0.5">
                     → About Us
                   </Link>
                 </li>
                 <li>
-                  <Link to="/admissions" className="hover:text-blue-400 transition flex items-center gap-2">
+                  <Link to="/admissions" className="font-indie hover:text-blue-400 transition flex items-center gap-2 pb-0.5">
                     → Admissions
                   </Link>
                 </li>
                 <li>
-                  <Link to="/events" className="hover:text-blue-400 transition flex items-center gap-2">
+                  <Link to="/events" className="font-indie hover:text-blue-400 transition flex items-center gap-2 pb-0.5">
                     → Notice Board
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="hover:text-blue-400 transition flex items-center gap-2">
+                  <Link to="/contact" className="font-indie hover:text-blue-400 transition flex items-center gap-2 pb-0.5">
                     → Contact
                   </Link>
                 </li>
@@ -140,17 +140,17 @@ export default function Footer() {
 
           {/* Copyright & Scroll to Top */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
-            <p>
+            <p className="font-indie pb-0.5">
               © {new Date().getFullYear()} Tagore Public School. All rights reserved.
             </p>
-            <p className="text-gray-500">
+            <p className="font-indie text-gray-500 pb-0.5">
               Designed with ❤️ for students & parents
             </p>
           </div>
         </div>
       </footer>
 
-      {/* Scroll to Top Button - appears on mobile after scroll */}
+      {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}

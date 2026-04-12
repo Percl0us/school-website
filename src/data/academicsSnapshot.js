@@ -1,7 +1,7 @@
 const academicsSnapshot = [
-  { id: 1, title: "Classes Offered", value: "LKG to Class XII" },
-  { id: 2, title: "Curriculum", value: "HBSE" },
-  { id: 3, title: "Medium of Instruction", value: "English" },
-  { id: 4, title: "Assessment System", value: "Continuous & Annual Evaluation" }, // ✅ fixed spelling
+  { id: 1, title: "Students", value: "500+" },
+  { id: 2, title: "Teachers", value: "25+" },
+  { id: 3, title: "Years of Excellence", value: "20+" },
+  { id: 4, title: "Awards", value: "10+" },
 ];
 export default academicsSnapshot;
