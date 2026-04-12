@@ -235,7 +235,7 @@ export default function Admissions() {
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6 md:space-y-8">
-            <RevealOnScroll>
+            {/* <RevealOnScroll>
               <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl hover:shadow-2xl transition-all group">
                 <FileText className="text-indigo-200 mb-5" size={32} />
                 <h3 className="text-xl font-bold mb-3">2026 Prospectus</h3>
@@ -254,7 +254,7 @@ export default function Admissions() {
                   </button>
                 </div>
               </div>
-            </RevealOnScroll>
+            </RevealOnScroll> */}
 
             <RevealOnScroll delay="200ms">
               <div className="border border-slate-200 rounded-2xl p-6 sm:p-8 bg-white hover:shadow-lg transition-all">
