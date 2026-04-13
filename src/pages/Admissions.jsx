@@ -12,7 +12,7 @@ import {
 import AdmissionForm from "../components/AdmissionForm/AdmissionForm";
 import ProspectusModal from "../components/modal/ProspectusModal";
 import prospectusImage from "../assets/images/prospectus.jpg";
-import { RevealOnScroll } from "../components/RevealOnScroll"; // ✅ shared component
+import { RevealOnScroll } from "../components/RevealOnScroll";
 
 const FEE_DATA = [
   { class: "Nursery", admissionFee: 2000, monthlyFee: 800 },
@@ -65,7 +65,7 @@ export default function Admissions() {
     }, [selectedClass, selectedRoute]);
 
   return (
-    <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 min-h-screen font-sans text-slate-900 antialiased">
+    <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 min-h-screen font-body text-slate-900 antialiased">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 py-16 sm:py-20 text-white">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -76,16 +76,16 @@ export default function Admissions() {
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
           <RevealOnScroll>
-            <div className="inline-flex items-center gap-2 rounded-full border border-yellow-400/40 bg-yellow-500/20 px-4 py-1.5 backdrop-blur-md mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-yellow-400/40 bg-yellow-500/20 px-4 py-2 backdrop-blur-md mb-6">
               <Sparkles size={14} className="text-yellow-300 animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-widest text-yellow-100">
+              <span className="font-dyna text-xs font-bold uppercase tracking-widest text-yellow-100 pb-0.5">
                 Admissions 2026-27
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+            <h1 className="font-henny text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.2] pb-2">
               Education for <span className="text-indigo-300">Tomorrow</span>.
             </h1>
-            <p className="text-indigo-100 mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed font-light">
+            <p className="font-indie text-indigo-100 mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed pb-1">
               We simplify the path to enrollment. Explore our transparent fee
               structure and take the first step toward academic excellence.
             </p>
@@ -100,7 +100,7 @@ export default function Admissions() {
             {/* 1. Admission Guidelines */}
             <section>
               <RevealOnScroll>
-                <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-3 mb-6 sm:mb-8">
+                <h2 className="font-dyna text-xl sm:text-2xl font-bold flex items-center gap-3 mb-6 sm:mb-8 pb-1">
                   <CheckCircle2 size={24} className="text-indigo-600" />
                   Enrollment Process
                 </h2>
@@ -117,7 +117,7 @@ export default function Admissions() {
                       <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                         {i + 1}
                       </span>
-                      <p className="text-sm sm:text-[17px] font-semibold text-slate-700">
+                      <p className="font-indie text-sm sm:text-[17px] font-semibold text-slate-700 pb-0.5">
                         {step}
                       </p>
                     </div>
@@ -130,7 +130,7 @@ export default function Admissions() {
             <RevealOnScroll>
               <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-5 sm:p-8 border-b border-slate-100 bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
-                  <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-3">
+                  <h2 className="font-dyna text-xl sm:text-2xl font-bold flex items-center gap-3 pb-1">
                     <Calculator size={24} className="text-indigo-600" />
                     Fee Calculator
                   </h2>
@@ -140,13 +140,13 @@ export default function Admissions() {
                   {/* Inputs */}
                   <div className="space-y-5">
                     <div className="space-y-1.5">
-                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wide">
+                      <label className="font-dyna text-sm font-bold text-slate-500 uppercase tracking-wide pb-0.5">
                         Select Student Class
                       </label>
                       <select
                         value={selectedClass}
                         onChange={(e) => setSelectedClass(e.target.value)}
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                        className="font-indie w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
                       >
                         {FEE_DATA.map((f) => (
                           <option key={f.class}>{f.class}</option>
@@ -154,13 +154,13 @@ export default function Admissions() {
                       </select>
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-sm font-bold text-slate-500 uppercase tracking-wide">
+                      <label className="font-dyna text-sm font-bold text-slate-500 uppercase tracking-wide pb-0.5">
                         Transport Route
                       </label>
                       <select
                         value={selectedRoute}
                         onChange={(e) => setSelectedRoute(e.target.value)}
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                        className="font-indie w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
                       >
                         {TRANSPORT_DATA.map((t) => (
                           <option key={t.route}>{t.route}</option>
@@ -170,20 +170,20 @@ export default function Admissions() {
 
                     <div className="pt-5 space-y-3 border-t border-slate-100">
                       <div className="flex justify-between text-sm sm:text-base text-slate-500">
-                        <span>One-time Admission Fee</span>
-                        <span className="font-semibold text-slate-700">
+                        <span className="font-indie">One-time Admission Fee</span>
+                        <span className="font-dyna font-semibold text-slate-700 pb-0.5">
                           ₹{selectedFee.admissionFee}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm sm:text-base text-slate-500">
-                        <span>Monthly Fee Component</span>
-                        <span className="font-semibold text-slate-700">
+                        <span className="font-indie">Monthly Fee Component</span>
+                        <span className="font-dyna font-semibold text-slate-700 pb-0.5">
                           ₹{selectedFee.monthlyFee}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm sm:text-base text-slate-500">
-                        <span>Route Fare (Monthly)</span>
-                        <span className="font-semibold text-slate-700">
+                        <span className="font-indie">Route Fare (Monthly)</span>
+                        <span className="font-dyna font-semibold text-slate-700 pb-0.5">
                           ₹{selectedTransport.fee}
                         </span>
                       </div>
@@ -194,21 +194,21 @@ export default function Admissions() {
                   <div className="bg-gradient-to-br from-slate-900 to-indigo-900 rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full translate-x-10 -translate-y-10 animate-pulse" />
                     <div className="mb-6 md:mb-8 relative z-10">
-                      <span className="text-indigo-300 text-xs font-bold uppercase tracking-widest">
+                      <span className="font-dyna text-indigo-300 text-xs font-bold uppercase tracking-widest pb-0.5">
                         Monthly Commitment
                       </span>
-                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                      <div className="font-stats text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight pb-1">
                         ₹{totalMonthly.toLocaleString()}
                       </div>
                     </div>
                     <div className="pt-6 md:pt-8 border-t border-white/10 relative z-10">
-                      <span className="text-indigo-300 text-xs font-bold uppercase tracking-widest">
+                      <span className="font-dyna text-indigo-300 text-xs font-bold uppercase tracking-widest pb-0.5">
                         Total at Admission
                       </span>
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-black text-indigo-400 tracking-tighter">
+                      <div className="font-stats text-3xl sm:text-4xl md:text-5xl font-black text-indigo-400 tracking-tighter pb-1">
                         ₹{firstMonth.toLocaleString()}
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
+                      <p className="font-indie text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed pb-0.5">
                         Includes admission fee and the first month's full payment.
                       </p>
                     </div>
@@ -220,7 +220,7 @@ export default function Admissions() {
             {/* 3. Inquiry Form */}
             <section id="inquiry">
               <RevealOnScroll>
-                <h2 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-8 flex items-center gap-3">
+                <h2 className="font-dyna text-xl sm:text-2xl font-bold mb-5 sm:mb-8 flex items-center gap-3 pb-1">
                   <Sparkles size={24} className="text-indigo-600" />
                   Inquiry & Registration
                 </h2>
@@ -235,21 +235,22 @@ export default function Admissions() {
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6 md:space-y-8">
+            {/* Prospectus Card (commented out - uncomment if needed) */}
             {/* <RevealOnScroll>
               <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl hover:shadow-2xl transition-all group">
                 <FileText className="text-indigo-200 mb-5" size={32} />
-                <h3 className="text-xl font-bold mb-3">2026 Prospectus</h3>
-                <p className="text-indigo-100/80 text-base leading-relaxed mb-6">
+                <h3 className="font-henny text-xl font-bold mb-3 pb-1">2026 Prospectus</h3>
+                <p className="font-indie text-indigo-100/80 text-base leading-relaxed mb-6 pb-0.5">
                   Download our comprehensive guide to academic programs and campus life.
                 </p>
                 <div className="space-y-3">
                   <button 
                     onClick={() => setShowProspectus(true)}
-                    className="w-full bg-white text-indigo-700 text-base font-bold py-3 rounded-xl hover:bg-indigo-50 transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl group-hover:scale-105 transition-transform"
+                    className="font-dyna w-full bg-white text-indigo-700 text-base font-bold py-3 rounded-xl hover:bg-indigo-50 transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl group-hover:scale-105 transition-transform"
                   >
                     View Online <ArrowRight size={18} />
                   </button>
-                  <button className="w-full bg-indigo-700 text-white text-base font-bold py-3 rounded-xl hover:bg-indigo-800 transition-all flex items-center justify-center gap-3">
+                  <button className="font-dyna w-full bg-indigo-700 text-white text-base font-bold py-3 rounded-xl hover:bg-indigo-800 transition-all flex items-center justify-center gap-3">
                     <Download size={18} /> Download PDF
                   </button>
                 </div>
@@ -258,7 +259,7 @@ export default function Admissions() {
 
             <RevealOnScroll delay="200ms">
               <div className="border border-slate-200 rounded-2xl p-6 sm:p-8 bg-white hover:shadow-lg transition-all">
-                <h3 className="font-bold text-lg mb-5 sm:mb-6 flex items-center gap-2">
+                <h3 className="font-dyna font-bold text-lg mb-5 sm:mb-6 flex items-center gap-2 pb-1">
                   <Phone size={20} className="text-indigo-600" />
                   Need Assistance?
                 </h3>
@@ -267,16 +268,16 @@ export default function Admissions() {
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center text-indigo-600 shrink-0">
                       <Phone size={18} />
                     </div>
-                    <span className="text-base sm:text-lg font-semibold break-all">+91 88160-00512</span>
+                    <span className="font-dyna text-base sm:text-lg font-semibold break-all pb-0.5">+91 88160-00512</span>
                   </div>
                   <div className="flex items-center gap-4 text-slate-700 flex-wrap">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center text-indigo-600 shrink-0">
                       <Mail size={18} />
                     </div>
-                    <span className="text-sm sm:text-base font-medium break-all">tagorekalkha@gmail.com</span>
+                    <span className="font-indie text-sm sm:text-base font-medium break-all pb-0.5">tagorekalkha@gmail.com</span>
                   </div>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-400 mt-6 sm:mt-8 border-t pt-5 sm:pt-6">
+                <p className="font-indie text-xs sm:text-sm text-slate-400 mt-6 sm:mt-8 border-t pt-5 sm:pt-6 pb-0.5">
                   Our support desk is active Monday — Saturday, 08:00 AM to 02:00 PM.
                 </p>
               </div>

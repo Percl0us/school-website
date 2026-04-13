@@ -10,6 +10,7 @@ import {
   ChevronRight,
   School,
   FileText,
+  Brain, // new icon for challenges
 } from "lucide-react";
 
 export default function AdminLayout() {
@@ -87,13 +88,16 @@ export default function AdminLayout() {
             </p>
             {navItem("/admin/finance", "Finance Overview", Wallet)}
           </div>
+
+          {/* Content Management section - now properly inside <nav> */}
+          <div className="space-y-1">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
+              Content Management
+            </p>
+            {navItem("/admin/notices", "Manage Notices", FileText)}
+            {navItem("/admin/challenges", "Daily Challenges", Brain)}
+          </div>
         </nav>
-        <div className="space-y-1">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
-            Content Management
-          </p>
-          {navItem("/admin/notices", "Manage Notices", FileText)}
-        </div>
 
         {/* User Profile / Session Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-200 m-4 rounded-2xl">
@@ -131,7 +135,6 @@ export default function AdminLayout() {
           </h2>
 
           <div className="flex items-center gap-4">
-            {/* Dynamic Date display or notifications could go here */}
             <div className="text-[10px] font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full uppercase">
               Academic Session {academicYear}
             </div>

@@ -71,7 +71,7 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`w-full sticky top-0 z-[100] transition-all duration-300 ${
+        className={`w-full sticky top-0 z-[100] transition-all duration-300 font-body ${
           scrolled
             ? "bg-white/80 backdrop-blur-lg shadow-lg h-16"
             : "bg-white shadow-sm h-20"
@@ -86,16 +86,16 @@ export default function Navbar() {
               className="h-9 w-auto rounded-lg transition-transform group-hover:scale-105 sm:h-10 md:h-12"
             />
             <div className="flex flex-col">
-              <span className="text-base font-black text-gray-900 leading-tight group-hover:text-blue-700 transition-colors sm:text-lg md:text-xl">
+              <span className="font-henny text-base font-black text-gray-900 leading-tight group-hover:text-blue-700 transition-colors sm:text-lg md:text-xl pb-0.5">
                 TAGORE <span className="text-red-600">PUBLIC</span>
               </span>
-              <span className="text-[8px] font-bold tracking-[0.2em] text-gray-500 uppercase sm:text-[10px]">
+              <span className="font-dyna text-[8px] font-bold tracking-[0.2em] text-gray-500 uppercase sm:text-[10px] pb-0.5">
                 School • Kalkha
               </span>
             </div>
           </Link>
 
-          {/* Desktop nav (unchanged) */}
+          {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
@@ -103,7 +103,7 @@ export default function Navbar() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-2 text-sm font-bold transition-all duration-200 rounded-xl relative group ${
+                  className={`font-dyna px-3 py-2 text-sm font-bold transition-all duration-200 rounded-xl relative group ${
                     isActive
                       ? "text-blue-700 bg-blue-50"
                       : link.highlight
@@ -121,7 +121,7 @@ export default function Navbar() {
             <div className="h-6 w-[1px] bg-gray-200 mx-2" />
             <button
               onClick={handleStudentPortalClick}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white text-sm font-bold rounded-xl hover:bg-blue-800 hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95"
+              className="font-dyna flex items-center gap-2 px-4 py-2 bg-blue-700 text-white text-sm font-bold rounded-xl hover:bg-blue-800 hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95"
             >
               <User size={16} />
               {studentSession ? "My Dashboard" : "Student Portal"}
@@ -147,7 +147,7 @@ export default function Navbar() {
         />
       )}
 
-      {/* Mobile Drawer – modern design */}
+      {/* Mobile Drawer */}
       <div
         className={`fixed right-0 bottom-0 w-full max-w-sm bg-white/95 backdrop-blur-md shadow-2xl z-[95] lg:hidden transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -158,8 +158,8 @@ export default function Navbar() {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white/80 text-xs font-medium">Menu</p>
-              <p className="text-white text-lg font-bold">Navigate to</p>
+              <p className="font-dyna text-white/80 text-xs font-medium pb-0.5">Menu</p>
+              <p className="font-henny text-white text-lg font-bold pb-0.5">Navigate to</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -170,7 +170,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Menu Items – with icons and active state */}
+        {/* Menu Items */}
         <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
@@ -187,7 +187,7 @@ export default function Navbar() {
                 }`}
               >
                 <Icon size={20} className={isActive ? "text-blue-600" : "text-gray-500"} />
-                <span className={`font-semibold text-base flex-1 ${isActive ? "text-blue-700" : ""}`}>
+                <span className={`font-dyna font-semibold text-base flex-1 ${isActive ? "text-blue-700" : ""} pb-0.5`}>
                   {link.name}
                 </span>
                 {isActive && (
@@ -198,16 +198,16 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Student Portal Button – enhanced */}
+        {/* Student Portal Button */}
         <div className="p-4 border-t border-gray-100 bg-gray-50/80">
           <button
             onClick={handleStudentPortalClick}
-            className="w-full flex items-center justify-center gap-3 py-3.5 px-5 bg-gradient-to-r from-blue-700 to-blue-800 text-white rounded-xl font-bold shadow-md active:scale-95 transition-all hover:shadow-lg"
+            className="font-dyna w-full flex items-center justify-center gap-3 py-3.5 px-5 bg-gradient-to-r from-blue-700 to-blue-800 text-white rounded-xl font-bold shadow-md active:scale-95 transition-all hover:shadow-lg"
           >
             <User size={18} />
             {studentSession ? "Dashboard" : "Student Portal"}
           </button>
-          <p className="text-center text-[10px] text-gray-400 mt-2">
+          <p className="font-indie text-center text-[10px] text-gray-400 mt-2 pb-0.5">
             Access fees, results & more
           </p>
         </div>
