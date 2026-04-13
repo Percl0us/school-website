@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { HeroSection } from "../components/Home/HeroSection";
-import { AnnouncementsBar } from "../components/Home/AnnouncementsBar";
-import { WhyChooseUs } from "../components/Home/WhyChooseUs";
-import { StatsSection } from "../components/Home/StatsSection";
-import { TestimonialsSection } from "../components/Home/TestimonialsSection";
-import { FacilitiesGrid } from "../components/Home/FacilitiesGrid";
-import { FloatingCTA } from "../components/Home/FloatingCTA";
-import { DailyChallenge } from "../components/Home/DailyChallenge";
+import { HeroSection } from "../components/home/HeroSection";
+import { AnnouncementsBar } from "../components/home/AnnouncementsBar";
+import { WhyChooseUs } from "../components/home/WhyChooseUs";
+import { StatsSection } from "../components/home/StatsSection";
+import { TestimonialsSection } from "../components/home/TestimonialsSection";
+import { FacilitiesGrid } from "../components/home/FacilitiesGrid";
+import { FloatingCTA } from "../components/home/FloatingCTA";
+import { DailyChallenge } from "../components/home/DailyChallenge";
 import { ArtGallery } from "../components/Home/ArtGallery";
 import { DailyChallengeWidget } from "../components/home/DailyChallengeWidget";
 

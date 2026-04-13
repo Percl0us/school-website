@@ -15,6 +15,7 @@ export const HeroSection = ({ heroLoaded, heroVisible, handleNav, loading }) => 
           backgroundImage: "url('/images/hero.jpg')",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
+          
         }}
       />
 
