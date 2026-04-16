@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import { ToastProvider } from "./components/ui/ToastProvider";
 import AppRoutes from "./routes/AppRoutes";
 import { StudentProvider } from "./context/StudentContext";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
@@ -43,12 +44,14 @@ export default function App() {
   return (
     <AdminAuthProvider>
       <StudentProvider>
-        <div className="min-h-screen flex flex-col">
-          <ScrollToTop />
-          <LayoutWrapper>
-            <AppRoutes />
-          </LayoutWrapper>
-        </div>
+        <ToastProvider>
+          <div className="min-h-screen flex flex-col">
+            <ScrollToTop />
+            <LayoutWrapper>
+              <AppRoutes />
+            </LayoutWrapper>
+          </div>
+        </ToastProvider>
       </StudentProvider>
     </AdminAuthProvider>
   );

@@ -61,7 +61,7 @@ export default function About() {
               About <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Tagore Public School</span>
             </h1>
             <p className="font-accent text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium italic pb-2">
-              "Nurturing academic excellence, discipline, and strong moral values since inception."
+              "A school where curiosity is welcomed, discipline is valued, and every child is encouraged to grow with confidence."
             </p>
           </RevealOnScroll>
         </div>
@@ -77,11 +77,11 @@ export default function About() {
               <span className="font-dyna text-xs font-bold uppercase tracking-wider text-blue-700 pb-0.5">Our Journey</span>
             </div>
             <p className="font-indie text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed pb-2">
-              Tagore Public School was established with a clear vision: to provide quality
-              education that transcends textbooks. Over the years, we have evolved into a
-              trusted institution, proudly serving our community from LKG through Class XII
-              with unwavering dedication. We focus on a 360-degree development model that 
-              combines modern technology with traditional values.
+              Tagore Public School was founded with a simple but powerful idea: school
+              should build strong minds, kind hearts, and confident voices. Over the
+              years, we have grown into a trusted learning community from LKG to Class XII,
+              where modern learning tools, cultural values, and everyday discipline work
+              together to help children shine in every direction.
             </p>
           </div>
         </RevealOnScroll>
@@ -99,9 +99,9 @@ export default function About() {
                   Our Vision
                 </h2>
                 <p className="font-indie text-gray-700 text-base sm:text-lg leading-relaxed pb-1">
-                  To develop confident, responsible, and well-rounded individuals who
-                  are prepared to meet the dynamic challenges of the global future through 
-                  critical thinking and emotional intelligence.
+                  To nurture thoughtful, responsible, and future-ready learners who can
+                  think clearly, act kindly, and step into a changing world with courage,
+                  creativity, and character.
                 </p>
               </div>
             </div>
@@ -118,9 +118,8 @@ export default function About() {
                   Our Mission
                 </h2>
                 <p className="font-indie text-gray-700 text-base sm:text-lg leading-relaxed pb-1">
-                  To provide a safe, stimulating, and inclusive learning environment that
-                  ignites academic achievement, personal growth, and social responsibility
-                  across all disciplines.
+                  To create a safe, joyful, and disciplined campus where academic excellence,
+                  personal growth, and social responsibility become part of everyday school life.
                 </p>
               </div>
             </div>
@@ -151,14 +150,13 @@ export default function About() {
 
                   <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed italic">
                     <p className="font-indie pb-1">
-                      "At Tagore Public School, we believe that education is not just about
-                      acquiring knowledge, but about shaping character. Our dedicated
-                      faculty works closely with students to help them realize their full
-                      potential."
+                      "At Tagore Public School, education goes far beyond lessons and
+                      examinations. We work each day to shape character, inspire curiosity,
+                      and help every child discover what they are capable of becoming."
                     </p>
                     <p className="font-indie not-italic pb-1">
-                      We invite you to be a part of this journey where we turn 
-                      curiosity into career-readiness and dreams into reality.
+                      We warmly invite families to join a school journey where learning feels
+                      purposeful, childhood feels celebrated, and dreams are guided with care.
                     </p>
                   </div>
 

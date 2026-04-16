@@ -14,9 +14,11 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchYears = async () => {
       try {
-        const res = await api.get("/admin/academic-years");
-        setAcademicYears(res.data);
-        if (res.data.length > 0) setSelectedYear(res.data[0]);
+        const res = await api.get("/admin/sessions");
+        // Extract academicYear from the new sessions format
+        const years = res.data.map(session => session.academicYear);
+        setAcademicYears(years);
+        if (years.length > 0) setSelectedYear(years[0]);
       } catch (err) {
         console.error("Failed to load sessions", err);
       } finally {

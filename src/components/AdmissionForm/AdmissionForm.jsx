@@ -90,16 +90,16 @@ export default function AdmissionForm() {
               <CheckCircle size={36} />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent mb-2">
-              Application Submitted!
+              Application Received!
             </h2>
             <p className="text-gray-600 mb-6">
-              Thank you. Our admissions coordinator will contact you at <span className="font-semibold text-green-700">{parent.phone}</span>.
+              Thank you for sharing your child&apos;s details with us. Our admissions team will reach out at <span className="font-semibold text-green-700">{parent.phone}</span> to guide you through the next step.
             </p>
             <button 
               onClick={() => window.location.reload()} 
               className="px-6 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all hover:scale-105"
             >
-              Submit Another Application
+              Send Another Application
             </button>
           </div>
         </RevealOnScroll>
@@ -116,8 +116,8 @@ export default function AdmissionForm() {
                   <Sparkles size={12} className="text-yellow-300" />
                   <span className="text-[10px] font-bold uppercase tracking-wider">Admissions Open 2026-27</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Student Enrollment</h2>
-                <p className="text-indigo-200 text-sm mt-1">Fill the form below to begin your journey with us</p>
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Begin Your Admission Journey</h2>
+                <p className="text-indigo-200 text-sm mt-1">Share your details below and we will help you take the next confident step.</p>
               </div>
             </div>
 
@@ -133,7 +133,7 @@ export default function AdmissionForm() {
                   <div className="space-y-3">
                     <input 
                       type="text" 
-                      placeholder="Full name *" 
+                      placeholder="Student full name *" 
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" 
                       value={student.name} 
                       onChange={(e) => setStudent({...student, name: e.target.value})} 
@@ -178,14 +178,14 @@ export default function AdmissionForm() {
                   <div className="space-y-3">
                     <input 
                       type="text" 
-                      placeholder="Father's name" 
+                      placeholder="Father&apos;s name" 
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:border-blue-500" 
                       value={parent.fatherName} 
                       onChange={(e) => setParent({...parent, fatherName: e.target.value})} 
                     />
                     <input 
                       type="text" 
-                      placeholder="Mother's name" 
+                      placeholder="Mother&apos;s name" 
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm" 
                       value={parent.motherName} 
                       onChange={(e) => setParent({...parent, motherName: e.target.value})} 
@@ -194,7 +194,7 @@ export default function AdmissionForm() {
                       <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input 
                         type="tel" 
-                        placeholder="Phone number *" 
+                        placeholder="Parent contact number *" 
                         className="w-full pl-9 pr-3 py-3 border border-gray-200 rounded-xl text-sm" 
                         value={parent.phone} 
                         onChange={(e) => setParent({...parent, phone: e.target.value})} 
@@ -204,7 +204,7 @@ export default function AdmissionForm() {
                       <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input 
                         type="email" 
-                        placeholder="Email address" 
+                        placeholder="Email address for updates" 
                         className="w-full pl-9 pr-3 py-3 border border-gray-200 rounded-xl text-sm" 
                         value={parent.email} 
                         onChange={(e) => setParent({...parent, email: e.target.value})} 
@@ -225,7 +225,7 @@ export default function AdmissionForm() {
                   <div className="space-y-3">
                     <input 
                       type="text" 
-                      placeholder="City / Village" 
+                      placeholder="City / Village / Locality" 
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm" 
                       value={address.city} 
                       onChange={(e) => setAddress({...address, city: e.target.value})} 
@@ -259,14 +259,14 @@ export default function AdmissionForm() {
                     <div className="space-y-3">
                       <input 
                         type="text" 
-                        placeholder="Last class/grade" 
+                        placeholder="Previous class / grade" 
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm" 
                         value={academic.lastClass} 
                         onChange={(e) => setAcademic({...academic, lastClass: e.target.value})} 
                       />
                       <input 
                         type="text" 
-                        placeholder="Board / Medium (e.g., CBSE English)" 
+                        placeholder="Board / Medium (for example: CBSE English)" 
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm" 
                         value={academic.medium} 
                         onChange={(e) => setAcademic({...academic, medium: e.target.value})} 
@@ -281,7 +281,7 @@ export default function AdmissionForm() {
             <div className="bg-gradient-to-r from-gray-50 to-indigo-50 border-t border-gray-200 px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-gray-500 text-xs flex items-center gap-1">
                 <Sparkles size={12} className="text-blue-500" />
-                By submitting, you confirm that the information is accurate.
+                By submitting this form, you confirm that the information shared is accurate to the best of your knowledge.
               </p>
               <button
                 type="submit"
@@ -293,7 +293,7 @@ export default function AdmissionForm() {
                 }`}
               >
                 {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-                {submitting ? "Submitting..." : "Submit Enrollment"}
+                {submitting ? "Sending application..." : "Submit Application"}
               </button>
             </div>
           </form>

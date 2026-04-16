@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ReceiptModal from "./modal/ReceiptModal";
+import ReceiptModal from "./modal/ReceiptModalPro";
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -35,11 +35,12 @@ export default function PaymentHistory({
       >
         <div>
           <h2 className="font-semibold">
-            Payment History
+            Fee Payment History
           </h2>
           <p className="text-xs text-gray-500">
             {payments.length} payment
             {payments.length > 1 ? "s" : ""}
+            {" "}recorded for this session
           </p>
         </div>
 
@@ -94,7 +95,7 @@ export default function PaymentHistory({
 
                   {payment.receiptNumber && (
                     <div className="text-xs text-gray-500">
-                      Receipt: {payment.receiptNumber}
+                      Receipt No: {payment.receiptNumber}
                     </div>
                   )}
 
@@ -128,7 +129,7 @@ export default function PaymentHistory({
                       }
                       className="text-blue-600 text-xs hover:underline"
                     >
-                      View Receipt
+                      Open Receipt
                     </button>
                   )}
                 </div>

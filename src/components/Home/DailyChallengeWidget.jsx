@@ -40,7 +40,7 @@ export const DailyChallengeWidget = () => {
       const res = await api.get("/challenge/today");
       setChallenge(res.data);
     } catch (err) {
-      setMessage("✨ No active challenge today. Come back tomorrow!");
+      setMessage("No challenge is live right now, but a fresh one will be waiting soon. Check back tomorrow for the next brain booster.");
     }
   };
 

@@ -9,7 +9,7 @@ export default function StudentLogin() {
   const [form, setForm] = useState({
     admissionNo: "",
     dob: "",
-    academicYear: "2026-27",
+    academicYear: "2026-2027",
   });
 
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ export default function StudentLogin() {
 
       navigate("/student/fees", { replace: true });
     } catch (err) {
-      setError(err.response?.data?.error || "Invalid details");
+      setError(err.response?.data?.error || "Please check the admission number, date of birth, and session details.");
     } finally {
       setLoading(false);
     }
@@ -47,9 +47,12 @@ export default function StudentLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow">
-        <h1 className="text-xl font-semibold text-center mb-6">
+        <h1 className="text-xl font-semibold text-center mb-3">
           Student Portal
         </h1>
+        <p className="text-sm text-gray-500 text-center mb-6">
+          A simple way for students and families to view fee updates, receipts, and results.
+        </p>
 
         <div className="space-y-4">
           <div>
@@ -62,7 +65,7 @@ export default function StudentLogin() {
               value={form.admissionNo}
               onChange={handleChange}
               className="w-full border rounded px-3 py-2"
-              placeholder="e.g. A301"
+              placeholder="For example: A301"
             />
           </div>
 
@@ -104,11 +107,11 @@ export default function StudentLogin() {
             disabled={loading}
             className="w-full bg-blue-700 text-white py-2 rounded hover:bg-blue-800 disabled:opacity-50"
           >
-            {loading ? "Please wait..." : "View Student Profile"}
+            {loading ? "Opening your dashboard..." : "Open Student Dashboard"}
           </button>
 
           <p className="text-xs text-gray-500 text-center">
-            For parents and guardians only
+            Please use the student&apos;s official school details to sign in.
           </p>
         </div>
       </div>

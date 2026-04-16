@@ -4,6 +4,14 @@ import { useState } from "react";
 import ConfirmModal from "../../components/modal/ConfirModal";
 import Spinner from "../../components/ui/Spinner";
 
+const getInitials = (name = "") =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("");
+
 export default function StudentLayout() {
   const navigate = useNavigate();
   const { studentSession, bootstrapping, logoutStudent } = useStudent();
@@ -39,8 +47,21 @@ export default function StudentLayout() {
       <div className="max-w-6xl mx-auto p-4">
         {/* Header */}
         <div className="bg-white rounded-lg shadow p-4 mb-4 flex items-start justify-between">
-          <div>
-            <h1 className="text-lg font-semibold">Student Portal</h1>
+          <div className="flex items-start gap-4">
+            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-blue-100 bg-blue-50 text-xl font-bold text-blue-700 shadow-sm">
+              {student.profileImageUrl ? (
+                <img
+                  src={student.profileImageUrl}
+                  alt={student.name}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                getInitials(student.name)
+              )}
+            </div>
+
+            <div>
+              <h1 className="text-lg font-semibold">Student Portal</h1>
 
             <div className="text-sm text-gray-600 mt-1">
               {student.name} · Class {academic.class}
@@ -51,6 +72,15 @@ export default function StudentLayout() {
             <div className="text-xs text-gray-500 mt-1">
               Admission No: {student.admissionNo}
             </div>
+
+            {(student.fatherName || student.motherName) && (
+              <div className="text-xs text-gray-500 mt-2">
+                {student.fatherName ? `Father: ${student.fatherName}` : ""}
+                {student.fatherName && student.motherName ? " · " : ""}
+                {student.motherName ? `Mother: ${student.motherName}` : ""}
+              </div>
+            )}
+          </div>
           </div>
 
           {/* Logout button */}
@@ -78,9 +108,18 @@ export default function StudentLayout() {
               Fees
             </NavLink>
 
-            <div className="px-4 py-2 text-sm text-gray-400 cursor-not-allowed">
-              Results (Coming soon)
-            </div>
+            <NavLink
+              to="/student/results"
+              className={({ isActive }) =>
+                `px-4 py-2 text-sm font-medium ${
+                  isActive
+                    ? "border-b-2 border-blue-700 text-blue-700"
+                    : "text-gray-600"
+                }`
+              }
+            >
+              Results
+            </NavLink>
           </div>
         </div>
 

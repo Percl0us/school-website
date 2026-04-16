@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import api from "../../../lib/api";
+import { useToast } from "../../../components/ui/ToastProvider";
 import { useAdminAuth } from "../../../context/AdminAuthContext";
 
 export default function PromoteStudents() {
   const { academicYear } = useAdminAuth();
+  const toast = useToast();
 
   const [classes, setClasses] = useState([]);
   const [students, setStudents] = useState([]);
@@ -15,6 +17,20 @@ export default function PromoteStudents() {
   const [availableNewClasses, setAvailableNewClasses] = useState([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const fetchStudentsForClass = useCallback(async (className) => {
+    const res = await api.get(
+      `/admin/students?academicYear=${academicYear}`
+    );
+
+    const filtered = res.data.filter(
+      (s) => s.class === className
+    );
+
+    setStudents(filtered);
+    setSelectedStudents([]);
+  }, [academicYear]);
 
   useEffect(() => {
     if (!academicYear) return;
@@ -28,39 +44,41 @@ export default function PromoteStudents() {
       const yearRes = await api.get(
         `/admin/academic-years`
       );
-      setAvailableYears(yearRes.data);
+      setAvailableYears(
+        yearRes.data.filter((year) => year !== academicYear)
+      );
     };
 
     fetchInitial();
   }, [academicYear]);
 
   useEffect(() => {
-    if (!selectedClass) return;
+    if (!selectedClass) {
+      setStudents([]);
+      setSelectedStudents([]);
+      return;
+    }
 
     const fetchStudents = async () => {
-      const res = await api.get(
-        `/admin/students?academicYear=${academicYear}`
-      );
-
-      const filtered = res.data.filter(
-        (s) => s.class === selectedClass
-      );
-
-      setStudents(filtered);
-      setSelectedStudents([]);
+      await fetchStudentsForClass(selectedClass);
     };
 
     fetchStudents();
-  }, [selectedClass, academicYear]);
+  }, [selectedClass, academicYear, fetchStudentsForClass]);
 
   useEffect(() => {
-    if (!newAcademicYear) return;
+    if (!newAcademicYear) {
+      setAvailableNewClasses([]);
+      setNewClass("");
+      return;
+    }
 
     const fetchNewClasses = async () => {
       const res = await api.get(
         `/admin/classes?academicYear=${newAcademicYear}`
       );
       setAvailableNewClasses(res.data);
+      setNewClass("");
     };
 
     fetchNewClasses();
@@ -75,7 +93,43 @@ export default function PromoteStudents() {
   };
 
   const handlePromote = async () => {
+    if (!selectedClass) {
+      const message = "Select the current class first.";
+      setError(message);
+      toast.error(message);
+      return;
+    }
+
+    if (selectedStudents.length === 0) {
+      const message = "Select at least one student to promote.";
+      setError(message);
+      toast.error(message);
+      return;
+    }
+
+    if (!newAcademicYear) {
+      const message = "Select the target academic year.";
+      setError(message);
+      toast.error(message);
+      return;
+    }
+
+    if (newAcademicYear === academicYear) {
+      const message = "Target academic year must be different from the current session.";
+      setError(message);
+      toast.error(message);
+      return;
+    }
+
+    if (!newClass) {
+      const message = "Select the target class.";
+      setError(message);
+      toast.error(message);
+      return;
+    }
+
     try {
+      setLoading(true);
       setError("");
       setMessage("");
 
@@ -88,12 +142,20 @@ export default function PromoteStudents() {
       });
 
       setMessage("Students promoted successfully.");
+      toast.success("Students promoted successfully.");
+      await fetchStudentsForClass(selectedClass);
       setSelectedStudents([]);
+      setNewAcademicYear("");
+      setNewClass("");
+      setAvailableNewClasses([]);
     } catch (err) {
-      setError(
+      const errorMessage =
         err.response?.data?.error ||
-          "Promotion failed"
-      );
+        "Promotion failed";
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -203,9 +265,10 @@ export default function PromoteStudents() {
 
           <button
             onClick={handlePromote}
-            className="w-full bg-blue-700 text-white py-2 rounded"
+            disabled={loading || !selectedStudents.length}
+            className="w-full bg-blue-700 text-white py-2 rounded disabled:opacity-50"
           >
-            Promote Selected Students
+            {loading ? "Promoting..." : "Promote Selected Students"}
           </button>
         </div>
       )}

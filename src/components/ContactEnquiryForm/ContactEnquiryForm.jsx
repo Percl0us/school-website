@@ -110,9 +110,9 @@ export default function ContactEnquiryForm() {
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-              Get in Touch
+              We&apos;d Love to Hear from You
             </h2>
-            <p className="text-gray-500 text-sm mt-2">We'll reply within 24 hours</p>
+            <p className="text-gray-500 text-sm mt-2">Questions, visits, admissions, or school updates, we are here to help.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -128,7 +128,7 @@ export default function ContactEnquiryForm() {
             {submitted && (
               <div className="flex items-center gap-3 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-800 px-5 py-3 rounded-xl text-sm shadow-sm">
                 <CheckCircle size={18} className="text-green-500 shrink-0" />
-                <span className="font-medium">Thank you for contacting us. We will get back to you shortly.</span>
+                <span className="font-medium">Thank you for reaching out. Our team will get back to you shortly with a helpful response.</span>
               </div>
             )}
 
@@ -145,7 +145,7 @@ export default function ContactEnquiryForm() {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none"
-                  placeholder="John Doe"
+                  placeholder="Your full name"
                   disabled={submitted}
                 />
               </div>
@@ -183,7 +183,7 @@ export default function ContactEnquiryForm() {
                   value={formData.message}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none resize-none"
-                  placeholder="How can we help you?"
+                  placeholder="Tell us how we can help you"
                   disabled={submitted}
                 ></textarea>
               </div>
@@ -202,7 +202,7 @@ export default function ContactEnquiryForm() {
               {submitting ? (
                 <>
                   <Loader2 size={18} className="animate-spin" />
-                  Sending...
+                  Sending your message...
                 </>
               ) : submitted ? (
                 <>
@@ -212,7 +212,7 @@ export default function ContactEnquiryForm() {
               ) : (
                 <>
                   <Send size={18} />
-                  Send Enquiry
+                  Send Message
                 </>
               )}
             </button>

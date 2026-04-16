@@ -34,8 +34,9 @@ export default function PaymentActions({
       setQuote({
         ...res.data,
         paymentType,
-        months:
-          paymentType === "MONTHS" ? selectedMonths : [],
+        months: Array.isArray(res.data.monthsCovered)
+          ? res.data.monthsCovered
+          : [],
       });
     } catch (err) {
       setError(

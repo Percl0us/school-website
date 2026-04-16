@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../../lib/api";
+import { useToast } from "../../../components/ui/ToastProvider";
 import { useAdminAuth } from "../../../context/AdminAuthContext";
 import {
   UserPlus,
@@ -7,6 +8,7 @@ import {
   Calendar,
   School,
   Truck,
+  Camera,
   CheckCircle2,
   AlertCircle,
   Hash,
@@ -15,7 +17,10 @@ import {
 
 export default function CreateStudent() {
   const { academicYear } = useAdminAuth();
+  const toast = useToast();
   const [csvFile, setCsvFile] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+  const [profilePreview, setProfilePreview] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
   const handleCSVUpload = async () => {
@@ -41,9 +46,12 @@ export default function CreateStudent() {
 
       setUploadResult(res.data);
       setMessage("Bulk upload completed.");
+      toast.success("Bulk upload completed.");
       setCsvFile(null);
     } catch (err) {
-      setError(err.response?.data?.error || "Bulk upload failed.");
+      const errorMessage = err.response?.data?.error || "Bulk upload failed.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setUploading(false);
     }
@@ -73,7 +81,7 @@ export default function CreateStudent() {
           `/admin/classes?academicYear=${academicYear}`,
         );
         setClasses(res.data);
-      } catch (err) {
+      } catch {
         console.error("Failed to load classes");
       }
     };
@@ -88,6 +96,20 @@ export default function CreateStudent() {
     }));
   };
 
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files?.[0] || null;
+    setProfileImage(file);
+
+    if (!file) {
+      setProfilePreview("");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => setProfilePreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -95,15 +117,34 @@ export default function CreateStudent() {
     setMessage("");
 
     try {
-      await api.post("/admin/students", {
-        ...form,
-        academicYear,
-        transportFee: form.transportOpted
-          ? Number(form.transportFee)
-          : undefined,
+      const payload = new FormData();
+      payload.append("admissionNo", form.admissionNo);
+      payload.append("name", form.name);
+      payload.append("fatherName", form.fatherName);
+      payload.append("motherName", form.motherName);
+      payload.append("dob", form.dob);
+      payload.append("class", form.class);
+      payload.append("section", form.section);
+      payload.append("feeStartMonth", String(form.feeStartMonth));
+      payload.append("transportOpted", String(form.transportOpted));
+      payload.append("academicYear", academicYear);
+
+      if (form.transportOpted && form.transportFee) {
+        payload.append("transportFee", String(Number(form.transportFee)));
+      }
+
+      if (profileImage) {
+        payload.append("profileImage", profileImage);
+      }
+
+      await api.post("/admin/students", payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       setMessage("Student record created successfully!");
+      toast.success("Student record created successfully.");
       // Reset form
       setForm({
         admissionNo: "",
@@ -117,8 +158,12 @@ export default function CreateStudent() {
         transportOpted: false,
         transportFee: "",
       });
+      setProfileImage(null);
+      setProfilePreview("");
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to create student.");
+      const errorMessage = err.response?.data?.error || "Failed to create student.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -212,6 +257,35 @@ export default function CreateStudent() {
                 <User size={16} /> Student Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="space-y-2 md:col-span-2">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase ml-1">
+                    Profile Picture
+                  </label>
+                  <div className="flex flex-col gap-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 md:flex-row md:items-center">
+                    <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm">
+                      {profilePreview ? (
+                        <img
+                          src={profilePreview}
+                          alt="Student profile preview"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <Camera className="text-slate-300" size={28} />
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleProfileImageChange}
+                        className="text-sm text-slate-600"
+                      />
+                      <p className="text-xs text-slate-500">
+                        Optional. Upload a clear passport-style student photo.
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold text-slate-500 uppercase ml-1">
                     Admission No

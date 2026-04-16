@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api, { attachToken } from "../../lib/api";
+import api, { attachAdminToken } from "../../lib/api"; // ✅ changed
 import { useAdminAuth } from "../../context/AdminAuthContext";
 import { Lock, User, ShieldCheck, Loader2 } from "lucide-react";
 
@@ -14,14 +14,19 @@ export default function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Standard practice for forms
+    e.preventDefault();
     setIsLoading(true);
     setError("");
 
     try {
       const res = await api.post("/admin/login", { username, password });
+      
+      // ✅ Use attachAdminToken to store token in localStorage (interceptor will pick it up)
+      attachAdminToken(res.data.token);
+      
+      // Also call context login (which now also uses attachAdminToken)
       login(res.data);
-      attachToken(res.data.token);
+      
       navigate("/admin/dashboard");
     } catch (err) {
       setError(err.response?.data?.error || "Invalid credentials. Please try again.");

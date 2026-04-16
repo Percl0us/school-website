@@ -86,8 +86,8 @@ export default function Admissions() {
               Education for <span className="text-indigo-300">Tomorrow</span>.
             </h1>
             <p className="font-indie text-indigo-100 mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed pb-1">
-              We simplify the path to enrollment. Explore our transparent fee
-              structure and take the first step toward academic excellence.
+              From the first enquiry to the first school day, we want the admission
+              journey to feel welcoming, clear, and exciting for every family.
             </p>
           </RevealOnScroll>
         </div>
@@ -107,10 +107,10 @@ export default function Admissions() {
               </RevealOnScroll>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {[
-                  "Submit Online Inquiry Form",
-                  "Parent-Student Interaction",
-                  "Document Submission",
-                  "Seat Allotment & Fee Deposit",
+                  "Send Your Enquiry",
+                  "Friendly Parent-Student Interaction",
+                  "Complete the Required Documents",
+                  "Confirm Admission and Begin the Journey",
                 ].map((step, i) => (
                   <RevealOnScroll key={i} delay={`${i * 100}ms`}>
                     <div className="group flex items-center gap-4 p-4 sm:p-5 border border-slate-200 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
@@ -222,7 +222,7 @@ export default function Admissions() {
               <RevealOnScroll>
                 <h2 className="font-dyna text-xl sm:text-2xl font-bold mb-5 sm:mb-8 flex items-center gap-3 pb-1">
                   <Sparkles size={24} className="text-indigo-600" />
-                  Inquiry & Registration
+                  Enquiry & Registration
                 </h2>
               </RevealOnScroll>
               <RevealOnScroll>

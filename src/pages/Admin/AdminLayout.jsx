@@ -10,7 +10,10 @@ import {
   ChevronRight,
   School,
   FileText,
-  Brain, // new icon for challenges
+  Brain,
+  BookMarked,
+  Settings,
+  Calendar,
 } from "lucide-react";
 
 export default function AdminLayout() {
@@ -96,6 +99,15 @@ export default function AdminLayout() {
             </p>
             {navItem("/admin/notices", "Manage Notices", FileText)}
             {navItem("/admin/challenges", "Daily Challenges", Brain)}
+          </div>
+
+          <div className="space-y-1">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-2">
+              Academics
+            </p>
+            {navItem("/admin/sessions", "Academic Sessions", Calendar)}
+            {navItem("/admin/fee-structures", "Fee Structures", Settings)}
+            {navItem("/admin/results", "Upload Marks", BookMarked)}
           </div>
         </nav>
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { attachToken } from "../lib/api";
+import { attachAdminToken } from "../lib/api"; // ✅ changed
 
 const AdminAuthContext = createContext();
 
@@ -7,7 +7,7 @@ export const AdminAuthProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const [token, setToken] = useState(null);
   const [academicYear, setAcademicYearState] = useState(null);
-  const [authReady, setAuthReady] = useState(false); // 👈 NEW
+  const [authReady, setAuthReady] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("adminToken");
@@ -17,27 +17,27 @@ export const AdminAuthProvider = ({ children }) => {
     if (storedToken && storedAdmin) {
       setToken(storedToken);
       setAdmin(JSON.parse(storedAdmin));
-      attachToken(storedToken);
+      // ✅ use attachAdminToken to store in localStorage and (optionally) update axios defaults
+      attachAdminToken(storedToken);
     }
 
     if (storedYear) {
       setAcademicYearState(storedYear);
     }
 
-    setAuthReady(true); // 👈 IMPORTANT
+    setAuthReady(true);
   }, []);
 
   const login = (data) => {
-    setAdmin(data.admin);
-    setToken(data.token);
+    const { token, admin } = data;
+    setAdmin(admin);
+    setToken(token);
 
-    localStorage.setItem("adminToken", data.token);
-    localStorage.setItem(
-      "adminInfo",
-      JSON.stringify(data.admin)
-    );
-
-    attachToken(data.token);
+    localStorage.setItem("adminToken", token);
+    localStorage.setItem("adminInfo", JSON.stringify(admin));
+    
+    // ✅ use attachAdminToken to ensure the interceptor finds it
+    attachAdminToken(token);
   };
 
   const logout = () => {
@@ -64,7 +64,7 @@ export const AdminAuthProvider = ({ children }) => {
         setAcademicYear,
         login,
         logout,
-        authReady, // 👈 expose
+        authReady,
       }}
     >
       {children}
@@ -72,5 +72,4 @@ export const AdminAuthProvider = ({ children }) => {
   );
 };
 
-export const useAdminAuth = () =>
-  useContext(AdminAuthContext);
+export const useAdminAuth = () => useContext(AdminAuthContext);

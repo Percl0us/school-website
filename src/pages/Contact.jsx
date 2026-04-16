@@ -60,11 +60,12 @@ export default function Contact() {
                   </span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 md:mb-6 tracking-tight">
-                  Contact Us
+                  Let&apos;s Start a Conversation
                 </h1>
                 <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                  Have questions about admissions or school life? Our dedicated team
-                  is here to assist you. Visit us or drop a message below.
+                  Whether you are exploring admissions, planning a visit, or curious
+                  about everyday life at Tagore Public School, our team would be glad
+                  to help you with warmth and clarity.
                 </p>
               </div>
             </div>
@@ -93,7 +94,7 @@ export default function Contact() {
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform">
                       <MapPin className="text-blue-600" size={20} />
                     </div>
-                    <h3 className="font-bold text-gray-900 mb-1">Location</h3>
+                    <h3 className="font-bold text-gray-900 mb-1">Visit Our Campus</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
                       Tagore Public School,
                       <br />
@@ -106,7 +107,7 @@ export default function Contact() {
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform">
                       <Phone className="text-blue-600" size={20} />
                     </div>
-                    <h3 className="font-bold text-gray-900 mb-1">Communication</h3>
+                    <h3 className="font-bold text-gray-900 mb-1">Call or Write to Us</h3>
                     <p className="text-gray-600 text-sm break-all">
                       <a href="tel:+918816000512" className="hover:text-blue-600 transition">+91-8816000512</a>
                       <br />
@@ -126,7 +127,9 @@ export default function Contact() {
                           Monday to Saturday:{" "}
                           <span className="font-semibold text-blue-700">8:00 AM – 2:00 PM</span>
                         </p>
-                        <p className="text-gray-500 text-xs mt-1">Sunday Closed</p>
+                        <p className="text-gray-500 text-xs mt-1">
+                          Sunday is kept quiet so the week can begin fresh, focused, and full of energy.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -170,7 +173,7 @@ export default function Contact() {
                   <div className="relative z-10">
                     <p className="text-gray-600 text-sm md:text-base mb-6 md:mb-8 flex items-center gap-2">
                       <Sparkles size={16} className="text-blue-500" />
-                      Fill out the form below and our admissions office will get back to you within 24 hours.
+                      Share a few details below and our team will reply with clear next steps as quickly as possible.
                     </p>
                     <ContactEnquiryForm />
                   </div>
@@ -185,7 +188,7 @@ export default function Contact() {
                       <Mail size={20} className="md:w-6 md:h-6" />
                     </div>
                     <div>
-                      <p className="text-blue-100 text-xs md:text-sm">Direct Support</p>
+                      <p className="text-blue-100 text-xs md:text-sm">Need a direct reply?</p>
                       <a href="mailto:tagorekalkha@gmail.com" className="font-bold text-sm md:text-base hover:underline break-all">
                         tagorekalkha@gmail.com
                       </a>
@@ -203,7 +206,7 @@ export default function Contact() {
             <p className="text-gray-500 text-sm flex items-center justify-center gap-2 flex-wrap">
               <span>📞 Emergency Contact: +91-88160-00512</span>
               <span className="hidden sm:inline">•</span>
-              <span>✉️ For general inquiries: info@tagorepublic.edu</span>
+              <span>✉️ For general inquiries: tagorekalkha@gmail.com</span>
             </p>
           </div>
         </RevealOnScroll>
