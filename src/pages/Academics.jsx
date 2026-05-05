@@ -8,6 +8,8 @@ import {
   X,
   Sparkles,
 } from "lucide-react";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 // Scroll Animation Wrapper
 const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
@@ -86,7 +88,9 @@ export default function Academics() {
 
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-20 sm:space-y-32">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.academics} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-20 sm:space-y-32">
         
         {/* Hero Header */}
         <RevealOnScroll>
@@ -401,7 +405,8 @@ export default function Academics() {
             )}
           </div>
         )}
-      </section>
+        </section>
+      </div>
 
       <style jsx global>{`
         @keyframes spin-slow {

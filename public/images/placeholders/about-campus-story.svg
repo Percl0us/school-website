@@ -1,0 +1,26 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#F8FAFC"/>
+  <rect width="1600" height="1000" fill="url(#a)"/>
+  <circle cx="1180" cy="170" r="180" fill="#7C3AED" fill-opacity=".12"/>
+  <circle cx="230" cy="780" r="190" fill="#2563EB" fill-opacity=".12"/>
+  <rect x="130" y="150" width="1340" height="700" rx="56" fill="#fff"/>
+  <rect x="130" y="150" width="1340" height="700" rx="56" stroke="#C7D2FE" stroke-width="8"/>
+  <rect x="220" y="240" width="560" height="420" rx="36" fill="#E0E7FF"/>
+  <path d="M300 570L430 430L520 510L660 350" stroke="#3730A3" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="300" cy="570" r="18" fill="#3730A3"/>
+  <circle cx="430" cy="430" r="18" fill="#3730A3"/>
+  <circle cx="520" cy="510" r="18" fill="#3730A3"/>
+  <circle cx="660" cy="350" r="18" fill="#3730A3"/>
+  <rect x="850" y="270" width="420" height="84" rx="24" fill="#312E81"/>
+  <rect x="850" y="390" width="500" height="28" rx="14" fill="#94A3B8"/>
+  <rect x="850" y="442" width="470" height="28" rx="14" fill="#CBD5E1"/>
+  <rect x="850" y="494" width="390" height="28" rx="14" fill="#CBD5E1"/>
+  <rect x="850" y="565" width="280" height="62" rx="20" fill="#2563EB"/>
+  <text x="210" y="915" fill="#312E81" font-family="Arial, sans-serif" font-size="40" font-weight="700">Replace: /public/images/placeholders/about-campus-story.svg</text>
+  <defs>
+    <linearGradient id="a" x1="210" y1="110" x2="1450" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF2FF"/>
+      <stop offset="1" stop-color="#F8FAFC"/>
+    </linearGradient>
+  </defs>
+</svg>

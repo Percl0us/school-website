@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import ContactEnquiryForm from "../components/ContactEnquiryForm/ContactEnquiryForm";
 import { MapPin, Phone, Mail, Clock, Send, Sparkles, ChevronRight } from "lucide-react";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 // Scroll Reveal Wrapper (consistent with other pages)
 const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
@@ -39,7 +41,9 @@ const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
 export default function Contact() {
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-12 sm:space-y-20">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.contact} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-12 sm:space-y-20">
         
         {/* Hero Section with gradient and animated blobs */}
         <RevealOnScroll>
@@ -210,7 +214,8 @@ export default function Contact() {
             </p>
           </div>
         </RevealOnScroll>
-      </section>
+        </section>
+      </div>
 
       {/* CSS animations for spin-slow etc. (if not already global) */}
       <style jsx global>{`

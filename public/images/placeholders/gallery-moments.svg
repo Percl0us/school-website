@@ -1,0 +1,24 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#F8FAFC"/>
+  <rect width="1600" height="1000" fill="url(#a)"/>
+  <circle cx="1320" cy="190" r="180" fill="#F59E0B" fill-opacity=".12"/>
+  <circle cx="260" cy="780" r="220" fill="#2563EB" fill-opacity=".12"/>
+  <rect x="130" y="150" width="1340" height="700" rx="56" fill="#fff"/>
+  <rect x="130" y="150" width="1340" height="700" rx="56" stroke="#BFDBFE" stroke-width="8"/>
+  <rect x="220" y="250" width="240" height="180" rx="26" fill="#DBEAFE"/>
+  <rect x="490" y="250" width="250" height="260" rx="26" fill="#FDE68A"/>
+  <rect x="220" y="460" width="240" height="200" rx="26" fill="#BFDBFE"/>
+  <rect x="490" y="540" width="250" height="120" rx="26" fill="#FDE68A"/>
+  <rect x="830" y="270" width="450" height="84" rx="24" fill="#1D4ED8"/>
+  <rect x="830" y="392" width="500" height="28" rx="14" fill="#94A3B8"/>
+  <rect x="830" y="444" width="450" height="28" rx="14" fill="#CBD5E1"/>
+  <rect x="830" y="496" width="390" height="28" rx="14" fill="#CBD5E1"/>
+  <rect x="830" y="570" width="300" height="64" rx="20" fill="#F59E0B"/>
+  <text x="210" y="915" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="40" font-weight="700">Replace: /public/images/placeholders/gallery-moments.svg</text>
+  <defs>
+    <linearGradient id="a" x1="160" y1="80" x2="1450" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EFF6FF"/>
+      <stop offset="1" stop-color="#FEF3C7"/>
+    </linearGradient>
+  </defs>
+</svg>

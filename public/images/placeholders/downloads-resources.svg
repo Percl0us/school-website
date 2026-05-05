@@ -1,0 +1,23 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#F8FAFC"/>
+  <rect width="1600" height="1000" fill="url(#a)"/>
+  <circle cx="1320" cy="190" r="180" fill="#2563EB" fill-opacity=".12"/>
+  <circle cx="270" cy="790" r="220" fill="#14B8A6" fill-opacity=".12"/>
+  <rect x="120" y="150" width="1360" height="700" rx="56" fill="#fff"/>
+  <rect x="120" y="150" width="1360" height="700" rx="56" stroke="#BFDBFE" stroke-width="8"/>
+  <rect x="220" y="250" width="560" height="430" rx="36" fill="#E0F2FE"/>
+  <rect x="320" y="320" width="200" height="250" rx="22" fill="#fff" stroke="#93C5FD" stroke-width="8"/>
+  <rect x="400" y="370" width="200" height="250" rx="22" fill="#F8FAFC" stroke="#14B8A6" stroke-width="8"/>
+  <rect x="860" y="270" width="430" height="84" rx="24" fill="#0F172A"/>
+  <rect x="860" y="392" width="500" height="28" rx="14" fill="#94A3B8"/>
+  <rect x="860" y="444" width="460" height="28" rx="14" fill="#CBD5E1"/>
+  <rect x="860" y="496" width="420" height="28" rx="14" fill="#CBD5E1"/>
+  <rect x="860" y="570" width="290" height="64" rx="20" fill="#2563EB"/>
+  <text x="210" y="915" fill="#0F172A" font-family="Arial, sans-serif" font-size="40" font-weight="700">Replace: /public/images/placeholders/downloads-resources.svg</text>
+  <defs>
+    <linearGradient id="a" x1="180" y1="90" x2="1460" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EFF6FF"/>
+      <stop offset="1" stop-color="#ECFEFF"/>
+    </linearGradient>
+  </defs>
+</svg>

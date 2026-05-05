@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Calendar, Bell, Info, Megaphone, Sparkles, ChevronRight } from "lucide-react";
 import getNotices from "../data/notices";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 // Scroll Reveal Wrapper (consistent with other pages)
 const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
@@ -83,7 +85,9 @@ export default function EventsNotices() {
 
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.events} />
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-20">
         
         {/* Header with gradient accent and animated blobs */}
         <RevealOnScroll>
@@ -207,7 +211,8 @@ export default function EventsNotices() {
             </div>
           </div>
         </RevealOnScroll>
-      </section>
+        </section>
+      </div>
 
       {/* CSS animations (add if not already global) */}
       <style jsx global>{`

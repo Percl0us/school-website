@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Mail, Award, BookOpen, Sparkles, GraduationCap, Users } from "lucide-react";
 import facultyMembers from "../data/faculty";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 // Scroll Reveal Wrapper (local, but you can also import from shared component)
 const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
@@ -39,7 +41,9 @@ const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
 export default function Faculty() {
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.faculty} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         {/* Section Header with gradient accent */}
         <RevealOnScroll>
           <div className="mb-12 sm:mb-16">
@@ -132,7 +136,8 @@ export default function Faculty() {
             </p>
           </div>
         </RevealOnScroll>
-      </section>
+        </section>
+      </div>
 
       {/* CSS for shimmer animation (if still used) */}
       <style jsx global>{`

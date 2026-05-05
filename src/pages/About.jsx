@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Eye, Zap, Quote, Sparkles } from "lucide-react";
 import principalImg from "../assets/images/principal/principal.jpg";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 // Reusable Scroll Animation Wrapper
 const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
@@ -67,7 +69,9 @@ export default function About() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-20 sm:space-y-32">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.about} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-20 sm:space-y-32">
         
         {/* History / Intro */}
         <RevealOnScroll>
@@ -173,7 +177,8 @@ export default function About() {
             </div>
           </div>
         </RevealOnScroll>
-      </section>
+        </section>
+      </div>
 
       {/* CSS for animations (if not already global) */}
       <style jsx global>{`

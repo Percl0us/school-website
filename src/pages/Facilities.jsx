@@ -6,6 +6,8 @@ import scienceLabImg from "../assets/images/facilities/science-lab.jpg";
 import mathLabImg from "../assets/images/facilities/math-lab.jpg";
 import playgroundImg from "../assets/images/facilities/playground.jpg";
 import transportImg from "../assets/images/facilities/transport.jpg";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 // Scroll Reveal Wrapper (consistent with other pages)
 const RevealOnScroll = ({ children, delay = "0ms", className = "" }) => {
@@ -88,7 +90,9 @@ const facilities = [
 export default function Facilities() {
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.facilities} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         
         {/* Header with gradient and animated blobs */}
         <RevealOnScroll>
@@ -180,7 +184,8 @@ export default function Facilities() {
             </div>
           </div>
         </RevealOnScroll>
-      </section>
+        </section>
+      </div>
 
       {/* CSS animations (add if not already global) */}
       <style jsx global>{`

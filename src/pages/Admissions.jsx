@@ -1,10 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import {
   FileText,
   Download,
   ArrowRight,
   CheckCircle2,
-  Calculator,
   Phone,
   Mail,
   Sparkles,
@@ -13,6 +12,8 @@ import AdmissionForm from "../components/AdmissionForm/AdmissionForm";
 import ProspectusModal from "../components/modal/ProspectusModal";
 import prospectusImage from "../assets/images/prospectus.jpg";
 import { RevealOnScroll } from "../components/RevealOnScroll";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 const FEE_DATA = [
   { class: "Nursery", admissionFee: 2000, monthlyFee: 800 },
@@ -46,31 +47,16 @@ const TRANSPORT_DATA = [
 
 export default function Admissions() {
   const [showProspectus, setShowProspectus] = useState(false);
-  const [selectedClass, setSelectedClass] = useState("Nursery");
-  const [selectedRoute, setSelectedRoute] = useState("KALKHA");
-
-  const { selectedFee, selectedTransport, totalMonthly, firstMonth } =
-    useMemo(() => {
-      const fee =
-        FEE_DATA.find((c) => c.class === selectedClass) || FEE_DATA[0];
-      const transport =
-        TRANSPORT_DATA.find((r) => r.route === selectedRoute) ||
-        TRANSPORT_DATA[0];
-      return {
-        selectedFee: fee,
-        selectedTransport: transport,
-        totalMonthly: fee.monthlyFee + transport.fee,
-        firstMonth: fee.admissionFee + fee.monthlyFee + transport.fee,
-      };
-    }, [selectedClass, selectedRoute]);
 
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 min-h-screen font-body text-slate-900 antialiased">
-      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 py-16 sm:py-20 text-white">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-purple-500/20 blur-3xl animate-pulse" />
-          <div className="absolute top-1/2 -left-40 h-96 w-96 rounded-full bg-pink-500/20 blur-3xl animate-bounce" style={{ animationDuration: "8s" }} />
+          <div
+            className="absolute top-1/2 -left-40 h-96 w-96 rounded-full bg-pink-500/20 blur-3xl animate-bounce"
+            style={{ animationDuration: "8s" }}
+          />
           <div className="absolute bottom-0 right-20 h-64 w-64 rounded-full bg-yellow-400/10 blur-2xl animate-spin-slow" />
         </div>
 
@@ -93,198 +79,205 @@ export default function Admissions() {
         </div>
       </section>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
-          {/* Main content */}
-          <div className="lg:col-span-8 space-y-12 sm:space-y-16">
-            {/* 1. Admission Guidelines */}
-            <section>
-              <RevealOnScroll>
-                <h2 className="font-dyna text-xl sm:text-2xl font-bold flex items-center gap-3 mb-6 sm:mb-8 pb-1">
-                  <CheckCircle2 size={24} className="text-indigo-600" />
-                  Enrollment Process
-                </h2>
-              </RevealOnScroll>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                {[
-                  "Send Your Enquiry",
-                  "Friendly Parent-Student Interaction",
-                  "Complete the Required Documents",
-                  "Confirm Admission and Begin the Journey",
-                ].map((step, i) => (
-                  <RevealOnScroll key={i} delay={`${i * 100}ms`}>
-                    <div className="group flex items-center gap-4 p-4 sm:p-5 border border-slate-200 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
-                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                        {i + 1}
-                      </span>
-                      <p className="font-indie text-sm sm:text-[17px] font-semibold text-slate-700 pb-0.5">
-                        {step}
-                      </p>
-                    </div>
-                  </RevealOnScroll>
-                ))}
-              </div>
-            </section>
-
-            {/* 2. Fee Calculator */}
-            <RevealOnScroll>
-              <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="p-5 sm:p-8 border-b border-slate-100 bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
-                  <h2 className="font-dyna text-xl sm:text-2xl font-bold flex items-center gap-3 pb-1">
-                    <Calculator size={24} className="text-indigo-600" />
-                    Fee Calculator
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.admissions} />
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+            <div className="lg:col-span-8 space-y-12 sm:space-y-16">
+              <section>
+                <RevealOnScroll>
+                  <h2 className="font-dyna text-xl sm:text-2xl font-bold flex items-center gap-3 mb-6 sm:mb-8 pb-1">
+                    <CheckCircle2 size={24} className="text-indigo-600" />
+                    Enrollment Process
                   </h2>
+                </RevealOnScroll>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  {[
+                    "Send Your Enquiry",
+                    "Friendly Parent-Student Interaction",
+                    "Complete the Required Documents",
+                    "Confirm Admission and Begin the Journey",
+                  ].map((step, i) => (
+                    <RevealOnScroll key={i} delay={`${i * 100}ms`}>
+                      <div className="group flex items-center gap-4 p-4 sm:p-5 border border-slate-200 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                          {i + 1}
+                        </span>
+                        <p className="font-indie text-sm sm:text-[17px] font-semibold text-slate-700 pb-0.5">
+                          {step}
+                        </p>
+                      </div>
+                    </RevealOnScroll>
+                  ))}
                 </div>
+              </section>
 
-                <div className="p-5 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                  {/* Inputs */}
-                  <div className="space-y-5">
-                    <div className="space-y-1.5">
-                      <label className="font-dyna text-sm font-bold text-slate-500 uppercase tracking-wide pb-0.5">
-                        Select Student Class
-                      </label>
-                      <select
-                        value={selectedClass}
-                        onChange={(e) => setSelectedClass(e.target.value)}
-                        className="font-indie w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
-                      >
-                        {FEE_DATA.map((f) => (
-                          <option key={f.class}>{f.class}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="font-dyna text-sm font-bold text-slate-500 uppercase tracking-wide pb-0.5">
-                        Transport Route
-                      </label>
-                      <select
-                        value={selectedRoute}
-                        onChange={(e) => setSelectedRoute(e.target.value)}
-                        className="font-indie w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-base sm:text-lg font-medium focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
-                      >
-                        {TRANSPORT_DATA.map((t) => (
-                          <option key={t.route}>{t.route}</option>
-                        ))}
-                      </select>
+              <RevealOnScroll>
+                <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="p-5 sm:p-8 border-b border-slate-100 bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
+                    <h2 className="font-dyna text-xl sm:text-2xl font-bold pb-1">
+                      Fee Structure
+                    </h2>
+                  </div>
+
+                  <div className="p-5 sm:p-8 space-y-8">
+                    <div className="overflow-x-auto rounded-2xl border border-slate-200">
+                      <table className="w-full min-w-[520px] text-left">
+                        <thead className="bg-slate-50">
+                          <tr>
+                            <th className="px-4 py-4 font-dyna text-xs uppercase tracking-wider text-slate-500">
+                              Class
+                            </th>
+                            <th className="px-4 py-4 font-dyna text-xs uppercase tracking-wider text-slate-500">
+                              Admission Fee
+                            </th>
+                            <th className="px-4 py-4 font-dyna text-xs uppercase tracking-wider text-slate-500">
+                              Monthly Fee
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {FEE_DATA.map((fee) => (
+                            <tr key={fee.class} className="bg-white">
+                              <td className="px-4 py-4 font-dyna text-slate-800 pb-0.5">
+                                {fee.class}
+                              </td>
+                              <td className="px-4 py-4 font-indie text-slate-600 pb-0.5">
+                                Rs. {fee.admissionFee}
+                              </td>
+                              <td className="px-4 py-4 font-indie text-slate-600 pb-0.5">
+                                Rs. {fee.monthlyFee}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
 
-                    <div className="pt-5 space-y-3 border-t border-slate-100">
-                      <div className="flex justify-between text-sm sm:text-base text-slate-500">
-                        <span className="font-indie">One-time Admission Fee</span>
-                        <span className="font-dyna font-semibold text-slate-700 pb-0.5">
-                          ₹{selectedFee.admissionFee}
-                        </span>
+                    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                      <div className="overflow-x-auto rounded-2xl border border-slate-200">
+                        <table className="w-full min-w-[320px] text-left">
+                          <thead className="bg-slate-50">
+                            <tr>
+                              <th className="px-4 py-4 font-dyna text-xs uppercase tracking-wider text-slate-500">
+                                Transport Route
+                              </th>
+                              <th className="px-4 py-4 font-dyna text-xs uppercase tracking-wider text-slate-500">
+                                Monthly Fare
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100">
+                            {TRANSPORT_DATA.map((route) => (
+                              <tr key={route.route} className="bg-white">
+                                <td className="px-4 py-4 font-dyna text-slate-800 pb-0.5">
+                                  {route.route}
+                                </td>
+                                <td className="px-4 py-4 font-indie text-slate-600 pb-0.5">
+                                  Rs. {route.fee}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
-                      <div className="flex justify-between text-sm sm:text-base text-slate-500">
-                        <span className="font-indie">Monthly Fee Component</span>
-                        <span className="font-dyna font-semibold text-slate-700 pb-0.5">
-                          ₹{selectedFee.monthlyFee}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm sm:text-base text-slate-500">
-                        <span className="font-indie">Route Fare (Monthly)</span>
-                        <span className="font-dyna font-semibold text-slate-700 pb-0.5">
-                          ₹{selectedTransport.fee}
-                        </span>
+
+                      <div className="bg-gradient-to-br from-slate-900 to-indigo-900 rounded-2xl p-6 text-white relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full translate-x-10 -translate-y-10 animate-pulse" />
+                        <div className="relative z-10 space-y-5">
+                          <div>
+                            <p className="font-dyna text-indigo-300 text-xs font-bold uppercase tracking-widest pb-0.5">
+                              Fee Note
+                            </p>
+                            <p className="font-indie mt-3 text-sm sm:text-base text-slate-200 leading-relaxed pb-0.5">
+                              Total payable at admission = admission fee + first month fee + transport fare if selected.
+                            </p>
+                          </div>
+                          <div className="border-t border-white/10 pt-5">
+                            <p className="font-dyna text-indigo-300 text-xs font-bold uppercase tracking-widest pb-0.5">
+                              Example
+                            </p>
+                            <p className="font-indie mt-3 text-sm sm:text-base text-slate-200 leading-relaxed pb-0.5">
+                              If a student takes admission in Class 1st and also uses a route with Rs. 300 transport fare, the first payment will be Rs. 4,250.
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </RevealOnScroll>
 
-                  {/* Totals */}
-                  <div className="bg-gradient-to-br from-slate-900 to-indigo-900 rounded-2xl p-6 md:p-8 flex flex-col justify-center text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full translate-x-10 -translate-y-10 animate-pulse" />
-                    <div className="mb-6 md:mb-8 relative z-10">
-                      <span className="font-dyna text-indigo-300 text-xs font-bold uppercase tracking-widest pb-0.5">
-                        Monthly Commitment
-                      </span>
-                      <div className="font-stats text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight pb-1">
-                        ₹{totalMonthly.toLocaleString()}
-                      </div>
-                    </div>
-                    <div className="pt-6 md:pt-8 border-t border-white/10 relative z-10">
-                      <span className="font-dyna text-indigo-300 text-xs font-bold uppercase tracking-widest pb-0.5">
-                        Total at Admission
-                      </span>
-                      <div className="font-stats text-3xl sm:text-4xl md:text-5xl font-black text-indigo-400 tracking-tighter pb-1">
-                        ₹{firstMonth.toLocaleString()}
-                      </div>
-                      <p className="font-indie text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed pb-0.5">
-                        Includes admission fee and the first month's full payment.
-                      </p>
-                    </div>
+              <section id="inquiry">
+                <RevealOnScroll>
+                  <h2 className="font-dyna text-xl sm:text-2xl font-bold mb-5 sm:mb-8 flex items-center gap-3 pb-1">
+                    <Sparkles size={24} className="text-indigo-600" />
+                    Enquiry & Registration
+                  </h2>
+                </RevealOnScroll>
+                <RevealOnScroll>
+                  <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <AdmissionForm />
+                  </div>
+                </RevealOnScroll>
+              </section>
+            </div>
+
+            <aside className="lg:col-span-4 space-y-6 md:space-y-8">
+              {/* <RevealOnScroll>
+                <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl hover:shadow-2xl transition-all group">
+                  <FileText className="text-indigo-200 mb-5" size={32} />
+                  <h3 className="font-henny text-xl font-bold mb-3 pb-1">2026 Prospectus</h3>
+                  <p className="font-indie text-indigo-100/80 text-base leading-relaxed mb-6 pb-0.5">
+                    Download our comprehensive guide to academic programs and campus life.
+                  </p>
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => setShowProspectus(true)}
+                      className="font-dyna w-full bg-white text-indigo-700 text-base font-bold py-3 rounded-xl hover:bg-indigo-50 transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl group-hover:scale-105 transition-transform"
+                    >
+                      View Online <ArrowRight size={18} />
+                    </button>
+                    <button className="font-dyna w-full bg-indigo-700 text-white text-base font-bold py-3 rounded-xl hover:bg-indigo-800 transition-all flex items-center justify-center gap-3">
+                      <Download size={18} /> Download PDF
+                    </button>
                   </div>
                 </div>
-              </div>
-            </RevealOnScroll>
+              </RevealOnScroll> */}
 
-            {/* 3. Inquiry Form */}
-            <section id="inquiry">
-              <RevealOnScroll>
-                <h2 className="font-dyna text-xl sm:text-2xl font-bold mb-5 sm:mb-8 flex items-center gap-3 pb-1">
-                  <Sparkles size={24} className="text-indigo-600" />
-                  Enquiry & Registration
-                </h2>
-              </RevealOnScroll>
-              <RevealOnScroll>
-                <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                  <AdmissionForm />
+              <RevealOnScroll delay="200ms">
+                <div className="border border-slate-200 rounded-2xl p-6 sm:p-8 bg-white hover:shadow-lg transition-all">
+                  <h3 className="font-dyna font-bold text-lg mb-5 sm:mb-6 flex items-center gap-2 pb-1">
+                    <Phone size={20} className="text-indigo-600" />
+                    Need Assistance?
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 text-slate-700 flex-wrap">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center text-indigo-600 shrink-0">
+                        <Phone size={18} />
+                      </div>
+                      <span className="font-dyna text-base sm:text-lg font-semibold break-all pb-0.5">
+                        +91 88160-00512
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4 text-slate-700 flex-wrap">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center text-indigo-600 shrink-0">
+                        <Mail size={18} />
+                      </div>
+                      <span className="font-indie text-sm sm:text-base font-medium break-all pb-0.5">
+                        tagorekalkha@gmail.com
+                      </span>
+                    </div>
+                  </div>
+                  <p className="font-indie text-xs sm:text-sm text-slate-400 mt-6 sm:mt-8 border-t pt-5 sm:pt-6 pb-0.5">
+                    Our support desk is active Monday - Saturday, 08:00 AM to 02:00 PM.
+                  </p>
                 </div>
               </RevealOnScroll>
-            </section>
+            </aside>
           </div>
-
-          {/* Sidebar */}
-          <aside className="lg:col-span-4 space-y-6 md:space-y-8">
-            {/* Prospectus Card (commented out - uncomment if needed) */}
-            {/* <RevealOnScroll>
-              <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl hover:shadow-2xl transition-all group">
-                <FileText className="text-indigo-200 mb-5" size={32} />
-                <h3 className="font-henny text-xl font-bold mb-3 pb-1">2026 Prospectus</h3>
-                <p className="font-indie text-indigo-100/80 text-base leading-relaxed mb-6 pb-0.5">
-                  Download our comprehensive guide to academic programs and campus life.
-                </p>
-                <div className="space-y-3">
-                  <button 
-                    onClick={() => setShowProspectus(true)}
-                    className="font-dyna w-full bg-white text-indigo-700 text-base font-bold py-3 rounded-xl hover:bg-indigo-50 transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl group-hover:scale-105 transition-transform"
-                  >
-                    View Online <ArrowRight size={18} />
-                  </button>
-                  <button className="font-dyna w-full bg-indigo-700 text-white text-base font-bold py-3 rounded-xl hover:bg-indigo-800 transition-all flex items-center justify-center gap-3">
-                    <Download size={18} /> Download PDF
-                  </button>
-                </div>
-              </div>
-            </RevealOnScroll> */}
-
-            <RevealOnScroll delay="200ms">
-              <div className="border border-slate-200 rounded-2xl p-6 sm:p-8 bg-white hover:shadow-lg transition-all">
-                <h3 className="font-dyna font-bold text-lg mb-5 sm:mb-6 flex items-center gap-2 pb-1">
-                  <Phone size={20} className="text-indigo-600" />
-                  Need Assistance?
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-slate-700 flex-wrap">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center text-indigo-600 shrink-0">
-                      <Phone size={18} />
-                    </div>
-                    <span className="font-dyna text-base sm:text-lg font-semibold break-all pb-0.5">+91 88160-00512</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-slate-700 flex-wrap">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center text-indigo-600 shrink-0">
-                      <Mail size={18} />
-                    </div>
-                    <span className="font-indie text-sm sm:text-base font-medium break-all pb-0.5">tagorekalkha@gmail.com</span>
-                  </div>
-                </div>
-                <p className="font-indie text-xs sm:text-sm text-slate-400 mt-6 sm:mt-8 border-t pt-5 sm:pt-6 pb-0.5">
-                  Our support desk is active Monday — Saturday, 08:00 AM to 02:00 PM.
-                </p>
-              </div>
-            </RevealOnScroll>
-          </aside>
-        </div>
-      </main>
+        </main>
+      </div>
 
       {showProspectus && (
         <ProspectusModal

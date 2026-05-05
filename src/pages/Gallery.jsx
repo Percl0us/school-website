@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { X, Maximize2, Camera, Sparkles, Image as ImageIcon } from "lucide-react";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { pageImageMosaics } from "../data/pageImageMosaics";
 
 const images = Object.values(
   import.meta.glob("../assets/images/gallery/*.{jpg,jpeg,png,webp}", {
@@ -13,7 +15,9 @@ export default function Gallery() {
 
   return (
     <div className="overflow-x-hidden scroll-smooth bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30">
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-20">
+      <div className="relative isolate">
+        <FloatingImageField {...pageImageMosaics.gallery} />
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-20">
         {/* Header with sparkle and gradient */}
         <div className="mb-12 sm:mb-16">
           <div className="mb-4 flex items-center gap-3">
@@ -85,7 +89,8 @@ export default function Gallery() {
             <ImageIcon size={16} /> More photos are added regularly after school events.
           </p>
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* CSS animations */}
       <style jsx global>{`

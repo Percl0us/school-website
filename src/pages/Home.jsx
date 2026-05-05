@@ -7,9 +7,9 @@ import { StatsSection } from "../components/Home/StatsSection";
 import { TestimonialsSection } from "../components/Home/TestimonialsSection";
 import { FacilitiesGrid } from "../components/Home/FacilitiesGrid";
 import { FloatingCTA } from "../components/Home/FloatingCTA";
-import { DailyChallenge } from "../components/Home/DailyChallenge";
-import { ArtGallery } from "../components/Home/ArtGallery";
 import { DailyChallengeWidget } from "../components/Home/DailyChallengeWidget";
+import { FloatingImageField } from "../components/shared/FloatingImageField";
+import { homeImageConfig } from "../data/pageImageMosaics";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -32,36 +32,46 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden scroll-smooth bg-white font-indie">
-      <HeroSection
-        heroLoaded={heroLoaded}
-        heroVisible={heroVisible}
-        handleNav={handleNav}
-        loading={loading}
-      />
+      <div className="relative">
+        <HeroSection
+          heroLoaded={heroLoaded}
+          heroVisible={heroVisible}
+          handleNav={handleNav}
+          loading={loading}
+        />
+        <FloatingImageField items={homeImageConfig.hero} />
+      </div>
 
-      <AnnouncementsBar />
-      <section className="py-16 bg-gradient-to-br from-yellow-50 to-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <DailyChallengeWidget />
-        </div>
-      </section>
-      <WhyChooseUs />
-      <StatsSection />
-      <TestimonialsSection />
+      <div className="bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_46%,#ffffff_100%)]">
+        <AnnouncementsBar />
 
-      <FacilitiesGrid />
-      {/* New Interactive Sections
-      <section className="py-16 bg-gradient-to-br from-yellow-50 to-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <DailyChallenge />
-        </div>
-      </section>
+        <section className="relative z-10 bg-gradient-to-br from-yellow-50 via-white to-blue-50 py-16">
+          <FloatingImageField items={homeImageConfig.challenge} />
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <DailyChallengeWidget />
+          </div>
+        </section>
 
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <ArtGallery />
+        <div className="relative">
+          <FloatingImageField items={homeImageConfig.whyChooseUs} />
+          <WhyChooseUs />
         </div>
-      </section> */}
+
+        <div className="relative">
+          <FloatingImageField items={homeImageConfig.stats} />
+          <StatsSection />
+        </div>
+
+        <div className="relative">
+          <FloatingImageField items={homeImageConfig.testimonials} />
+          <TestimonialsSection />
+        </div>
+
+        <div className="relative">
+          <FloatingImageField items={homeImageConfig.facilities} />
+          <FacilitiesGrid />
+        </div>
+      </div>
 
       <FloatingCTA handleNav={handleNav} loading={loading} />
     </div>
