@@ -93,10 +93,22 @@ export const homeImageConfig = {
       shape: "landscape",
       layer: "front",
       
-      position: "right-[2%] top-[120%] w-70 rotate-[-0deg] lg:w-70 xl:w-80 scale-110",
+      position: "right-[2%] top-[115%] w-70 rotate-[-0deg] lg:w-70 xl:w-80 scale-110",
       delay: "220ms",
     },
     
+    {
+      image: home4,
+      alt: "Challenge image 1",
+      shape: "polaroid",
+      layer: "front",
+      position:
+        "left-[0%] bottom-[-60%] w-40 rotate-[0deg] lg:w-40 xl:w-80 ",
+      delay: "90ms",
+    },
+    
+  ],
+  challenge: [
     {
       image: home3,
       alt: "Home hero image 3",
@@ -104,21 +116,10 @@ export const homeImageConfig = {
       frame: "polaroid",
       layer: "front",
       position:
-        "left-[5%] bottom-[-50%] w-32 rotate-[0deg] lg:w-32 xl:w-48 scale-110",
+        "left-[8%] bottom-[-31%] w-32 rotate-[0deg] lg:w-32 xl:w-48 scale-110",
       delay: "190ms",
     },
     
-  ],
-  challenge: [
-    {
-      image: home4,
-      alt: "Challenge image 1",
-      shape: "polaroid",
-      layer: "front",
-      position:
-        "left-[2%] bottom-[-32%] w-32 rotate-[0deg] lg:w-32 xl:w-48 scale-110",
-      delay: "90ms",
-    },
     {
       image: home5,
       alt: "Challenge image 2",
@@ -127,7 +128,7 @@ export const homeImageConfig = {
       layer: "front",
       z: "z-50",
       position:
-        "left-[80%] bottom-[-32%] w-32 rotate-[0deg] lg:w-32 xl:w-48 scale-110",
+        "left-[80%] bottom-[-31%] w-32 rotate-[0deg] lg:w-32 xl:w-48 scale-110",
       delay: "150ms",
     },
   ],
