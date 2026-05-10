@@ -169,6 +169,66 @@ export default function CreateStudent() {
     }
   };
 
+  const downloadCSVTemplate = () => {
+    const headers = [
+      "admissionNo",
+      "name",
+      "fatherName",
+      "motherName",
+      "dob",
+      "class",
+      "section",
+      "feeStartMonth",
+      "transportOpted",
+      "transportFee",
+    ];
+
+    const sampleData = [
+      [
+        "ADM-001",
+        "John Doe",
+        "Mr. Rajesh Doe",
+        "Mrs. Priya Doe",
+        "2010-05-15",
+        "10",
+        "A",
+        "4",
+        "true",
+        "5000",
+      ],
+      [
+        "ADM-002",
+        "Jane Smith",
+        "Mr. Amit Smith",
+        "Mrs. Neha Smith",
+        "2011-03-20",
+        "9",
+        "B",
+        "4",
+        "false",
+        "",
+      ],
+    ];
+
+    const csvContent = [
+      headers.join(","),
+      ...sampleData.map((row) => row.join(",")),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute("href", url);
+    link.setAttribute("download", "student_template.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast.success("Template downloaded successfully!");
+  };
+
   if (!academicYear)
     return (
       <div className="p-12 text-center bg-white rounded-2xl border border-dashed border-slate-300">
@@ -220,6 +280,14 @@ export default function CreateStudent() {
             className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl text-sm font-bold shadow-md disabled:opacity-50"
           >
             {uploading ? "Uploading..." : "Upload CSV"}
+          </button>
+
+          <button
+            type="button"
+            onClick={downloadCSVTemplate}
+            className="bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-2 rounded-xl text-sm font-bold shadow-md transition-all"
+          >
+            📥 Download Template
           </button>
         </div>
 

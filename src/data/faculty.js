@@ -1,16 +1,23 @@
-import principalImg from "../assets/images/faculty/principal.jpg"
-import mathImg from "../assets/images/faculty/maths.jpg"
-import scienceImg from "../assets/images/faculty/science.jpg"
-import englishImg from "../assets/images/faculty/english.jpg"
-import computerImg from "../assets/images/faculty/computer.jpg"
-import hindiImg from "../assets/images/faculty/hindi.jpg"
-import reena from "../assets/images/faculty/reena.jpg"
-import reetu from "../assets/images/faculty/reetu.jpg"
-import usha from "../assets/images/faculty/usha.jpg"
-import rekha from "../assets/images/faculty/rekha.jpg"
-import manju from "../assets/images/faculty/manju.jpg"
+import principalImg from "../assets/images/faculty/principal.jpg";
+import rekhakadyan from "../assets/images/faculty/rekha2.jpg";
+import usha from "../assets/images/faculty/usha.jpg";
+import priti from "../assets/images/faculty/priti.jpg";
+import reena from "../assets/images/faculty/reena.jpg";
+import rakhi from "../assets/images/faculty/rakhi.jpg";
+import sushma from "../assets/images/faculty/sushma.jpg";
+import kajal from "../assets/images/faculty/kajal.jpg";
+import shashi from "../assets/images/faculty/shashi.jpg";
+import rajdeswal from "../assets/images/faculty/rajdeswal.jpg";
+import tamanna from "../assets/images/faculty/tamanna.jpg";
+import manju from "../assets/images/faculty/manju.jpg";
+import bharti from "../assets/images/faculty/bharti.jpg";
+import mamtabhalla from "../assets/images/faculty/mamtabhalla.jpg";
+import reetu from "../assets/images/faculty/reetu.jpg";
+import suraj from "../assets/images/faculty/suraj.jpg";
+import rita from "../assets/images/faculty/rita.jpg";
+import shilpa from "../assets/images/faculty/shilpa.jpg";
+import rajesh from "../assets/images/faculty/rajesh.jpg";
 
-import ITIImg from "../assets/images/faculty/ITI.jpg"
 const faculty = [
   {
     name: "Mrs. Babita Rani",
@@ -20,32 +27,11 @@ const faculty = [
     image: principalImg,
   },
   {
-    name: "Mrs. Sushma",
+    name: "Mrs. Rekha",
     role: "Senior Teacher",
     qualification: "M.A., B.Ed.,JBT",
     subject: "Hindi",
-    image: hindiImg,
-  },
-  {
-    name: "Mr. Rajesh Kumar",
-    role: "Senior Teacher",
-    qualification: "M.Sc., B.Ed.",
-    subject: "Mathematics",
-    image: mathImg,
-  },
-  {
-    name: "Mrs. Reena",
-    role: "Senior Teacher",
-    qualification: "M.Sc., B.Ed.",
-    subject: "Mathematics",
-    image: reena,
-  },
-  {
-    name: "Mrs. Rekha",
-    role: "Senior Teacher",
-    qualification: "M.Sc., B.Ed.",
-    subject: "Mathematics",
-    image: rekha,
+    image: rekhakadyan,
   },
   {
     name: "Mrs. Usha",
@@ -55,6 +41,26 @@ const faculty = [
     image: usha,
   },
   {
+    name: "Mrs. Priti",
+    role: "Senior Teacher",
+    qualification: "M.Sc., B.Ed.",
+    subject: "Mathematics",
+    image: priti,
+  },
+  {
+    name: "Mrs. Reena",
+    qualification: "M.Sc., B.Ed.",
+    subject: "English",
+    image: reena,
+  },
+  {
+    name: "Mrs. Rakhi",
+    role: "Senior Teacher",
+    qualification: "M.Sc., B.Ed.",
+    subject: "Primary Teacher",
+    image: rakhi,
+  },
+  {
     name: "Mrs. Reetu",
     role: "Senior Teacher",
     qualification: "M.Sc., B.Ed.",
@@ -62,32 +68,95 @@ const faculty = [
     image: reetu,
   },
   {
-    name: "Mrs. Priyanka",
+    name: "Mrs. Sushma",
     role: "Teacher",
     qualification: "M.Sc., B.Ed.",
-    subject: "Science",
-    image: scienceImg,
+    subject: "History",
+    image: sushma,
   },
   {
-    name: "Mrs.Mamta",
+    name: "Mrs. Kajal",
     role: "Teacher",
     qualification: "M.A.",
-    subject: "English",
-    image: englishImg,
+    subject: "Primary Teacher",
+    image: kajal,
   },
   {
-    name: "Mrs.Bharti",
+    name: "Mrs. Shashi",
     role: "Teacher",
     qualification: "BCA ",
-    subject: "Computer Science",
-    image: computerImg,
+    subject: "Hindi",
+    image: shashi,
   },
   {
-    name: "Mrs.Manju",
+    name: "Mrs. Raj Deswal",
     role: "Teacher",
     qualification: "BA ",
-    subject: "ITI",
-    image: ITIImg,
+    subject: "Primary Teacher",
+    image: rajdeswal,
   },
-]
-export default faculty
+  {
+    name: "Mrs. Tamanna",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Physics",
+    image: tamanna,
+  },
+  {
+    name: "Mrs. Manju",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Primary Teacher",
+    image: manju,
+  },
+  {
+    name: "Mrs. Bharti",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Chemistry",
+    image: bharti,
+  },
+  {
+    name: "Mrs. Mamta Bhalla",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Primary Teacher",
+    image: mamtabhalla,
+  },
+  {
+    name: "Mrs. Reetu",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Primary Teacher",
+    image: reetu,
+  },
+  {
+    name: "Mr. Suraj",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Maths",
+    image: suraj,
+  },
+  {
+    name: "Mrs. Rita",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "English",
+    image: rita,
+  },
+  {
+    name: "Mrs. Shilpa",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Primary Teacher",
+    image: shilpa,
+  },
+  {
+    name: "Mr. Rajesh",
+    role: "Teacher",
+    qualification: "M.A., B.Ed.",
+    subject: "Public Administration",
+    image: rajesh,
+  },
+];
+export default faculty;

@@ -42,7 +42,7 @@ console.log(feeAccount)
         monthlyTuition={derived.monthlyTuition}
         monthlyTransport={derived.monthlyTransport}
         monthlyTotal={derived.monthlyTotal}
-        balance={feeAccount.balance}
+        //balance={feeAccount.balance}
         applicableMonths={derived.applicableMonths}
         applicableMonthsLabel={derived.applicableMonthsLabel}
       />

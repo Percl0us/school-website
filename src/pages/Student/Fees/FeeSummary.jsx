@@ -17,16 +17,16 @@ export default function FeeSummary({
         <div>Monthly Transport Fee</div>
         <div className="text-right">₹{monthlyTransport}</div>
 
-        <div className="font-medium">Monthly Total</div>
-        <div className="text-right font-medium">₹{monthlyTotal}</div>
+        <div className="font-semibold">Monthly Total</div>
+        <div className="text-right font-semibold  ">₹{monthlyTotal}</div>
 
-        <div className="font-semibold pt-2">Outstanding</div>
+        {/* <div className="font-semibold pt-2">Outstanding</div> */}
         <div
           className={`text-right font-semibold pt-2 ${
             balance === 0 ? "text-green-700" : "text-red-700"
           }`}
         >
-          ₹{balance}
+          {/* ₹{balance} */}
         </div>
       </div>
       <div className="text-xs text-gray-500 mb-3">

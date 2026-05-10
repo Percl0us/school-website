@@ -90,10 +90,6 @@ export default function Faculty() {
                       {member.name}
                     </h3>
 
-                    <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 text-xs font-bold rounded-full uppercase tracking-wide">
-                      {member.role}
-                    </div>
-
                     <div className="pt-2 flex items-center justify-center gap-2 text-gray-600">
                       <BookOpen size={14} className="text-blue-500" />
                       <span className="text-xs sm:text-sm font-medium italic">
