@@ -29,7 +29,6 @@ export default function AcademicSessions() {
     try {
       setLoading(true);
       const res = await api.get("/admin/sessions");
-      console.log("API Response:", res.data);
       setSessions(res.data || []);
       setError("");
     } catch (err) {

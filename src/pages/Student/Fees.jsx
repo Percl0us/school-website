@@ -15,7 +15,6 @@ export default function StudentFees() {
   }
 
   const { academic, payments, feeAccount, student } = studentSession;
-console.log(feeAccount)
   // ✅ hooks belong here
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [paying, setPaying] = useState(false);
