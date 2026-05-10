@@ -8,6 +8,18 @@ export default function QRPaymentModal({ quote, student, academic, onClose, onSu
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
+  // normalize amount (remove commas), ensure 2 decimal places, and URL-encode full UPI URI
+  const rawAmount = quote?.amount ?? 0;
+  const upiAmount = rawAmount !== null && rawAmount !== undefined
+    ? Number(String(rawAmount).replace(/,/g, "")).toFixed(2)
+    : "0.00";
+  const upiUri = `upi://pay?pa=${encodeURIComponent(quote?.upiId || "")}&pn=${encodeURIComponent(
+    "School"
+  )}&am=${encodeURIComponent(upiAmount)}&cu=INR`;
+  const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
+    upiUri
+  )}`;
+
   const handleSubmit = async () => {
     if (!file || !utrNumber) {
       setError("UTR number and screenshot are required.");
@@ -57,20 +69,22 @@ export default function QRPaymentModal({ quote, student, academic, onClose, onSu
           {/* Amount Hero - Reduced size slightly */}
           <div className="text-center">
             <span className="text-xs text-slate-500 font-medium uppercase">Total Amount</span>
-            <div className="text-3xl font-black text-slate-900">₹{quote.amount.toLocaleString()}</div>
+            <div className="text-3xl font-black text-slate-900">
+              ₹{Number(upiAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            </div>
           </div>
 
           {/* QR Code Section - Made QR size responsive */}
           <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center space-y-2">
             <div className="bg-white p-2 rounded-lg shadow-sm border">
               <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=${quote.upiId}&pn=School&am=${quote.amount}&cu=INR`}
+                src={qrSrc}
                 alt="UPI QR"
-                className="w-28 h-28 md:w-36 md:h-36" // Smaller on mobile
+                className="w-28 h-28 md:w-36 md:h-36"
               />
             </div>
             <p className="text-[10px] text-slate-400 text-center leading-tight">
-              Scan with GPay, PhonePe, or Paytm
+              Scan with GPay, PhonePe, or Paytm — amount should populate automatically
             </p>
           </div>
 
